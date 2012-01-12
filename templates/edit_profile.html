@@ -1,0 +1,64 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#id_birthday').mask('99/99/9999');   
+		});
+	</script>
+{% endblock script %}
+	
+{% block conteudo %}
+	<form enctype="multipart/form-data" method="post" action="">
+	
+		{% csrf_token %}
+		
+		<div id="edit_profile">	
+			<h2>Editar dados do Perfil</h2>			
+			
+			<div class="result" class="messages">
+				<h4>{{ result }}</h4>			
+				<h4>{{ form.non_field_errors }}</h4>			
+			</div>
+			
+			<h3>Dados obrigatórios</h3>
+
+				<div id="mandatory_erros" class="messages">
+					<h4>{{ form.first_name.errors }}</h4>
+					<h4>{{ form.last_name.errors }}</h4>
+					<h4>{{ form.gender.errors }}</h4>	
+				</div>
+						
+				<p>(*) Nome: {{ form.first_name }}</p>
+	
+				<p>(*) Sobrenome: {{ form.last_name }}</p>
+
+				<p>(*) Gênero: {{ form.gender }}</p>
+							
+			<h3>Foto do Perfil</h3>	
+			
+				<div id="photo_erros" class="messages">		
+					<h4>{{ form.photo.errors }}</h4>				
+				</div>		
+							
+				<p>{{ form.photo }}</p>
+			
+			<h3>Dados opcionais</h3>
+			
+				<div id="optional_errors" class="messages">
+					<h4>{{ form.institution.errors }}</h4>
+					<h4>{{ form.birthday.errors }}</h4>				
+				</div>	
+						
+				<p>Data de Nascimento: {{ form.birthday }}</p>
+											
+				<p>Centro Espírita: {{ form.institution }}</p>	
+	
+		</div>
+		<div id="save_button">
+			<input id="botao" type="submit" value="Salvar" />
+		</div>
+		
+	</form>
+
+{% endblock %}

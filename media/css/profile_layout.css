@@ -1,0 +1,59 @@
+#edit_status
+{
+	width: 430px;
+}
+
+#info
+{
+	margin-bottom: 20px;
+}
+
+.title
+{
+	color: #4F94CD;
+	font-size: 12px;
+}
+
+.content
+{
+	color: #666666;
+	font-size: 12px;
+}
+
+#messages {
+	float: left;
+	width: 550px;
+}
+
+#favorite_books {
+	float: left;
+	width: 200px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: 1px solid #4F94CD;
+	text-align: left;
+}
+
+
+#favorite_books h1
+{
+	color: #4F94CD;
+	font-size: 17px;
+	padding-top: 20px;
+	padding-bottom: 20px;	
+	text-align: center;
+}
+
+table#favorites tr td
+{
+    padding-bottom: 20px;
+}
+
+.icon:hover{
+	cursor: pointer;
+}

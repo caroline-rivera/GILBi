@@ -1,0 +1,34 @@
+{% extends "inside_base.html" %}
+
+{% block conteudo %}
+	
+	{% csrf_token %}	
+	<div id="middle">
+	    <h2>Gerenciar Livraria</h2>
+	    
+		<div id="records">	
+			<h3>Cadastros</h3>
+		
+			<p><a href="/gerenciarlivraria/cadastrarfuncionario/">Cadastrar Funcionário</a></p>
+			<p><a href="/gerenciarlivraria/cadastrardistribuidora/">Cadastrar Distribuidora</a></p>
+			<p><a href="/gerenciarlivraria/cadastrarautor/">Cadastrar Autor</a></p>
+			<p><a href="/gerenciarlivraria/cadastrareditora/">Cadastrar Editora</a></p>
+			<p><a href="/gerenciarlivraria/cadastrarlivro/">Cadastrar Livro</a></p>
+		</div>
+	
+		<div id="reports">	
+			<h3>Relatórios</h3>
+		
+			<p><a href="">Relatório de Vendas</a></p>
+			<p><a href="">Relatório de Contabilidade do Mês</a></p>
+		</div>
+		
+		<div id="purchases">	
+			<h3>Compras</h3>
+		
+			<p><a href="">Pedido de Compra</a></p>
+			<p><a href="">Nota Fiscal</a></p>
+			<p><a href="">Pagamento</a></p>
+		</div>
+	</div>
+{% endblock %}

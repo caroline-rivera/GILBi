@@ -1,0 +1,140 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/custom/manage_library.js"></script>
+	
+	<script type="text/javascript">
+		$(function() {
+			$('#tabs').tabs();
+			$('#button_borrow').button(); 
+			$('#button_receive').button();
+
+			ManageLibrary.Functions.init();
+		}); 
+	</script>
+{% endblock script %}
+
+{% block conteudo %}
+	<h2>Biblioteca do Lar de Mistrael</h2>
+	
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1">Emprestar Livros</a></li>
+			<li><a href="#tab2">Receber Livros</a></li>
+			<li><a href="#tab3">Consultar Livros Emprestados</a></li>
+			<li><a href="#tab4">Cadastrar Livros</a></li>
+		</ul>
+		
+		<!Primeira aba>
+		<div id="tab1">		
+			<h2>Emprestar Livro</h2>
+									
+			<div id="msg_result_tab1"></div>
+			
+			<table>
+				<tr>
+					<td><p>(*) Código do livro:</p></td>
+					<td><p>{{ form_borrow.book1 }}</p></td>
+				</tr>
+				<tr>
+					<td><p>(*) Login do usuário:</p></td>
+					<td>{{ form_borrow.user_login1 }}</td>
+				</tr>
+			</table>
+			
+			<div id="book_info" class="contacts">
+				<h3>Informações do livro:</h3>
+				
+				<div id="msg_tab1"></div>
+				
+				<div>
+					<span class="title">Nome:</span>
+					<span id="content_name_tab1" class="content"></span>
+				</div>			
+				<div>
+					<span class="title">Autor(es):</span>
+					<span id="content_author_tab1" class="content"></span>
+				</div>
+				<div>
+					<span class="title">Autor(es) Espiritual(ais):</span>
+					<span id="content_sauthor_tab1" class="content"></span>
+				</div>	
+				<div>
+					<span class="title">Editora:</span>
+					<span id="content_publisher_tab1" class="content"></span>
+				</div>
+				<div>
+					<span class="title">Situação:</span>
+					<span id="content_situation_tab1" class="content"></span>
+				</div>
+			</div>
+			
+			<div id="div_borrow" class="tab_save_button">
+				<input id="button_borrow" type="submit" value="Emprestar" />
+			</div>					
+    	</div>
+    	
+    	<! Segunda aba>
+		<div id="tab2">			
+			<h2>Receber Livro</h2>
+									
+			<div id="msg_result_tab2"></div>
+			
+			<table>
+				<tr>
+					<td><p>(*) Código do livro:</p></td>
+					<td><p>{{ form_receive.book2 }}</p></td>
+				</tr>
+				<tr>
+					<td><p>(*) Login do usuário:</p></td>
+					<td>{{ form_receive.user_login2 }}</td>
+				</tr>
+			</table>
+			
+			<div id="book_info" class="contacts">
+				<h3>Informações do livro:</h3>
+				
+				<div id="msg_tab2"></div>
+				
+				<div>
+					<span class="title">Nome:</span>
+					<span id="content_name_tab2" class="content"></span>
+				</div>			
+				<div>
+					<span class="title">Autor(es):</span>
+					<span id="content_author_tab2" class="content"></span>
+				</div>
+				<div>
+					<span class="title">Autor(es) Espiritual(ais):</span>
+					<span id="content_sauthor_tab2" class="content"></span>
+				</div>	
+				<div>
+					<span class="title">Editora:</span>
+					<span id="content_publisher_tab2" class="content"></span>
+				</div>
+				<div>
+					<span class="title">Situação:</span>
+					<span id="content_situation_tab2" class="content"></span>
+				</div>
+			</div>
+			
+			<div id="div_receive" class="tab_save_button">
+				<input id="button_receive" type="submit" value="Receber" />
+			</div>	
+			</form>					
+    		
+    	</div>
+    	
+    	<! Terceira aba>
+    	<div id="tab3">
+    		<h2>Consultar Livros Emprestados</h2>
+    	
+    		<div id="msg_tab3"></div>
+    	
+			<table id="table_loans"></table>
+			<div id="bloans"></div>
+			
+    	</div>    	
+    			
+	</div>
+{% endblock conteudo %}

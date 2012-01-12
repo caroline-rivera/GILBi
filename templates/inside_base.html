@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
+
+<head>
+	<title>Lar de Mistrael</title>
+	
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/inside_layout.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/redmond/jquery-ui-1.8.16.custom.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/ui.jqgrid.css"/>
+	{% block style %}
+	{% endblock style %}
+	
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/i18n/grid.locale-pt-br.js"></script>	
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/custom/helpers.js"></script>
+	
+	{% block script %}
+	{% endblock script %}
+		
+</head>
+
+<body>
+	<div id="container">	
+		<div id="header">	
+			<div id="header_content">
+				<div id="header_links">
+					<p><a href="/perfil/conta/">Minha Conta</a></p>					
+					<p><a href="/logout/">Sair</a></p>
+				</div>			
+				<h1>LAR DE MISTRAEL</h1>
+			</div>
+		</div>		
+		
+		<div id="center">		
+			<div id="left">	
+				{% block foto %}
+					<p><a href="/perfil/">Meu Perfil</a></p>
+				{% endblock foto %}
+					
+				<p><a href="/livraria/">Livraria</a></p>
+				<p><a href="/biblioteca/">Biblioteca</a></p>	
+				<p><a href="/amigos/">Amigos</a></p><br/>
+
+				<p><a href="/gerenciarlivraria/">Gerenciar Livraria</a></p>	
+				<p><a href="/gerenciarbiblioteca/">Gerenciar Biblioteca</a></p>
+				<p><a href="/venderlivros/">Vender Livros</a></p>		
+
+			</div>	
+			
+			<div id="right">
+				{% block conteudo %}
+				{% endblock conteudo %}
+			</div>	
+			
+			<div style="clear: both;"></div>
+		</div>
+		
+		<div id="footer">
+			<div id="footer_content">
+				<p>GILBi - Sistema de Gestão Integrada de Livraria e Biblioteca</p>
+			</div>		
+		</div>			
+			
+	</div>	
+
+</body>
+
+</html>

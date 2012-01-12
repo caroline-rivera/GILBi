@@ -1,0 +1,44 @@
+{% extends "inside_base.html" %}
+
+{% block conteudo %}
+	<form enctype="multipart/form-data" method="post" action="">
+	
+		{% csrf_token %}
+		
+		<div id="register_book">	
+			<h2>Novo Livro</h2>			 
+
+			<h4>{{ form.non_field_errors }}</h4>
+			<h4>{{ form.name.errors }}</h4>
+			<h4>{{ form.photo.errors }}</h4>
+			<h4>{{ form.description.errors }}</h4>
+			<h4>{{ form.publisher.errors }}</h4>
+			<h4>{{ form.author.errors }}</h4>
+			<h4>{{ form.spiritual_author.errors }}</h4>
+			<h4>{{ registration_result }}</h4>
+		
+			<p>(*) Nome do livro:</p> 
+			<p>{{ form.name }}</p>
+			
+			<p>Foto:</p> 
+			<p>{{ form.photo }}</p>
+			
+			<p>Descrição:</p> 
+			<p>{{ form.description }}</p>
+				
+			<p>(*) Editora:</p> 
+			<p>{{ form.publisher }}</p>	
+			
+			<p>(*) Autor(es):</p> 
+			<p>{{ form.author }}</p>	
+			
+			<p>Autor(es) Espiritual(ais):</p> 
+			<p>{{ form.spiritual_author }}</p>		
+
+		</div>
+		<div id="save_button">
+			<input type="submit" value="Cadastrar" />
+		</div>		
+	</form>
+
+{% endblock %}

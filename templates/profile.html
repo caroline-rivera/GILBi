@@ -1,0 +1,128 @@
+{% extends "inside_base.html" %}
+
+{% block style %}
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/profile_layout.css"/>
+{% endblock style %}
+
+{% block script %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/custom/profile.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+            var serverParams =
+            {
+            	{% if error_msg %}
+                	errorMessage: 'True'
+                {% else %}
+                	errorMessage: 'False'
+                {% endif %}
+            };   
+            
+            Profile.Functions.init(serverParams);    
+		});	
+	</script>
+{% endblock script %}	
+
+{% block foto %}
+	<p><img src="{{ MEDIA_URL }}{{ user.photo }}" width=120px height=150px /></p>
+	<p><a href="/perfil/editar/">Editar Perfil</a></p>
+{% endblock foto %}
+
+{% block conteudo %}
+
+	<div id="username">
+		<h2>{{ user.first_name }} {{ user.last_name }}</h2>	
+	</div>
+
+	<div id="info">
+		<div id="login">
+			{% if user.gender == "M" %}
+				<a><img src="{{ MEDIA_URL }}img/users/default/avatar-male.png" width=20px height=20px /></a>
+				<a class="title">Bem vindo</a>
+			{% endif %}
+			
+			{% if user.gender == "F" %}
+				<a><img src="{{ MEDIA_URL }}img/users/default/avatar-female.png" width=20px height=20px /></a>
+				<a class="title">Bem vinda</a>
+			{% endif %}
+			
+				<a class="content">{{ user.login }}, {{ user.email }}</a>
+		</div>
+			
+		<div id="institution">
+			{% if user.institution %}
+				<a><img src="{{ MEDIA_URL }}img/icons/home.jpg" width=20px height=20px /></a>
+				<a class="title">Frequenta o Centro Espírita</a>
+				<a class="content">{{ user.institution }}</a>
+			{% endif %}
+		</div>
+		
+		<div id="birthday">
+			{% if user.birthday %}
+				<a><img src="{{ MEDIA_URL }}img/icons/calendar.png" width=20px height=20px /></a>
+				<a class="title">Nasceu em </a>
+				<a class="content">{{ user.birthday }}</a>
+			{% endif %}
+		</div>
+	</div>
+
+	<div id="status" class="text">
+		{% if user.profile_phrase %}
+			<h5>{{ user.profile_phrase }}</h5>
+		{% endif %}
+		
+		{% if not user.profile_phrase %}
+			<h5>No que você está pensando?</h5>
+		{% endif %}
+	</div>
+	
+	<form id="form_edit_status" method="post" action="/perfil/alterarstatus/">
+	
+		{% csrf_token %}	
+		
+		<div id="edit_status">					
+			<table>
+				<tr>
+					<td><p>No que você está pensando?</p></td>
+				</tr>
+				<tr>
+					<td><textarea id="description" rows="2" cols="60" name="description">{{ profile_phrase }}</textarea></td>
+					<td><input id="ok_button" name="ok_button" type="submit" value="OK" /></td>
+				</tr>
+				<tr>
+					<td>
+						{% if error_msg %}
+							<h4>{{ error_msg }}</h4>
+						{% endif %}
+					</td>
+				</tr>
+			</table>		
+
+		</div>
+	</form>
+
+	<div id="messages">
+		<p>Oi</p>
+		<p>Tudo bem com você?</p>
+		<p>saudades</p>
+		<p>Bla bla bla</p>
+	</div>
+		
+	<div id="favorite_books">
+		<h1>
+			Livros Favoritos
+			<a href="/livraria/" class="icon"><img src="{{ MEDIA_URL }}img/icons/add.png" border="0" width=15px height=15px /></a>
+		</h1>
+		
+		<table id="favorites">
+			{% for book in favorite_books %}
+				<tr id="favorite_{{ book.id }}">
+					<td><img src="{{ MEDIA_URL }}img/icons/favoritos.png" width=25px height=25px /></td>
+					<td>{{ book.name }}</td>
+					<td class="icon" onClick="Profile.Functions.removeFavoriteBooks({{ book.id }})"><img src="{{ MEDIA_URL }}img/icons/remove.png" width=15px height=15px /></td>
+				</tr>
+			{% endfor %}
+		</table>
+		
+	</div>
+{% endblock conteudo %}

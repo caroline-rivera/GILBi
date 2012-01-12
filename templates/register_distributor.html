@@ -1,0 +1,23 @@
+{% extends "inside_base.html" %}
+
+{% block conteudo %}
+	<form method="post" action="">
+	
+		{% csrf_token %}
+		
+		<div id="register_user">	
+			<h2>Nova Distribuidora</h2>			
+
+			<h4>{{ form.non_field_errors }}</h4>
+			<h4>{{ form.name.errors }}</h4>
+			<h4>{{ registration_result }}</h4>
+		
+			<p>(*) Nome: {{ form.name }}</p>		
+
+		</div>
+		<div id="save_button">
+			<input type="submit" value="Cadastrar" />
+		</div>		
+	</form>
+
+{% endblock %}

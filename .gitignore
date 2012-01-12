@@ -1,0 +1,5 @@
+# Protege as senhas e configurações locais
+settings.py
+
+# Não adiciona os arquivos gerados
+*.pyc

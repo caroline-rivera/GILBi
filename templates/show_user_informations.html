@@ -1,0 +1,36 @@
+{% extends "inside_base.html" %}
+
+{% block conteudo %}	
+	<h2>Contatos de {{ information.name }}</h2>	
+	
+	<div id="internet_contacts" class="contacts">	
+		<h3>Internet:</h3>
+		
+		<div>
+			<a class="title">Login no site:</a>
+			<a class="content">{{ information.login }}</a>
+		</div>
+		
+		<div>
+			<a class="title">E-mail:</a>
+			<a class="content">{{ information.email }}</a>
+		</div>
+	</div>
+
+	<div id="phone_contacts" class="contacts">	
+		<h3>Telefones/Celulares:</h3>
+		
+		{% for phone in information.phones %}
+			<div>
+				<a class="content">{{ phone }}</a>
+			</div>
+		{% endfor %}
+	</div>
+	
+	<div id="adress_contacts" class="contacts">	
+		<h3>Endereço:</h3>
+
+		<a class="content">{{ information.address }}</a>
+
+	</div>
+{% endblock %}

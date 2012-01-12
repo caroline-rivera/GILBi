@@ -1,0 +1,56 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/custom/register_employee.js"></script>
+	
+    <script type="text/javascript">   
+        $(function() {   	
+            RegisterEmployee.Functions.init();
+        });
+    </script>	
+{% endblock script %}
+	
+{% block conteudo %}
+	<h2>Cadastrar Gerente/Vendedor</h2>
+	
+	<div id="search_user">
+		<table id="form">
+			<tr>
+				<td>Nome:</td>
+				<td><input type="text" id="first_name" name="first_name" maxlength="20" size="40" /></td>
+			</tr>
+			<tr>
+				<td>Sobrenome:</td>
+				<td><input type="text" id="last_name" name="last_name" maxlength="20" size="40" /></td>
+			</tr>
+			<tr>
+				<td>Login:</td>
+				<td><input type="text" id="login" name="login" maxlength="20" size="40" /></td>
+			</tr>
+			<tr>
+				<td>E-mail:</td>
+				<td><input type="text" id="email" name="email" maxlength="50" size="40" /></td>
+			</tr>				
+		</table>
+	</div>
+	
+	<div id="div_search" class="tab_search_button">
+		<input type="submit" id="search_button" value="Procurar" />
+	</div>
+	
+	<div id="message"></div>
+	<div id="warning_message"></div>
+	
+	<h3>Tipo de Funcionário:</h3>
+	<p><input id="manager" type="radio" name="manager" checked value="1"> Cadastrar como Gerente</p>
+	<p><input id="seller" type="radio" name="manager" value="0"> Cadastrar como Vendedor</p>
+	<br />
+
+	<table id="table_users"></table>
+	<div id="busers"></div>
+	
+	<div id="div_save" class="tab_save_button">
+		<input type="submit" id="save_button" value="Cadastrar" />
+	</div>
+	
+{% endblock %}

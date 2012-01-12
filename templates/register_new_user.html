@@ -1,0 +1,58 @@
+{% extends "outside_base.html" %}
+
+{% block conteudo %}
+	<form method="post" action="">
+	
+		{% csrf_token %}
+		
+		<div id="register_user">	
+			<h2>Novo cadastro</h2>
+						
+			<h4>{{ registration_result }}</h4>
+			<h4>{{ form.non_field_errors }}</h4>
+			<h4>{{ form.first_name.errors }}</h4>
+			<h4>{{ form.last_name.errors }}</h4>			
+			<h4>{{ form.login.errors }}</h4>
+			<h4>{{ form.email.errors }}</h4>
+			<h4>{{ form.password.errors }}</h4>
+			<h4>{{ form.password_confirmation.errors }}</h4>
+			
+			<table id="form">
+				<tr>
+					<td><p>(*) Nome:</p></td>
+					<td><p>{{ form.first_name }}</p></td>
+				</tr>
+				<tr>
+					<td><p>(*) Sobrenome:</p></td>
+					<td><p>{{ form.last_name }}</p></td>
+				</tr>
+				<tr>
+					<td><p>(*) Login:</p></td>
+					<td>{{ form.login }}</td>
+				</tr>
+				<tr>
+					<td><p>(*) E-mail:</p></td>
+					<td>{{ form.email }}</td>
+				</tr>
+				<tr>
+					<td><p>(*) Senha:</p></td>
+					<td><p>{{ form.password }}</p></td>
+				</tr>
+				<tr>
+					<td><p>(*) Confirmação da Senha:</p></td>
+					<td><p>{{ form.password_confirmation }}</p></td>
+				</tr>
+				<tr>
+					<td><p>(*) Gênero:</p></td>
+					<td>{{ form.gender }}</td>
+				</tr>
+			</table>
+	
+			<div id="save_button">
+				<input type="submit" value="Cadastrar" />
+			</div>	
+		</div>
+		
+	</form>
+
+{% endblock %}

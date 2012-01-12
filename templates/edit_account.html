@@ -1,0 +1,70 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/custom/edit_account.js"></script>
+	
+	<script type="text/javascript">
+        $(function() {   	
+            var serverParams =
+            {
+            	{% if not result and not form.errors %}
+                	isValidForm: 'True'
+                {% else %}
+                	isValidForm: 'False'
+                {% endif %}
+            };
+            
+            EditAccount.Functions.showInitialFields(serverParams);
+         });
+	</script>
+	
+{% endblock script %}
+
+{% block conteudo %}
+	<h2>Atualizar dados da Conta</h2>
+	
+	<div id="edit_text" class="text">
+		<h5>Deseja alterar seu login e/ou senha?</h5>
+		<h5>Preencha os campos abaixo.</h5>
+	</div>
+	
+	<form method="post" id="edit_form" name="edit_form" action="/perfil/conta/editar/">	
+		{% csrf_token %}
+		
+		<div id="edit_account">					
+			<h4>{{ result }}</h4>
+			<h4>{{ form.non_field_errors }}</h4>
+			<h4>{{ form.login.errors }}</h4>
+			<h4>{{ form.password.errors }}</h4>
+			<h4>{{ form.password_confirmation.errors }}</h4>
+		
+			<p>Novo Login: {{ form.login }}</p>			
+			<p>Nova Senha: {{ form.password }}</p>			
+			<p>Confirmação da Senha: {{ form.password_confirmation }}</p>
+	
+			<div id="save_button">
+				<input type="submit" id="edit_button" value="Atualizar Conta" />
+			</div>	
+		</div>		
+	</form>
+
+	<h2>Excluir minha Conta</h2>
+	
+	<div id="exclude_text" class="text">
+		<h5>Deseja exluir permanentemente sua conta?</h5>
+		<h5>As suas informações não poderão mais ser recuperadas!</h5>
+	</div>
+	
+	<form method="post" id="exclude_form" name="exclude_form" action="/perfil/conta/excluir/">	
+		{% csrf_token %}
+		<div id="exclude_account">		
+			<div id="save_button">
+				<input type="submit" id="exclude_button" value="Excluir Conta" />
+			</div>	
+		</div>
+	</form>
+	
+	<br /><br />
+	
+{% endblock conteudo %}
