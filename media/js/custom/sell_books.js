@@ -26,18 +26,20 @@ SellBooks.Functions = {
 		
 		/* Funcoes para a tab1: Venda de livros da prateleira */	
 		
-		// TO DO: PROCURAR SE EU POSSO PEGAR O ID
+		// TODO: PROCURAR SE EU POSSO PEGAR O ID
 		
 		$("#id_book").change(function(){
-			book_name = $("#id_book option:selected").text();
-			//SellBooks.Functions.searchBookInfo(book_name);
-		});
-			
+			var text = $("#id_book option:selected").text();
+			/*book_name = $("#id_book option:selected").text();
+			SellBooks.Functions.searchBookInfo(book_name);
+			ManageLibrary.Functions.searchBookInfo(book_id, "_tab2");*/
+		});		
+		
 		$(btn.sell_tab1).click( function() {
-			//divMsg = $('#msg_tab1');
-			//SellBooks.Functions.sellBooks(divMsg, "msg_tab1");	
+			var divMsg = $('#msg_tab1');
+			SellBooks.Functions.sellBooks(divMsg, "msg_tab1");	
 		});
-				
+						
 		/* Funcoes para a tab2: Venda de encomendas do usuario */
 		
 		SellBooks.Functions.listUserOrders();
@@ -48,9 +50,6 @@ SellBooks.Functions = {
 					
 		$(btn.sell_tab2).click( function() {
 			SellBooks.Functions.sellOrder();
-			//grid = $(SellBooks.Selectors.Tables.orders);
-			//divMsg = $('#msg_tab2');
-			//SellBooks.Functions.getSelectedRowFn(grid, divMsg, "msg_tab2");	
 		});
 
 	},
@@ -58,19 +57,19 @@ SellBooks.Functions = {
 //------------------------------------------------------------------------- listUserOrders
 	listUserOrders: function()
 	{	
-		var table = SellBooks.Selectors.Tables;	
-		var grid = $(table.orders);
-		var columnsTitles = ['Id', 'Data/Hora','Nome','Autor(es)', 'Autor(es) Espiritual(ais)', 
-								'Qtd', 'Situação'];
-		var columnsSpecification = [
-			{name:'id', index:'id', hidden:true},
-			{name:'order_date', index:'order_date', width:100},
-	        {name:'name', index:'name', width:230},
-	        {name:'author', index:'author', width:135},
-	        {name:'spiritual_author', index:'author', width:135},
-	        {name:'quantity', index:'quantity', width:35},
-	        {name:'situation', index:'situation', width:75}, 		
-		];
+		var table = SellBooks.Selectors.Tables,	
+		    grid = $(table.orders),
+		    columnsTitles = ['Id', 'Data/Hora','Nome','Autor(es)', 
+		                     'Autor(es) Espiritual(ais)','Qtd', 'Situação'],
+			columnsSpecification = [
+				{name:'id', index:'id', hidden:true},
+				{name:'order_date', index:'order_date', width:100},
+		        {name:'name', index:'name', width:230},
+		        {name:'author', index:'author', width:135},
+		        {name:'spiritual_author', index:'author', width:135},
+		        {name:'quantity', index:'quantity', width:35},
+		        {name:'situation', index:'situation', width:75} 		
+			];
 		
 		grid.jqGrid({
 			datatype: 'local',
@@ -86,16 +85,14 @@ SellBooks.Functions = {
 		    caption:'Lista de encomendas do usuário disponíveis para compra'				
 		});
 	},
-
 	
 //------------------------------------------------------------------------- searchOrdersFn	
 	searchOrdersFn: function(tab)
 	{
-		var table = SellBooks.Selectors.Tables;	
-		var grid = $(table.orders);
-		var divMsg = $("#msg_tab2");
-		var divId =	"msg_tab2";	
-		var data = {};
+		var table = SellBooks.Selectors.Tables,	
+		    grid = $(table.orders),
+		    divId =	"div_error",	
+		    data = {};
 				
 		data['login'] = $('#login').val();
 		data['email'] = $('#email').val();
@@ -116,15 +113,15 @@ SellBooks.Functions = {
 	                	spiritual_author: item.fields['spiritual_author'],
 	                	quantity: item.fields['quantity'],
 	                	situation: item.fields['situation']
-	                }
+	                };
 	                orders[i] = order;
                 });
 
 				SellBooks.Functions.listFn(orders, grid);							
 			},
 			error: function() {	
-				msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+				Helpers.Functions.showErrorMsg(divId, msg);		
 			}
 		});		
 	},
@@ -135,7 +132,7 @@ SellBooks.Functions = {
 	{		
 		grid.clearGridData();
 		
-		for(var i=0;i<data.length;i++)
+		for(var i = 0; i < data.length; i++)
         {
             grid.jqGrid('addRowData', i, data[i]);
         }
@@ -153,19 +150,19 @@ SellBooks.Functions = {
 		}
 		else
 		{		
-			bookId = grid.getRowData(selRowNumber)['id'];
+			var bookId = grid.getRowData(selRowNumber)['id'];
 			return bookId;
 		}
 	},
 //------------------------------------------------------------------------- sellOrder		
 	sellOrder: function()
 	{
-		var table = SellBooks.Selectors.Tables;	
-		var grid = $(table.orders);
-		var data = {};
-		var url = "/vendas/encomendas/venderencomenda/";
-
-		id_selected_order = SellBooks.Functions.getSelectedRowFn(grid);
+		var grid = $(SellBooks.Selectors.Tables.orders),
+		    data = {},
+		    url = "/vendas/encomendas/venderencomenda/",
+		    id_selected_order = SellBooks.Functions.getSelectedRowFn(grid),
+			$tab = $("#tab2"),
+			$messageContainer = $tab.find("div.message_container");
 
 		data['order_id'] = [id_selected_order];		
 		data['order_price'] = $("#order_price").val();
@@ -176,68 +173,28 @@ SellBooks.Functions = {
 			dataType: "json",
 			data: data,
 			async: true,
-			success: function(response) {	
+			success: function(response) {
+				    	
 				if(response['validation_message'] != "")
 				{
-					Helpers.Functions.showValidationMsg("div_validation", response['validation_message']);
+					Helpers.Functions.showValidationMsg($messageContainer, response['validation_message']);
 				}
 				if (response['error_message'] != "")
 				{
-					Helpers.Functions.showErrorMsg("div_error", response['error_message']);
+					Helpers.Functions.showErrorMsg($messageContainer, response['error_message']);
 				}		
 				if (response['success_message'] != "")
 				{
-					alert(response['success_message']);
 					$("#order_price").val("");
-					grid.resetSelection(); //deletar a linha
-					Helpers.Functions.showSuccessMsg("div_success", response['success_message']);
+					grid.resetSelection(); // TODO: deletar a linha
+					Helpers.Functions.showSuccessMsg($messageContainer, response['success_message']);
 				}				
 			},
 			error: function() {	
-				msg = Helpers.Messages.All.ERROR_UNEXPECTED;
-				Helpers.Functions.showErrorMsg(divId, msg);		
-			}
-		});	
-	},
-	
-//------------------------------------------------------------------------- cancelFn		
-	cancelFn: function(ids, divMsg, divId)
-	{
-		var data = {};	
-		var url = "";
-		var grid = $(Bookstore.Selectors.Tables.userOrders);
-		
-		data['order_ids'] = [ids];
-		
-		$.ajax({
-			traditional: true,
-			url: "/livraria/encomendas/cancelar",
-			dataType: "json",
-			data: data,
-			async: true,
-			success: function(response) {			
-				if(response['success_message'] != "")
-				{
-					var selRowNumber = grid.getGridParam('selrow');
-					grid.getRowData(selRowNumber)['situation'].val('Cancelada');
-					grid.resetSelection();
-					//Bookstore.Functions.searchOrdersFn();
-					Helpers.Functions.showPopUpSuccessMsg(divMsg, 
-														  divId, 
-														  response['success_message']);
-				}	
-				
-				if(response['error_message'] != "")
-				{
-					Helpers.Functions.showPopUpErrorMsg(divMsg, 
-														divId, 
-														response['error_message']);
-				}			
-			},
-			error: function() {	
-				msg = Helpers.Messages.Order.ERROR_CANCELING_ORDER;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});	
 	}
+
 }	

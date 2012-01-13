@@ -46,6 +46,7 @@ Helpers.Messages = {
 Helpers.Functions = {
 
 //------------------------------------------------------------------------------ showPopUpErrorMsg	
+	// TODO: Remover essa função
 	showPopUpErrorMsg: function(divMsg, id, msg)
 	{
 		divMsg.show();
@@ -64,6 +65,7 @@ Helpers.Functions = {
 	},
 
 //------------------------------------------------------------------------------ showPopUpSuccessMsg	
+	// TODO: Remover essa função
 	showPopUpSuccessMsg: function(divMsg, id, msg)
 	{
 		divMsg.show();
@@ -83,6 +85,7 @@ Helpers.Functions = {
 	},
 
 //------------------------------------------------------------------------------ showPopUpWarningMsg	
+	// TODO: Remover essa função
 	showPopUpWarningMsg: function(divMsg, id, msg)
 	{
 		divMsg.show();
@@ -101,35 +104,38 @@ Helpers.Functions = {
 		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
 	},
 
-//------------------------------------------------------------------------------ showValidationMsg	
-	showValidationMsg: function(id, msg)
+//--------------------------------------------------------------------------- showValidationMsg	
+	showValidationMsg: function($messageContainer, text)
 	{
-		divMsg = $("#" + id);
-		divMsg.show();
-		//divMsg.addClass("validation");
-		divMsg.html(msg);
-		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
-		//divMsg.removeClass("validation");
+		Helpers.Functions.showMessage($messageContainer, "validation", text);
 	},
-	
 //------------------------------------------------------------------------------ showSuccessMsg	
-	showSuccessMsg: function(id, msg)
+	showSuccessMsg: function($messageContainer, text)
 	{
-		divMsg = $("#" + id);
-		divMsg.show();
-		//divMsg.addClass("success");
-		divMsg.html(msg);
-		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
-		//divMsg.removeClass("success");
+		Helpers.Functions.showMessage($messageContainer, "success", text);
 	},
 //------------------------------------------------------------------------------ showErrorMsg	
-	showErrorMsg: function(id, msg)
+	showErrorMsg: function($messageContainer, text)
 	{
-		divMsg = $("#" + id);
-		divMsg.show();
-		//divMsg.addClass("error");
-		divMsg.html(msg);
-		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
-		//divMsg.removeClass("error");
+		Helpers.Functions.showMessage($messageContainer, "error", text);
+	},
+//------------------------------------------------------------------------------ showWarningMsg	
+	showWarningMsg: function($messageContainer, text)
+	{
+		Helpers.Functions.showMessage($messageContainer, "warning", text);
+	},
+//------------------------------------------------------------------------------ showMessage	
+	showMessage: function($messageContainer, type, text)
+	{
+		var types = "error success warning validation";
+		
+		$messageContainer
+			.removeClass(types)
+			.addClass(type)
+			.html(text)
+			.show()
+			.animate({ opacity: 1.0 }, 6000, function() {
+		       $(this).fadeOut(500);
+		    });
 	}
 }

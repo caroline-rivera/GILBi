@@ -27,7 +27,7 @@ ManageLibrary.Functions = {
 		/* Funcoes para a tab1: Emprestar Livros */
 		
 		$("#id_book1").change(function(){
-			book_id = $("#id_book1 option:selected").text();
+			var book_id = $("#id_book1 option:selected").text();
 			ManageLibrary.Functions.searchBookInfo(book_id, "_tab1");
 		});
 		
@@ -42,7 +42,7 @@ ManageLibrary.Functions = {
 		/* Funcoes para a tab2: Receber Livros */
 		
 		$("#id_book2").change(function(){
-			book_id = $("#id_book2 option:selected").text();
+			var book_id = $("#id_book2 option:selected").text();
 			ManageLibrary.Functions.searchBookInfo(book_id, "_tab2");
 		});
 		
@@ -87,7 +87,7 @@ ManageLibrary.Functions = {
 	                	spiritual_author: item.fields['spiritual_author'],
 	                	publisher: item.fields['publisher'],
 	                	situation: item.fields['situation'],
-	                }
+	                };
 	                books[i] = book;
                 });
 
