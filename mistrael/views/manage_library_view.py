@@ -20,11 +20,7 @@ from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_BORROWED, SUCC
 from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_RECEIVED
 from gilbi.mistrael.transformers.book_transformer import GridLibraryBook
 
-def index(request):
-    c = {}
-    c.update(csrf(request))            
-    context = RequestContext(request, c)
-    
+def index(request):   
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/') 
     elif validate_manager_session(request) == False:

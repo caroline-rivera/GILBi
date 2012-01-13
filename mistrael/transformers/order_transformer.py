@@ -48,6 +48,8 @@ class GridOrderTransform(models.Model):
             str_situation = "Disponível"
         elif situation == "C":
             str_situation = "Cancelada"
+        elif situation == "V":
+            str_situation = "Vendida"
         else: # "S"
             str_situation = "Solicitada"
         return str_situation

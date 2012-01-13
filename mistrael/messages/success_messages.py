@@ -48,3 +48,6 @@ SUCCESS_BOOK_RENEWED = "O livro foi renovado com sucesso. A data de devolução 
 
 # Receber Livro
 SUCCESS_BOOK_RECEIVED = "O livro foi devolvido com sucesso."
+
+#Cender encomenda
+SUCCESS_SELLING_ORDER = "A encomenda foi vendida com sucesso."

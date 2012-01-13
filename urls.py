@@ -75,5 +75,14 @@ urlpatterns = patterns('',
                                                                          
     url(r'^biblioteca/$', 'mistrael.views.library_view.index'),  
     url(r'^biblioteca/pesquisarlivros/$', 'mistrael.views.library_view.search_books'), 
-    url(r'^biblioteca/meusemprestimos/listar/$', 'mistrael.views.library_view.list_loans'),                                 
+    url(r'^biblioteca/meusemprestimos/listar/$', 'mistrael.views.library_view.list_loans'),  
+    
+    url(r'^vendas/$', 
+        'mistrael.views.sell_books.index'), 
+    url(r'^vendas/prateleira/venderlivro/$', 
+        'mistrael.views.sell_books.sell_shelf_book'), 
+    url(r'^vendas/encomendas/procurarencomenda/$', 
+        'mistrael.views.sell_books.search_user_orders'),   
+    url(r'^vendas/encomendas/venderencomenda/$', 
+        'mistrael.views.sell_books.sell_order_book'),                           
 )

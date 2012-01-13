@@ -112,3 +112,10 @@ ERROR_BOOK_ALREADY_RENEWED = "O usuário já havia renovado este livro. Ele não
 
 ERROR_BOOK_NOT_BORROWED = "Este livro não estava emprestado."
 ERROR_BOOK_BORROWED_WITH_ANOTHER_USER = "Este livro não estava emprestado com esse usuário."
+
+#Vender Livro
+ERROR_REQUIRED_ORDER_PRICE = "<p>O preço da encomenda é obrigatório.</p>"
+ERROR_INVALID_ORDER_PRICE = "<p>O preço da encomenda é inválido. Digite um valor no formato R$ 999.99.</p>"
+ERROR_NO_ROW_SELECTED = "<p>É obrigatório selecionar uma encomenda na tabela.</p>"
+ERROR_INVALID_ORDER = "<p>Essa encomenda não é válida.</p>"
+ERROR_UNAVAILABLE_ORDER = "<p>Essa encomenda não está disponível para compra.</p>"

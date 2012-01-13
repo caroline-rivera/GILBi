@@ -1,0 +1,119 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/custom/sell_books.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            $('#tabs').tabs();
+            $('#button_sell_tab1').button(); 
+            $('#button_sell_tab2').button();
+            $('#button_search_tab2').button();
+            $('#id_book_price').maskMoney({symbol:'R$ ', showSymbol:true, thousands:'', decimal:'.', symbolStay: true});
+            $('#order_price').maskMoney({symbol:'R$ ', showSymbol:true, thousands:'', decimal:'.', symbolStay: true});
+
+            SellBooks.Functions.init();
+        }); 
+    </script>
+{% endblock script %}
+
+{% block conteudo %}
+    <h2>Biblioteca do Lar de Mistrael</h2>
+    
+    <div id="tabs">
+        <ul>
+            <li><a href="#tab1">Prateleira</a></li>
+            <li><a href="#tab2">Encomenda</a></li>
+        </ul>
+
+		<div id="div_info"></div>		
+		<div id="div_success"></div>		
+		<div id="div_warning"></div>		
+		<div id="div_error"></div>
+		<div id="div_validation"></div>
+
+        <!Primeira aba>
+        <div id="tab1">        
+            <h2>Vender Livro da Prateleira</h2>
+                                    
+            <div id="msg_result_tab1"></div>
+            
+            <table>
+                <tr>
+                    <td><p>(*) Livro:</p></td>
+                    <td><p>{{ form_shelf_sale.book }}</p></td>
+                </tr>
+                <tr>
+                    <td><p>(*) Preço do Livro:</p></td>
+                    <td><p>{{ form_shelf_sale.book_price }}</p></td>
+                </tr>
+            </table>
+            
+            <div id="book_info" class="contacts">
+                <h3>Informações do livro:</h3>
+                
+                <div id="msg_tab1"></div>
+                
+                <div>
+                    <span class="title">Nome:</span>
+                    <span id="content_name_tab1" class="content"></span>
+                </div>            
+                <div>
+                    <span class="title">Autor(es):</span>
+                    <span id="content_author_tab1" class="content"></span>
+                </div>
+                <div>
+                    <span class="title">Autor(es) Espiritual(ais):</span>
+                    <span id="content_sauthor_tab1" class="content"></span>
+                </div>    
+                <div>
+                    <span class="title">Editora:</span>
+                    <span id="content_publisher_tab1" class="content"></span>
+                </div>
+            </div>
+            
+            <div id="div_sell_tab1" class="tab_save_button">
+                <input id="button_sell_tab1" type="submit" value="Vender" />
+            </div>                    
+        </div>
+        
+        <! Segunda aba>
+        <div id="tab2">            
+            <h2>Vender Encomenda de Usuário</h2>
+                                    
+            <div id="msg_result_tab2"></div>
+                          
+            <table>
+				<tr>
+					<td><p>Login do Usuário:</p></td>
+					<td><p><input type="text" id="login" name="login" maxlength="20" size="50" /></p></td>
+				</tr>
+				<tr>
+					<td><p>E-mail do Usuário:</p></td>
+					<td><p><input type="text" id="email" name="email" maxlength="50" size="50" /></p></td>
+				</tr>
+            </table>
+            
+			<div id="div_search_tab2" class="tab_search_button">			
+				<input id="button_search_tab2" type="submit" value="Procurar" />
+			</div>
+
+            <div>
+            	<p>
+                	<span>(*) Preço total da encomenda:</span>
+                	<span><input type="text" id="order_price" name="order_price" maxlength="9" size="9" /></span>
+            	</p>
+            </div>
+                              			
+			<table id="table_orders"></table>
+			<div id="borders"></div>
+            
+            <div id="div_sell_tab2" class="tab_save_button">
+                <input id="button_sell_tab2" type="submit" value="Vender" />
+            </div>                     
+            
+        </div>
+              
+                
+    </div>
+{% endblock conteudo %}

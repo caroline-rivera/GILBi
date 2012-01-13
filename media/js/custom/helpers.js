@@ -6,6 +6,7 @@ Helpers.Messages = {
 	
 	All: {
 		ERROR_LOADING_TABLE: 'Erro ao carregar a tabela.',	
+		ERROR_UNEXPECTED: 'Ocorreu um erro inesperado.'	
 	},
 	
 	RegisterEmployee: {
@@ -43,7 +44,8 @@ Helpers.Messages = {
 //------------------------------------------------------------------------------ FUNCTIONS
 
 Helpers.Functions = {
-	
+
+//------------------------------------------------------------------------------ showPopUpErrorMsg	
 	showPopUpErrorMsg: function(divMsg, id, msg)
 	{
 		divMsg.show();
@@ -60,7 +62,8 @@ Helpers.Functions = {
 		divMsg.html(msg);
 		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
 	},
-	
+
+//------------------------------------------------------------------------------ showPopUpSuccessMsg	
 	showPopUpSuccessMsg: function(divMsg, id, msg)
 	{
 		divMsg.show();
@@ -78,7 +81,8 @@ Helpers.Functions = {
 		divMsg.html(msg);
 		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
 	},
-	
+
+//------------------------------------------------------------------------------ showPopUpWarningMsg	
 	showPopUpWarningMsg: function(divMsg, id, msg)
 	{
 		divMsg.show();
@@ -96,4 +100,36 @@ Helpers.Functions = {
 		divMsg.html(msg);
 		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
 	},
+
+//------------------------------------------------------------------------------ showValidationMsg	
+	showValidationMsg: function(id, msg)
+	{
+		divMsg = $("#" + id);
+		divMsg.show();
+		//divMsg.addClass("validation");
+		divMsg.html(msg);
+		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
+		//divMsg.removeClass("validation");
+	},
+	
+//------------------------------------------------------------------------------ showSuccessMsg	
+	showSuccessMsg: function(id, msg)
+	{
+		divMsg = $("#" + id);
+		divMsg.show();
+		//divMsg.addClass("success");
+		divMsg.html(msg);
+		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
+		//divMsg.removeClass("success");
+	},
+//------------------------------------------------------------------------------ showErrorMsg	
+	showErrorMsg: function(id, msg)
+	{
+		divMsg = $("#" + id);
+		divMsg.show();
+		//divMsg.addClass("error");
+		divMsg.html(msg);
+		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
+		//divMsg.removeClass("error");
+	}
 }

@@ -13,3 +13,6 @@ class BookOrder(models.Model):
     
     def cancel_order(self):
         self.situation = 'C'
+        
+    def sell_order(self):
+        self.situation = 'V'
