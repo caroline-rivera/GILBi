@@ -1,8 +1,9 @@
 from django.db import models
-import hashlib
-from book import Book
+from gilbi.books.models.book import Book
 from address import Address
 from gilbi.mistrael.helpers.constants import FEMALE_IMG_PATH, MALE_IMG_PATH, GENDER_CHOICES
+
+import hashlib
 
 def set_upload_path(instance, filename):
     photo_path = 'img/users/' + str(instance.id) + '/' + filename

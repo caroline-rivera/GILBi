@@ -1,5 +1,5 @@
 from django.db import models
-from book import Book
+from gilbi.books.models.book import Book
 
 class LibraryBook(models.Model):
     book = models.ForeignKey(Book)

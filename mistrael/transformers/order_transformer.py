@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.db import models
-from gilbi.mistrael.models.book import BookAuthor
+from gilbi.books.models.book_author import BookAuthor
 
 class GridOrderTransform(models.Model):
     name = models.CharField()

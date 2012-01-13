@@ -3,11 +3,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
-from gilbi.mistrael.models.author import Author
-from gilbi.mistrael.models.publisher import Publisher
+from gilbi.books.models.author import Author
+from gilbi.books.models.publisher import Publisher
 from gilbi.mistrael.models.distributor import Distributor
-from gilbi.mistrael.models.book import Book
-from gilbi.mistrael.models.book import BookAuthor
+from gilbi.books.models.book import Book
+from gilbi.books.models.book_author import BookAuthor
 from gilbi.mistrael.models.bookstore_book import BookstoreBook
 from gilbi.mistrael.forms.register_author_form import FormRegisterAuthor
 from gilbi.mistrael.forms.register_publisher_form import FormRegisterPublisher

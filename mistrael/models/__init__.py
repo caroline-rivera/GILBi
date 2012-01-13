@@ -2,14 +2,10 @@ from address import Address
 from user import User
 from seller import Seller
 from manager import Manager
-from author import Author
-from publisher import Publisher
 from distributor import Distributor
-from book import Book
 from library_book import LibraryBook
 from loan import Loan
 from bookstore_book import BookstoreBook
-from book import BookAuthor
 from message import Message  
 from phone import Phone
 from sale import ShelfSale

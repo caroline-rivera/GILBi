@@ -4,5 +4,5 @@ class Author(models.Model):
     name = models.CharField(max_length=50)
         
     class Meta:
-        app_label = 'mistrael'
+        app_label = 'books'
 

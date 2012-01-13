@@ -1,8 +1,8 @@
 from django.db import models
 from user import User
 from library_book import LibraryBook
-from datetime import timedelta
-from datetime import date
+
+from datetime import timedelta, date
 
 class Loan(models.Model):
     user = models.ForeignKey(User, related_name='book_loans')

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
-from gilbi.mistrael.models.book import BookAuthor
+from gilbi.books.models.book_author import BookAuthor
 from gilbi.mistrael.models.loan import Loan
 
 class GridBookTransform(models.Model):

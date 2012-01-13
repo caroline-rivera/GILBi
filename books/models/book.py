@@ -1,7 +1,6 @@
 from django.db import models
 from author import Author
 from publisher import Publisher
-from gilbi.mistrael.helpers.constants import CATEGORY_CHOICES
 
 class Book(models.Model):
     name = models.CharField(max_length=50)
@@ -11,14 +10,6 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author, through='BookAuthor')
         
     class Meta:
-        app_label = 'mistrael' 
-    
-class BookAuthor(models.Model):
-    author = models.ForeignKey(Author)
-    book = models.ForeignKey(Book)
-    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, default='F')
-        
-    class Meta:
-        app_label = 'mistrael'
+        app_label = 'books'
 
 
