@@ -8,10 +8,17 @@ class Sale(models.Model):
     
     class Meta:
         abstract = True
+        app_label = 'mistrael'
         
 class ShelfSale(Sale):
     book = models.ForeignKey(BookstoreBook)
+        
+    class Meta:
+        app_label = 'mistrael'
     
 class OrderSale(Sale):
     book_order = models.ForeignKey(BookOrder)
+        
+    class Meta:
+        app_label = 'mistrael'
     

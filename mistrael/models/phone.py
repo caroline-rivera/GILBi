@@ -10,3 +10,6 @@ class Phone(models.Model):
         self.user = user
         self.ddd = ddd
         self.number = number
+        
+    class Meta:
+        app_label = 'mistrael'

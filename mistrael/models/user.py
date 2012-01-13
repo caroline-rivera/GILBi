@@ -46,6 +46,9 @@ class User(models.Model):
             
     def set_profile_phrase(self, profile_phrase):
         self.profile_phrase = profile_phrase
+        
+    class Meta:
+        app_label = 'mistrael'
                     
 #class User(models.Model):
 #    GENDER_CHOICES = (

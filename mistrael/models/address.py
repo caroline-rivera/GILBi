@@ -13,3 +13,7 @@ class Address(models.Model):
         self.complement = complement
         self.zipcode = zipcode
         self.neighborhood = neighborhood
+        
+    class Meta:
+        app_label = 'mistrael'
+

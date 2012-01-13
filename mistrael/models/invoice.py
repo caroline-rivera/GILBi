@@ -6,6 +6,9 @@ class Invoice(models.Model):
     number = models.IntegerField()
     series = models.IntegerField()
     purchase = models.ForeignKey(PurchaseOrder)
+        
+    class Meta:
+        app_label = 'mistrael'
     
 class Duplicate(models.Model):
     invoice = models.ForeignKey(Invoice, related_name='duplicates')
@@ -13,5 +16,8 @@ class Duplicate(models.Model):
     value = models.DecimalField(max_digits=4, decimal_places=2)
     expiration_date = models.DateField()
     payment = models.ForeignKey(Payment)
+        
+    class Meta:
+        app_label = 'mistrael'
     
 

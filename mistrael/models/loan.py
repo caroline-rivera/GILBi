@@ -17,3 +17,6 @@ class Loan(models.Model):
         
     def receive_book(self):
         self.return_date = date.today()
+        
+    class Meta:
+        app_label = 'mistrael'
