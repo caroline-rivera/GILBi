@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
-from books.models.publisher import Publisher
+from gilbi.apps.books.models import Publisher
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_PUBLISHER_NAME
 from gilbi.mistrael.messages.error_messages import ERROR_ALREADY_REGISTERED_PUBLISHER
 

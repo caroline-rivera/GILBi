@@ -2,10 +2,8 @@ from django.contrib import admin
 from gilbi.mistrael.models.user import User
 from gilbi.mistrael.models.seller import Seller
 from gilbi.mistrael.models.manager import Manager
-from books.models.author import Author
-from books.models.publisher import Publisher
+from gilbi.apps.books.models import Author, Publisher, Book
 from gilbi.mistrael.models.distributor import Distributor
-from books.models.book import Book
 from gilbi.mistrael.models.library_book import LibraryBook
 from gilbi.mistrael.models.bookstore_book import BookstoreBook
 

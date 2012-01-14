@@ -1,5 +1,5 @@
 from django.db import models
-from books.models.book import Book
+from gilbi.apps.books.models import Book
 
 class BookstoreBook(Book):
     total_quantity = models.IntegerField()
