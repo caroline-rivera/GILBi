@@ -3,7 +3,7 @@
 from django import forms
 from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.messages.error_messages import *
-from gilbi.mistrael.helpers.constants import GENDER_CHOICES
+from gilbi.apps.user_profiles.models.user import GENDER_CHOICES
 
 class FormRegisterNewUser(forms.Form):   
     first_name = forms.CharField(max_length=20,

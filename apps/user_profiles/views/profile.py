@@ -9,7 +9,6 @@ from gilbi.apps.books.models import Book
 from gilbi.mistrael.forms.edit_profile_form import FormEditProfile
 from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_PROFILE
 from gilbi.mistrael.messages.error_messages import ERROR_MAX_LENGTH_STATUS
-from gilbi.mistrael.helpers.constants import FEMALE_IMG_PATH, MALE_IMG_PATH
 
 def index(request):
     if validate_session(request) == False:

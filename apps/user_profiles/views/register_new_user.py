@@ -86,7 +86,7 @@ def disable_account(request, id, code):
         registered_user.delete()
         registration_result = SUCCESS_DISABLE_ACCOUNT
 
-    #TO DO
+    #TODO
     #return HttpResponseRedirect('/') #tela de login
             
     return render_to_response('login.html', 
