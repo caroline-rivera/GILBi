@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
-from gilbi.mistrael.models.user import User
+from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.messages.error_messages import *
 from gilbi.mistrael.helpers.constants import GENDER_CHOICES
 

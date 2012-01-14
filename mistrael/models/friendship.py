@@ -1,5 +1,5 @@
 from django.db import models
-from user import User
+from gilbi.apps.user_profiles.models import User
     
 class Friendship(models.Model):
     sender_friend = models.ForeignKey(User)

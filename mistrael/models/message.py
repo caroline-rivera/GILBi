@@ -1,5 +1,5 @@
 from django.db import models
-from user import User
+from gilbi.apps.user_profiles.models import User
 
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name='sended_messages')

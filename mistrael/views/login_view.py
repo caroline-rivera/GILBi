@@ -2,7 +2,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.context_processors import csrf
-from gilbi.mistrael.models.user import User
+from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.messages.error_messages import *
 from gilbi.mistrael.helpers.password_helper import compare_passwords
 from gilbi.mistrael.helpers.session_helper import create_session

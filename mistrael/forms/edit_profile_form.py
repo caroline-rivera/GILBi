@@ -3,7 +3,7 @@
 from datetime import date
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
-from gilbi.mistrael.models.user import User
+from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_FIRST_NAME, ERROR_REQUIRED_LAST_NAME
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_GENDER, ERROR_INVALID_DATE
 from django.forms import ModelForm

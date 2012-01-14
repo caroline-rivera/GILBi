@@ -6,8 +6,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.messages.success_messages import SUCCESS_LIBRARY_REGISTER
-from gilbi.mistrael.models.user import User
-from gilbi.mistrael.models.address import Address
+from gilbi.apps.user_profiles.models import User
+from gilbi.apps.library.models import Address
 from gilbi.mistrael.models.phone import Phone
 from gilbi.mistrael.models.library_book import LibraryBook
 from gilbi.mistrael.models.loan import Loan

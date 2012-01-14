@@ -1,7 +1,3 @@
-from address import Address
-from user import User
-from seller import Seller
-from manager import Manager
 from distributor import Distributor
 from library_book import LibraryBook
 from loan import Loan

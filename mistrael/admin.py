@@ -1,7 +1,5 @@
 from django.contrib import admin
-from gilbi.mistrael.models.user import User
-from gilbi.mistrael.models.seller import Seller
-from gilbi.mistrael.models.manager import Manager
+from gilbi.apps.user_profiles.models import User, Seller, Manager
 from gilbi.apps.books.models import Author, Publisher, Book
 from gilbi.mistrael.models.distributor import Distributor
 from gilbi.mistrael.models.library_book import LibraryBook

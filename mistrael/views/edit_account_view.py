@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.models.user import User
+from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.forms.edit_account_form import FormEditAccount
 from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_ACCOUNT, SUCCESS_EXCLUDE_ACCOUNT
 from gilbi.mistrael.messages.warning_messages import WARNING_EDIT_ACCOUNT

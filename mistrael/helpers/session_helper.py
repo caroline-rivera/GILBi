@@ -1,6 +1,4 @@
-from gilbi.mistrael.models.user import User
-from gilbi.mistrael.models.seller import Seller
-from gilbi.mistrael.models.manager import Manager
+from gilbi.apps.user_profiles.models import User, Seller, Manager
 
 def create_session(request, id):
     if 'user_id' not in request.session:

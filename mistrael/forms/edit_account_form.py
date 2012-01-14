@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
-from gilbi.mistrael.models.user import User
+from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.messages.error_messages import ERROR_ALREADY_REGISTERED_LOGIN 
 from gilbi.mistrael.messages.error_messages import ERROR_MIN_LENGTH_PASSWORD, ERROR_DIFFERENT_PASSWORDS
 

@@ -1,5 +1,5 @@
 from django.db import models
-from user import User
+from gilbi.apps.user_profiles.models import User
 from library_book import LibraryBook
 
 from datetime import timedelta, date

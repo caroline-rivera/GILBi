@@ -8,7 +8,7 @@ from gilbi.mistrael.messages.error_messages import *
 from gilbi.mistrael.messages.success_messages import *
 from gilbi.mistrael.helpers.email_helper import send_email, create_change_password_email
 from gilbi.mistrael.helpers.encryption_helper import encrypt_login_email
-from gilbi.mistrael.models.user import User
+from gilbi.apps.user_profiles.models import User
 
 def recover(request):
     if request.method == 'POST': # Formulário enviado

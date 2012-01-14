@@ -1,5 +1,5 @@
 from django.db import models
-from user import User
+from gilbi.apps.user_profiles.models import User
 from bookstore_book import BookstoreBook
 from gilbi.mistrael.helpers.constants import SITUATION_CHOICES
   
