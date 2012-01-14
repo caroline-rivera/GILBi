@@ -12,7 +12,7 @@ from django.template import RequestContext
 
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_seller_session
-from gilbi.mistrael.models.user import User
+from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.models.book_order import BookOrder
 from gilbi.mistrael.models.bookstore_book import BookstoreBook
 from gilbi.mistrael.models.sale import OrderSale

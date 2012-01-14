@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext, loader
 from django.core.context_processors import csrf
 from gilbi.mistrael.models.loan import Loan
-from gilbi.mistrael.models.user import User
+from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.models.phone import Phone
 from gilbi.mistrael.models.library_book import LibraryBook
 from gilbi.mistrael.helpers.session_helper import validate_session

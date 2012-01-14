@@ -1,6 +1,5 @@
 from django.db import models
-from book import Book
-from user import User
+from gilbi.apps.user_profiles.models import User
 from bookstore_book import BookstoreBook
 from gilbi.mistrael.helpers.constants import SITUATION_CHOICES
   
@@ -16,3 +15,6 @@ class BookOrder(models.Model):
         
     def sell_order(self):
         self.situation = 'V'
+
+    class Meta:
+        app_label = 'mistrael'

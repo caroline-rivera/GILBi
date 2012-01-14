@@ -1,0 +1,5 @@
+from change_password import ChangePasswordForm
+from edit_account import EditAccountForm
+from edit_profile import EditProfileForm
+from recover_password import RecoverPasswordForm
+from register_new_user import RegisterNewUserForm

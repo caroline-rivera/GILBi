@@ -2,7 +2,7 @@
 
 from django import forms
 from gilbi.mistrael.models.phone import Phone
-from gilbi.mistrael.models.address import Address
+from gilbi.apps.library.models import Address
 from gilbi.mistrael.messages.error_messages import *
 from django.forms import ModelForm
 

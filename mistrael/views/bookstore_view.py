@@ -8,10 +8,9 @@ from gilbi.mistrael.messages.success_messages import *
 from gilbi.mistrael.messages.error_messages import *
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.models.book_order import BookOrder
-from gilbi.mistrael.models.book import Book
-from gilbi.mistrael.models.user import User
+from gilbi.apps.books.models import Book
+from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.models.bookstore_book import BookstoreBook
-from gilbi.mistrael.models.book_order import BookOrder
 from gilbi.mistrael.transformers.book_transformer import GridBookTransform
 from gilbi.mistrael.transformers.order_transformer import GridOrderTransform
 from datetime import datetime

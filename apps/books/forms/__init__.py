@@ -1,0 +1,3 @@
+from register_author import RegisterAuthorForm
+from register_book import RegisterBookForm
+from register_publisher import RegisterPublisherForm

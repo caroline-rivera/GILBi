@@ -1,5 +1,5 @@
 from django.db import models
-from user import User
+from gilbi.apps.user_profiles.models import User
 
 class Phone(models.Model):
     user = models.ForeignKey(User, related_name='phones')
@@ -10,3 +10,6 @@ class Phone(models.Model):
         self.user = user
         self.ddd = ddd
         self.number = number
+        
+    class Meta:
+        app_label = 'mistrael'

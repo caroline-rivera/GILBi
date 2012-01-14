@@ -1,5 +1,5 @@
 from django.db import models
-from book import Book
+from gilbi.apps.books.models import Book
 
 class BookstoreBook(Book):
     total_quantity = models.IntegerField()
@@ -12,3 +12,6 @@ class BookstoreBook(Book):
         
     def sell_order(self):
         self.total_quantity = (self.total_quantity) - 1
+        
+    class Meta:
+        app_label = 'mistrael'

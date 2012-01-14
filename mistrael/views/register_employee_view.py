@@ -6,9 +6,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
-from gilbi.mistrael.models.user import User
-from gilbi.mistrael.models.seller import Seller
-from gilbi.mistrael.models.manager import Manager
+from gilbi.apps.user_profiles.models import User, Seller, Manager
 from gilbi.mistrael.messages.warning_messages import *
 from gilbi.mistrael.messages.success_messages import *
 

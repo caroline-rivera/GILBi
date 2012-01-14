@@ -1,8 +1,8 @@
 from django.db import models
-from user import User
+from gilbi.apps.user_profiles.models import User
 from library_book import LibraryBook
-from datetime import timedelta
-from datetime import date
+
+from datetime import timedelta, date
 
 class Loan(models.Model):
     user = models.ForeignKey(User, related_name='book_loans')
@@ -17,3 +17,6 @@ class Loan(models.Model):
         
     def receive_book(self):
         self.return_date = date.today()
+        
+    class Meta:
+        app_label = 'mistrael'
