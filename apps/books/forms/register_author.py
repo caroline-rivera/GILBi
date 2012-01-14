@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
-from gilbi.books.models.author import Author
+from books.models.author import Author
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_AUTHOR_NAME
 from gilbi.mistrael.messages.error_messages import ERROR_ALREADY_REGISTERED_AUTHOR
 

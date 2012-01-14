@@ -7,7 +7,7 @@ from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.models.user import User
 from gilbi.mistrael.models.seller import Seller
 from gilbi.mistrael.models.manager import Manager
-from gilbi.books.models.book import Book
+from books.models.book import Book
 from gilbi.mistrael.forms.edit_profile_form import FormEditProfile
 from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_PROFILE
 from gilbi.mistrael.messages.error_messages import ERROR_MAX_LENGTH_STATUS

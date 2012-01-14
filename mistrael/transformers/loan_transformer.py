@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.db import models
-from gilbi.books.models.book_author import BookAuthor
+from books.models.book_author import BookAuthor
 
 class GridUserLoan(models.Model):
     name = models.CharField()
