@@ -1,5 +1,5 @@
 from django.db import models
-from gilbi.apps.user_profiles.models import User
+from user import User
 
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name='sended_messages')
@@ -8,7 +8,7 @@ class Message(models.Model):
     text = models.TextField()
         
     class Meta:
-        app_label = 'mistrael'
+        app_label = 'user_profiles'
 
 # Sobre related_name
 # Posso chamar user.sended_messages

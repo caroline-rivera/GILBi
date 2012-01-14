@@ -1,9 +1,21 @@
+# encoding: utf-8
+
 from django.db import models
 from gilbi.apps.books.models.book import Book
 from gilbi.apps.library.models import Address
-from gilbi.mistrael.helpers.constants import FEMALE_IMG_PATH, MALE_IMG_PATH, GENDER_CHOICES
 
 import hashlib
+
+
+FEMALE_IMG_PATH = "img/users/default/avatar-female.png"
+
+MALE_IMG_PATH = "img/users/default/avatar-male.png"
+
+GENDER_CHOICES = (
+    ('M', 'Masculino'),
+    ('F', 'Feminino'),
+)
+
 
 def set_upload_path(instance, filename):
     photo_path = 'img/users/' + str(instance.id) + '/' + filename

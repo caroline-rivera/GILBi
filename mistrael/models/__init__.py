@@ -2,7 +2,6 @@ from distributor import Distributor
 from library_book import LibraryBook
 from loan import Loan
 from bookstore_book import BookstoreBook
-from message import Message  
 from phone import Phone
 from sale import ShelfSale
 from sale import OrderSale
