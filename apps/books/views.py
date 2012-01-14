@@ -3,13 +3,8 @@
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from gilbi.apps.books.models import Author
-from gilbi.apps.books.models import Publisher
-from gilbi.apps.books.models import Book
-from gilbi.apps.books.models import BookAuthor
-from gilbi.apps.books.forms.register_author import RegisterAuthorForm
-from gilbi.apps.books.forms.register_publisher import RegisterPublisherForm
-from gilbi.apps.books.forms.register_book import RegisterBookForm
+from gilbi.apps.books.models import Author, Publisher, Book, BookAuthor
+from gilbi.apps.books.forms import RegisterAuthorForm, RegisterPublisherForm, RegisterBookForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_AUTHOR, SUCCESS_REGISTER_NEW_PUBLISHER, SUCCESS_REGISTER_NEW_BOOK
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
