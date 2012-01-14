@@ -25,19 +25,19 @@ SellBooks.Functions = {
 		var btn = SellBooks.Selectors.Buttons;
 		
 		/* Funcoes para a tab1: Venda de livros da prateleira */	
-		
-		// TODO: PROCURAR SE EU POSSO PEGAR O ID
-		
+			
 		$("#id_book").change(function(){
-			var text = $("#id_book option:selected").text();
-			/*book_name = $("#id_book option:selected").text();
-			SellBooks.Functions.searchBookInfo(book_name);
-			ManageLibrary.Functions.searchBookInfo(book_id, "_tab2");*/
+			var book_id = $("#id_book option:selected").val();
+			SellBooks.Functions.searchBookInfo(book_id);
 		});		
 		
 		$(btn.sell_tab1).click( function() {
 			var divMsg = $('#msg_tab1');
 			SellBooks.Functions.sellBooks(divMsg, "msg_tab1");	
+		});
+		
+		$("a[href=#tab1]").click(function(){
+			SellBooks.Functions.cleanPageData();
 		});
 						
 		/* Funcoes para a tab2: Venda de encomendas do usuario */
@@ -51,9 +51,76 @@ SellBooks.Functions = {
 		$(btn.sell_tab2).click( function() {
 			SellBooks.Functions.sellOrder();
 		});
-
+		
+		$("a[href=#tab2]").click(function(){
+			SellBooks.Functions.cleanPageData();
+		});
 	},
-	
+
+//------------------------------------------------------------------------- searchBookInfo	
+	searchBookInfo: function(book_id)
+	{
+		var data = {},
+			$tab = $("#tab1"),
+			$messageContainer = $tab.find("div.message_container");
+			
+		data['book_id'] = book_id;		
+		
+		$.ajax({
+			url: "/vendas/prateleira/informacoes/livro/",
+			dataType: "json",
+			data: data,
+			async: true,
+			success: function(response) {
+				var books = [];
+				$.each(response, function(i, item){
+	                var book = {
+	                	id: item.pk,
+	                	name: item.fields['name'],
+	                	author: item.fields['author'],
+	                	spiritual_author: item.fields['spiritual_author'],
+	                	publisher: item.fields['publisher'],
+	                	available_quantity: item.fields['available_quantity'],
+	                	reserved_quantity: item.fields['reserved_quantity'],
+	                };
+	                books[i] = book;
+                });
+
+				SellBooks.Functions.listBookInformationFn(books);							
+			},
+			error: function() {	
+				var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
+			}
+		});		
+	},
+//------------------------------------------------------------------------- listBookInformationFn
+	listBookInformationFn: function(books)
+	{
+		var contentName = "", 
+	        contentAuthor = "", 
+	        contentSpiritualAuthor = "", 
+	        contentPublisher = "",
+			contentAvailableQty = "", 
+			contentReservedQty = "";
+			
+		if (books.length != 0)
+		{
+			contentName = books[0].name; 
+			contentAuthor = books[0].author;
+			contentSpiritualAuthor = books[0].spiritual_author; 
+			contentPublisher = books[0].publisher;
+			contentAvailableQty = books[0].available_quantity; 
+			contentReservedQty = books[0].reserved_quantity;
+		}
+
+		$("#content_name").html(contentName);
+		$("#content_author").html(contentAuthor);
+		$("#content_sauthor").html(contentSpiritualAuthor);
+		$("#content_publisher").html(contentPublisher);
+		$("#content_available_quantity").html(contentAvailableQty);	
+		$("#content_reserved_quantity").html(contentReservedQty);	
+	},		
 //------------------------------------------------------------------------- listUserOrders
 	listUserOrders: function()
 	{	
@@ -89,14 +156,14 @@ SellBooks.Functions = {
 //------------------------------------------------------------------------- searchOrdersFn	
 	searchOrdersFn: function(tab)
 	{
-		var table = SellBooks.Selectors.Tables,	
-		    grid = $(table.orders),
-		    divId =	"div_error",	
+		var grid = $(SellBooks.Selectors.Tables.orders),
+			$tab = $("#tab1"),
+			$messageContainer = $tab.find("div.message_container");
 		    data = {};
 				
 		data['login'] = $('#login').val();
 		data['email'] = $('#email').val();
-		
+
 		$.ajax({
 			url: "/vendas/encomendas/procurarencomenda/",
 			dataType: "json",
@@ -121,7 +188,7 @@ SellBooks.Functions = {
 			},
 			error: function() {	
 				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
-				Helpers.Functions.showErrorMsg(divId, msg);		
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});		
 	},
@@ -185,8 +252,11 @@ SellBooks.Functions = {
 				}		
 				if (response['success_message'] != "")
 				{
+					var row_id = grid.getGridParam('selrow');
 					$("#order_price").val("");
-					grid.resetSelection(); // TODO: deletar a linha
+					
+					grid.delRowData(row_id);
+					
 					Helpers.Functions.showSuccessMsg($messageContainer, response['success_message']);
 				}				
 			},
@@ -195,6 +265,31 @@ SellBooks.Functions = {
 				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});	
-	}
+	},
+
+//------------------------------------------------------------------------- cleanPageData	
+	cleanPageData: function()
+	{
+		var grid = $(SellBooks.Selectors.Tables.orders)
+		
+		/* Dados da tab1 */
+		$('#id_book').val("");	
+		$('#id_book_price').val("");	
+		
+		$("#content_name").html("");
+		$("#content_author").html("");
+		$("#content_sauthor").html("");
+		$("#content_publisher").html("");
+		$("#content_available_quantity").html("");	
+		$("#content_reserved_quantity").html("");
+
+		/* Dados da tab2 */
+		$('#login').val("");	
+		$('#email').val("");
+		$('#order_price').val("");
+		
+		grid.clearGridData();
+
+	},
 
 }	

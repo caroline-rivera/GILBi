@@ -148,7 +148,7 @@ def show_book_informations(request):
         str_id = request.GET['book_id'] 
         
         book_list = []
-        if(str_id != "---------"):                     
+        if(str_id != ""):                     
             book_id = int(str_id)            
             library_book = LibraryBook.objects.get(id=book_id)
             book = GridLibraryBook(library_book)            

@@ -27,7 +27,7 @@ ManageLibrary.Functions = {
 		/* Funcoes para a tab1: Emprestar Livros */
 		
 		$("#id_book1").change(function(){
-			var book_id = $("#id_book1 option:selected").text();
+			var book_id = $("#id_book1 option:selected").val();
 			ManageLibrary.Functions.searchBookInfo(book_id, "_tab1");
 		});
 		
@@ -198,6 +198,7 @@ ManageLibrary.Functions = {
 			$("#content_publisher" + tab).html(books[0].publisher);
 			$("#content_situation" + tab).html(books[0].situation);		
 		}
+
 	},
 
 //------------------------------------------------------------------------- listLoans

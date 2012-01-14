@@ -14,6 +14,7 @@ from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_seller_session
 from gilbi.mistrael.models.user import User
 from gilbi.mistrael.models.book_order import BookOrder
+from gilbi.mistrael.models.bookstore_book import BookstoreBook
 from gilbi.mistrael.models.sale import OrderSale
 from gilbi.mistrael.forms.shelf_sale_form import FormShelfSale
 from gilbi.mistrael.transformers.order_transformer import GridOrderTransform
@@ -21,6 +22,8 @@ from gilbi.mistrael.messages.error_messages import ERROR_NO_ROW_SELECTED, ERROR_
 from gilbi.mistrael.messages.error_messages import ERROR_INVALID_ORDER_PRICE,ERROR_UNAVAILABLE_ORDER
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_ORDER_PRICE
 from gilbi.mistrael.messages.success_messages import SUCCESS_SELLING_ORDER
+from gilbi.mistrael.transformers.book_transformer import GridBookstoreBook
+
 def index(request):    
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/') 
@@ -32,6 +35,28 @@ def index(request):
                                   {'form_shelf_sale': form_shelfsale},
                                   context_instance=RequestContext(request)) 
         
+        
+def show_book_informations(request):
+    if validate_session(request) == False:
+        return HttpResponseRedirect('/logout/') 
+    elif validate_seller_session(request) == False:
+        return HttpResponseRedirect('/perfil/')
+    elif request.method == 'GET' and 'book_id' in request.GET:   
+        str_id = request.GET['book_id'] 
+        
+        book_list = []
+        if(str_id != ""):                     
+            book_id = int(str_id)            
+            bookstore_book = BookstoreBook.objects.get(id=book_id)
+            book = GridBookstoreBook(bookstore_book)            
+            book_list.append(book)
+               
+        response = serializers.serialize("json", book_list)     
+        return HttpResponse(response, mimetype="text/javascript")
+    else:
+        return HttpResponseRedirect('/gerenciarbiblioteca/')    
+    
+           
 def search_user_orders(request):
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/') 
