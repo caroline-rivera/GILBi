@@ -7,9 +7,9 @@ from gilbi.books.models.author import Author
 from gilbi.books.models.publisher import Publisher
 from gilbi.books.models.book import Book
 from gilbi.books.models.book_author import BookAuthor
-from gilbi.mistrael.forms.register_author_form import FormRegisterAuthor
-from gilbi.mistrael.forms.register_publisher_form import FormRegisterPublisher
-from gilbi.mistrael.forms.register_book_form import FormRegisterBook
+from gilbi.books.forms.register_author import FormRegisterAuthor
+from gilbi.books.forms.register_publisher import FormRegisterPublisher
+from gilbi.books.forms.register_book import FormRegisterBook
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_AUTHOR, SUCCESS_REGISTER_NEW_PUBLISHER, SUCCESS_REGISTER_NEW_BOOK
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
@@ -70,7 +70,6 @@ def register_publisher(request):
                               {'form': form,
                                'registration_result': registration_result}, 
                               context_instance=RequestContext(request))
-    
     
 def register_book(request):
     if validate_session(request) == False:
