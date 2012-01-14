@@ -33,7 +33,7 @@ SellBooks.Functions = {
 		
 		$(btn.sell_tab1).click( function() {
 			var divMsg = $('#msg_tab1');
-			SellBooks.Functions.sellBooks(divMsg, "msg_tab1");	
+			SellBooks.Functions.sellShelfBook();	
 		});
 		
 		$("a[href=#tab1]").click(function(){
@@ -121,11 +121,51 @@ SellBooks.Functions = {
 		$("#content_available_quantity").html(contentAvailableQty);	
 		$("#content_reserved_quantity").html(contentReservedQty);	
 	},		
+	
+//------------------------------------------------------------------------- sellShelfBook		
+	sellShelfBook: function()
+	{
+		var data = {},
+		    url = "/vendas/prateleira/venderlivro/",
+			$tab = $("#tab1"),
+			$messageContainer = $tab.find("div.message_container");
+
+		data['book_id'] = $("#id_book option:selected").val();		
+		data['book_price'] = $("#id_book_price").val();
+
+		$.ajax({
+			traditional: true,
+			url: url,
+			dataType: "json",
+			data: data,
+			async: true,
+			success: function(response) {
+				    	
+				if((response['validation_message']).length != 0)
+				{
+					Helpers.Functions.showValidationMsg($messageContainer, response['validation_message']);
+				}
+				if (response['error_message'] != "")
+				{
+					Helpers.Functions.showErrorMsg($messageContainer, response['error_message']);
+				}		
+				if (response['success_message'] != "")
+				{
+					SellBooks.Functions.cleanPageData();
+					
+					Helpers.Functions.showSuccessMsg($messageContainer, response['success_message']);
+				}				
+			},
+			error: function() {	
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
+			}
+		});	
+	},
 //------------------------------------------------------------------------- listUserOrders
 	listUserOrders: function()
 	{	
-		var table = SellBooks.Selectors.Tables,	
-		    grid = $(table.orders),
+		var grid = $(SellBooks.Selectors.Tables.orders),
 		    columnsTitles = ['Id', 'Data/Hora','Nome','Autor(es)', 
 		                     'Autor(es) Espiritual(ais)','Qtd', 'Situação'],
 			columnsSpecification = [
@@ -157,8 +197,8 @@ SellBooks.Functions = {
 	searchOrdersFn: function(tab)
 	{
 		var grid = $(SellBooks.Selectors.Tables.orders),
-			$tab = $("#tab1"),
-			$messageContainer = $tab.find("div.message_container");
+			$tab = $("#tab2"),
+			$messageContainer = $tab.find("div.message_container"),
 		    data = {};
 				
 		data['login'] = $('#login').val();
@@ -242,7 +282,7 @@ SellBooks.Functions = {
 			async: true,
 			success: function(response) {
 				    	
-				if(response['validation_message'] != "")
+				if((response['validation_message']).length != 0)
 				{
 					Helpers.Functions.showValidationMsg($messageContainer, response['validation_message']);
 				}
@@ -270,7 +310,7 @@ SellBooks.Functions = {
 //------------------------------------------------------------------------- cleanPageData	
 	cleanPageData: function()
 	{
-		var grid = $(SellBooks.Selectors.Tables.orders)
+		var grid = $(SellBooks.Selectors.Tables.orders);
 		
 		/* Dados da tab1 */
 		$('#id_book').val("");	

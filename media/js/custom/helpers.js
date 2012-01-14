@@ -103,11 +103,28 @@ Helpers.Functions = {
 		divMsg.html(msg);
 		setTimeout("$(\"#".concat(id, "\").hide();"), 6000);
 	},
+	
+//--------------------------------------------------------------------------- createListedMessege	
+	createListedMessege: function(listOfMessages)
+	{
+		var listedMessages = "Corrija as seguintes informações:";
+		var count = 0;
+		
+		while(count < listOfMessages.length)
+		{
+			listedMessages = listedMessages + "<li>";
+			listedMessages = listedMessages + listOfMessages[count];
+			listedMessages = listedMessages + "</li>";
+			count = count + 1;
+		}
+		return listedMessages;
+	},
 
 //--------------------------------------------------------------------------- showValidationMsg	
 	showValidationMsg: function($messageContainer, text)
 	{
-		Helpers.Functions.showMessage($messageContainer, "validation", text);
+		var listedMessage = Helpers.Functions.createListedMessege(text);
+		Helpers.Functions.showMessage($messageContainer, "validation", listedMessage);
 	},
 //------------------------------------------------------------------------------ showSuccessMsg	
 	showSuccessMsg: function($messageContainer, text)

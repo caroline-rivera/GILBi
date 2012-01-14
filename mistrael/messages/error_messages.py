@@ -113,9 +113,17 @@ ERROR_BOOK_ALREADY_RENEWED = "O usuário já havia renovado este livro. Ele não
 ERROR_BOOK_NOT_BORROWED = "Este livro não estava emprestado."
 ERROR_BOOK_BORROWED_WITH_ANOTHER_USER = "Este livro não estava emprestado com esse usuário."
 
-#Vender Livro
-ERROR_REQUIRED_ORDER_PRICE = "<p>O preço da encomenda é obrigatório.</p>"
-ERROR_INVALID_ORDER_PRICE = "<p>O preço da encomenda é inválido. Digite um valor no formato R$ 999.99.</p>"
-ERROR_NO_ROW_SELECTED = "<p>É obrigatório selecionar uma encomenda na tabela.</p>"
-ERROR_INVALID_ORDER = "<p>Essa encomenda não é válida.</p>"
-ERROR_UNAVAILABLE_ORDER = "<p>Essa encomenda não está disponível para compra.</p>"
+#Vender Encomenda de Usuário
+ERROR_REQUIRED_ORDER_PRICE = "O campo Preço Total da Encomenda é obrigatório."
+ERROR_INVALID_ORDER_PRICE = "O Preço Total da Encomenda é inválido. Digite um valor no formato R$ 999.99."
+ERROR_NO_ORDER_ROW_SELECTED = "É obrigatório selecionar uma encomenda na tabela."
+ERROR_INVALID_ORDER = "Essa encomenda não é válida."
+ERROR_UNAVAILABLE_ORDER = "Essa encomenda não está disponível para compra."
+
+#Vender Livro da Prateleira
+
+ERROR_REQUIRED_BOOK_ID = "O campo Livro é obrigatório."
+ERROR_REQUIRED_BOOK_PRICE = "O campo Preço do Livro é obrigatório."
+ERROR_INVALID_BOOK_PRICE = "O Preço do Livro é inválido. Digite um valor no formato R$ 999.99."
+ERROR_UNAVAILABLE_BOOK = "Não há exemplares disponíveis para venda. Caso existam, estão reservados."
+ERROR_INVALID_BOOK = "Este livro não existe."

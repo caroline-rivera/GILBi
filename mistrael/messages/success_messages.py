@@ -43,11 +43,14 @@ SUCCESS_CANCELING_ORDER = "Encomenda cancelada com sucesso!"
 SUCCESS_LIBRARY_REGISTER = "Seu cadastro na Biblioteca foi feito/editado com sucesso!"
 
 # Emprestar Livro
-SUCCESS_BOOK_BORROWED = "O livro foi emprestado com sucesso. A data de devolução será em "
-SUCCESS_BOOK_RENEWED = "O livro foi renovado com sucesso. A data de devolução será em "
+SUCCESS_BOOK_BORROWED = "O livro foi emprestado com sucesso! A data de devolução será em "
+SUCCESS_BOOK_RENEWED = "O livro foi renovado com sucesso! A data de devolução será em "
 
 # Receber Livro
-SUCCESS_BOOK_RECEIVED = "O livro foi devolvido com sucesso."
+SUCCESS_BOOK_RECEIVED = "O livro foi devolvido com sucesso!"
 
-#Cender encomenda
-SUCCESS_SELLING_ORDER = "A encomenda foi vendida com sucesso."
+#Vender encomenda de usuário
+SUCCESS_SELLING_ORDER = "A encomenda foi vendida com sucesso!"
+
+# Vender livro da prateleira
+SUCCESS_SELLING_BOOK = "O livro foi vendido com sucesso!"
