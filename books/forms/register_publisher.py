@@ -5,13 +5,13 @@ from gilbi.books.models.publisher import Publisher
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_PUBLISHER_NAME
 from gilbi.mistrael.messages.error_messages import ERROR_ALREADY_REGISTERED_PUBLISHER
 
-class FormRegisterPublisher(forms.Form):
+class RegisterPublisherForm(forms.Form):
     name = forms.CharField(max_length=50, 
                              widget = forms.TextInput(attrs={'size': 50}))
     
     def __init__(self, *args, **kwargs):
         self.base_fields['name'].error_messages['required'] = ERROR_REQUIRED_PUBLISHER_NAME                               
-        super(FormRegisterPublisher, self).__init__(*args, **kwargs)  
+        super(RegisterPublisherForm, self).__init__(*args, **kwargs)  
     
     def clean_name(self):   
         if Publisher.objects.filter(

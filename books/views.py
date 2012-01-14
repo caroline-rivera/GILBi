@@ -7,9 +7,9 @@ from gilbi.books.models.author import Author
 from gilbi.books.models.publisher import Publisher
 from gilbi.books.models.book import Book
 from gilbi.books.models.book_author import BookAuthor
-from gilbi.books.forms.register_author import FormRegisterAuthor
-from gilbi.books.forms.register_publisher import FormRegisterPublisher
-from gilbi.books.forms.register_book import FormRegisterBook
+from gilbi.books.forms.register_author import RegisterAuthorForm
+from gilbi.books.forms.register_publisher import RegisterPublisherForm
+from gilbi.books.forms.register_book import RegisterBookForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_AUTHOR, SUCCESS_REGISTER_NEW_PUBLISHER, SUCCESS_REGISTER_NEW_BOOK
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
@@ -24,7 +24,7 @@ def register_author(request):
     registration_result = ""
          
     if request.method == 'POST': # Formulário enviado
-        form = FormRegisterAuthor(request.POST, request.FILES)
+        form = RegisterAuthorForm(request.POST, request.FILES)
         
         if form.is_valid():
             checked_form = form.cleaned_data            
@@ -33,10 +33,10 @@ def register_author(request):
             new_author.save()                        
             registration_result = SUCCESS_REGISTER_NEW_AUTHOR
             
-            form = FormRegisterAuthor()    
+            form = RegisterAuthorForm()    
             
     else: # Página acessada via link (método GET)
-        form = FormRegisterAuthor()
+        form = RegisterAuthorForm()
         
     return render_to_response('books/register_author.html', 
                               {'form': form,
@@ -52,7 +52,7 @@ def register_publisher(request):
     registration_result = ""
     
     if request.method == 'POST': # Formulário enviado
-        form = FormRegisterPublisher(request.POST, request.FILES)
+        form = RegisterPublisherForm(request.POST, request.FILES)
         
         if form.is_valid():
             checked_form = form.cleaned_data            
@@ -61,10 +61,10 @@ def register_publisher(request):
             new_publisher.save()                        
             registration_result = SUCCESS_REGISTER_NEW_PUBLISHER
             
-            form = FormRegisterPublisher()    
+            form = RegisterPublisherForm()    
             
     else: # Página acessada via link (método GET)
-        form = FormRegisterAuthor()
+        form = RegisterPublisherForm()
         
     return render_to_response('books/register_publisher.html', 
                               {'form': form,
@@ -80,7 +80,7 @@ def register_book(request):
     registration_result = ""
         
     if request.method == 'POST': # Formulário enviado
-        form = FormRegisterBook(request.POST, request.FILES)
+        form = RegisterBookForm(request.POST, request.FILES)
         
         if form.is_valid():
             checked_form = form.cleaned_data    
@@ -105,10 +105,10 @@ def register_book(request):
                 new_author.save()
                                       
             registration_result = SUCCESS_REGISTER_NEW_BOOK            
-            form = FormRegisterBook()   
+            form = RegisterBookForm()   
     
     else: # Página acessada via link (método GET)
-        form = FormRegisterBook()
+        form = RegisterBookForm()
          
     return render_to_response('books/register_book.html', 
                               {'form': form,

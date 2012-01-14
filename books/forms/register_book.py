@@ -20,7 +20,7 @@ class MyModelMultipleChoiceField(ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return obj.name
 
-class FormRegisterBook(forms.Form):
+class RegisterBookForm(forms.Form):
     name = forms.CharField(max_length=50, 
                              widget = forms.TextInput(attrs={'size': 50}))
     photo = forms.ImageField(required=False)
@@ -35,7 +35,7 @@ class FormRegisterBook(forms.Form):
         self.base_fields['name'].error_messages['required'] = ERROR_REQUIRED_BOOK_NAME
         self.base_fields['publisher'].error_messages['required'] = ERROR_REQUIRED_PUBLISHER_NAME
         self.base_fields['author'].error_messages['required'] = ERROR_REQUIRED_ONE_AUTHOR_NAME                                  
-        super(FormRegisterBook, self).__init__(*args, **kwargs)
+        super(RegisterBookForm, self).__init__(*args, **kwargs)
           
     def clean_name(self):   
         if Book.objects.filter(
