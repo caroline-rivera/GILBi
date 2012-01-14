@@ -25,7 +25,7 @@ def recover(request):
                 result_operation = ERROR_SENDING_RECOVER_PASSWORD_EMAIL
             else:
                 result_operation = SUCCESS_RECOVER_PASSWORD
-            return render_to_response('recover_password.html', 
+            return render_to_response('user_profiles/recover_password.html', 
                                       {'form': form, 'result_operation': result_operation},
                                       context_instance=RequestContext(request))  
             
@@ -33,7 +33,7 @@ def recover(request):
     else: # Página acessada via link (método GET)
         form = RecoverPasswordForm()
         
-    return render_to_response('recover_password.html', 
+    return render_to_response('user_profiles/recover_password.html', 
                               {'form': form}, 
                               context_instance=RequestContext(request))
     
@@ -67,7 +67,7 @@ def change_password(request, id, code):
             pass
         form = ChangePasswordForm()  
             
-    return render_to_response('change_password.html', 
+    return render_to_response('user_profiles/change_password.html', 
                               {'form': form, 'result': result}, 
                               context_instance=RequestContext(request))   
             

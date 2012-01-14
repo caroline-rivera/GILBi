@@ -33,7 +33,7 @@ def index(request):
 #    else:
 #        manager = False;
             
-    return render_to_response('profile.html', 
+    return render_to_response('user_profiles/profile.html', 
                               {'user': user,
                                'favorite_books': favorite_books},
                                #'manager': manager,
@@ -73,7 +73,7 @@ def edit(request):
     else: #método GET          
         form = EditProfileForm(instance=user)      
     
-    return render_to_response('edit_profile.html', 
+    return render_to_response('user_profiles/edit_profile.html', 
                               {'form': form,
                                'result': result}, 
                               context_instance=RequestContext(request))
@@ -93,7 +93,7 @@ def change_status(request):
                
         if len(profile_phrase) > 100:
             error_msg = ERROR_MAX_LENGTH_STATUS
-            return render_to_response('profile.html', 
+            return render_to_response('user_profiles/profile.html', 
                                       {'user': user,
                                        'error_msg': error_msg,
                                        'profile_phrase': profile_phrase}, 

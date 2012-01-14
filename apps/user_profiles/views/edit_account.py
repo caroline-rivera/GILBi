@@ -15,7 +15,7 @@ def index(request):
         
     form = EditAccountForm()  
         
-    return render_to_response('edit_account.html', 
+    return render_to_response('user_profiles/edit_account.html', 
                               {'form': form}, 
                               context_instance=RequestContext(request)) 
     
@@ -48,7 +48,7 @@ def edit(request):
         
             form = EditAccountForm()  
 
-        return render_to_response('edit_account.html', 
+        return render_to_response('user_profiles/edit_account.html', 
                                   {'form': form,
                                    'result': result}, 
                                   context_instance=RequestContext(request))

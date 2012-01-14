@@ -35,7 +35,7 @@ def login(request):
 #            return HttpResponse(template.render(context)) 
             
     context = RequestContext(request, c)
-    template = loader.get_template('login.html')
+    template = loader.get_template('user_profiles/login.html')
     return HttpResponse(template.render(context))  
 
 def logout(request):

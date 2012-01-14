@@ -34,7 +34,7 @@ def register(request):
             else:
                 registration_result = SUCCESS_REGISTER_NEW_USER
                
-            return render_to_response('register_new_user.html', 
+            return render_to_response('user_profiles/register_new_user.html', 
                                       {'form': form,
                                        'registration_result': registration_result},
                                       context_instance=RequestContext(request))
@@ -42,7 +42,7 @@ def register(request):
     else: # Página acessada via link (método GET)
         form = RegisterNewUserForm()
         
-    return render_to_response('register_new_user.html', 
+    return render_to_response('user_profiles/register_new_user.html', 
                               {'form': form}, 
                               context_instance=RequestContext(request))
     
@@ -66,7 +66,7 @@ def activate_account(request, id, code):
     #TO DO
     #return HttpResponseRedirect('/') #tela de login
         
-    return render_to_response('login.html', 
+    return render_to_response('user_profiles/login.html', 
                               {'registration_result': registration_result}, 
                               context_instance=RequestContext(request))
 
@@ -89,6 +89,6 @@ def disable_account(request, id, code):
     #TODO
     #return HttpResponseRedirect('/') #tela de login
             
-    return render_to_response('login.html', 
+    return render_to_response('user_profiles/login.html', 
                               {'registration_result': registration_result}, 
                               context_instance=RequestContext(request))
