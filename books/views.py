@@ -38,7 +38,7 @@ def register_author(request):
     else: # Página acessada via link (método GET)
         form = FormRegisterAuthor()
         
-    return render_to_response('register_author.html', 
+    return render_to_response('books/register_author.html', 
                               {'form': form,
                                'registration_result': registration_result}, 
                               context_instance=RequestContext(request))
@@ -66,7 +66,7 @@ def register_publisher(request):
     else: # Página acessada via link (método GET)
         form = FormRegisterAuthor()
         
-    return render_to_response('register_publisher.html', 
+    return render_to_response('books/register_publisher.html', 
                               {'form': form,
                                'registration_result': registration_result}, 
                               context_instance=RequestContext(request))
@@ -110,7 +110,7 @@ def register_book(request):
     else: # Página acessada via link (método GET)
         form = FormRegisterBook()
          
-    return render_to_response('register_book.html', 
+    return render_to_response('books/register_book.html', 
                               {'form': form,
                                'registration_result': registration_result}, 
                               context_instance=RequestContext(request))
