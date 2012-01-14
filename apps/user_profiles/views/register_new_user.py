@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from gilbi.apps.user_profiles.models import User
-from gilbi.mistrael.forms.register_new_user_form import FormRegisterNewUser
+from gilbi.apps.user_profiles.forms import RegisterNewUserForm
 from gilbi.mistrael.messages.email_messages import *
 from gilbi.mistrael.messages.error_messages import *
 from gilbi.mistrael.messages.success_messages import *
@@ -12,7 +12,7 @@ from datetime import date
     
 def register(request):
     if request.method == 'POST': # Formulário enviado
-        form = FormRegisterNewUser(request.POST, request.FILES)
+        form = RegisterNewUserForm(request.POST, request.FILES)
         
         if form.is_valid():
             checked_form = form.cleaned_data
@@ -40,7 +40,7 @@ def register(request):
                                       context_instance=RequestContext(request))
             
     else: # Página acessada via link (método GET)
-        form = FormRegisterNewUser()
+        form = RegisterNewUserForm()
         
     return render_to_response('register_new_user.html', 
                               {'form': form}, 

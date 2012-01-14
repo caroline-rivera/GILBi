@@ -4,14 +4,14 @@ from django import forms
 from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.messages.error_messages import *
 
-class FormRecoverPassword(forms.Form):
+class RecoverPasswordForm(forms.Form):
     email = forms.EmailField(max_length=50, 
                              widget = forms.TextInput(attrs={'size': 30}))
 
     
     def __init__(self, *args, **kwargs):
         self.base_fields['email'].error_messages['required'] = ERROR_REQUIRED_EMAIL                                  
-        super(FormRecoverPassword, self).__init__(*args, **kwargs)  
+        super(RecoverPasswordForm, self).__init__(*args, **kwargs)  
     
     def clean_email(self):   
         if User.objects.filter(

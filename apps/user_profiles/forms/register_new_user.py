@@ -5,7 +5,7 @@ from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.messages.error_messages import *
 from gilbi.apps.user_profiles.models.user import GENDER_CHOICES
 
-class FormRegisterNewUser(forms.Form):   
+class RegisterNewUserForm(forms.Form):   
     first_name = forms.CharField(max_length=20,
                                  widget = forms.TextInput(attrs={'size': 25}))
     last_name = forms.CharField(max_length=20,
@@ -36,7 +36,7 @@ class FormRegisterNewUser(forms.Form):
         self.base_fields['gender'].error_messages['required'] = ERROR_REQUIRED_GENDER     
         self.base_fields['password'].error_messages['min_length'] = ERROR_MIN_LENGTH_PASSWORD         
         self.base_fields['password_confirmation'].error_messages['required'] = ERROR_REQUIRED_CONFIRMATION_PASSWORD                                       
-        super(FormRegisterNewUser, self).__init__(*args, **kwargs)  
+        super(RegisterNewUserForm, self).__init__(*args, **kwargs)  
     
     def clean_email(self):   
         if User.objects.filter(

@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.apps.user_profiles.models import User
-from gilbi.mistrael.forms.edit_account_form import FormEditAccount
+from gilbi.apps.user_profiles.forms import EditAccountForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_ACCOUNT, SUCCESS_EXCLUDE_ACCOUNT
 from gilbi.mistrael.messages.warning_messages import WARNING_EDIT_ACCOUNT
 
@@ -13,7 +13,7 @@ def index(request):
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/') #tela de login
         
-    form = FormEditAccount()  
+    form = EditAccountForm()  
         
     return render_to_response('edit_account.html', 
                               {'form': form}, 
@@ -24,7 +24,7 @@ def edit(request):
         return HttpResponseRedirect('/logout/') #tela de login
     
     if request.method == 'POST': # Formulário enviado
-        form = FormEditAccount(request.POST, request.FILES)
+        form = EditAccountForm(request.POST, request.FILES)
         result = "" 
         
         if form.is_valid():
@@ -46,7 +46,7 @@ def edit(request):
                 user.save()            
                 result = SUCCESS_EDIT_ACCOUNT    
         
-            form = FormEditAccount()  
+            form = EditAccountForm()  
 
         return render_to_response('edit_account.html', 
                                   {'form': form,

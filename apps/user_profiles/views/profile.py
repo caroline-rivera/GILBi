@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.apps.user_profiles.models import User, Seller, Manager
 from gilbi.apps.books.models import Book
-from gilbi.mistrael.forms.edit_profile_form import FormEditProfile
+from gilbi.apps.user_profiles.forms import EditProfileForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_PROFILE
 from gilbi.mistrael.messages.error_messages import ERROR_MAX_LENGTH_STATUS
 
@@ -53,7 +53,7 @@ def edit(request):
     result = ""
            
     if request.method == 'POST': # Formulário enviado    
-        form = FormEditProfile(request.POST, request.FILES)
+        form = EditProfileForm(request.POST, request.FILES)
         
         if form.is_valid():
             checked_form = form.cleaned_data
@@ -71,7 +71,7 @@ def edit(request):
             result = SUCCESS_EDIT_PROFILE
             
     else: #método GET          
-        form = FormEditProfile(instance=user)      
+        form = EditProfileForm(instance=user)      
     
     return render_to_response('edit_profile.html', 
                               {'form': form,

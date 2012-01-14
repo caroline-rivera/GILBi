@@ -11,7 +11,7 @@ from django.forms import ModelForm
 def set_upload_path(instance):
     return '/'.join(['FormEditProfile', instance.User.id])   
     
-class FormEditProfile(ModelForm):
+class EditProfileForm(ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'gender', 'photo', 'institution', 'birthday')  
@@ -31,5 +31,5 @@ class FormEditProfile(ModelForm):
         self.base_fields['gender'].error_messages['required'] = ERROR_REQUIRED_GENDER 
         self.base_fields['birthday'].error_messages['invalid'] = ERROR_INVALID_DATE    
                                
-        super(FormEditProfile, self).__init__(*args, **kwargs)  
+        super(EditProfileForm, self).__init__(*args, **kwargs)  
 

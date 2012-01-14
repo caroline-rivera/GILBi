@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from gilbi.mistrael.forms.recover_password_form import FormRecoverPassword
-from gilbi.mistrael.forms.change_password_form import FormChangePassword
+from gilbi.apps.user_profiles.forms import RecoverPasswordForm, ChangePasswordForm
 from gilbi.mistrael.messages.email_messages import TITLE_RECOVER_PASSWORD
 from gilbi.mistrael.messages.error_messages import *
 from gilbi.mistrael.messages.success_messages import *
@@ -12,7 +11,7 @@ from gilbi.apps.user_profiles.models import User
 
 def recover(request):
     if request.method == 'POST': # Formulário enviado
-        form = FormRecoverPassword(request.POST, request.FILES)
+        form = RecoverPasswordForm(request.POST, request.FILES)
         
         if form.is_valid():
             checked_form = form.cleaned_data
@@ -32,7 +31,7 @@ def recover(request):
             
 
     else: # Página acessada via link (método GET)
-        form = FormRecoverPassword()
+        form = RecoverPasswordForm()
         
     return render_to_response('recover_password.html', 
                               {'form': form}, 
@@ -42,7 +41,7 @@ def change_password(request, id, code):
     result = ""
     
     if request.method == 'POST': # Formulário enviado     
-        form = FormChangePassword(request.POST, request.FILES)
+        form = ChangePasswordForm(request.POST, request.FILES)
                 
         if form.is_valid():
             checked_form = form.cleaned_data
@@ -66,7 +65,7 @@ def change_password(request, id, code):
             result = ERROR_INVALID_URL          
         else:
             pass
-        form = FormChangePassword()  
+        form = ChangePasswordForm()  
             
     return render_to_response('change_password.html', 
                               {'form': form, 'result': result}, 

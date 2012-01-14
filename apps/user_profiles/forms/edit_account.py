@@ -5,7 +5,7 @@ from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.messages.error_messages import ERROR_ALREADY_REGISTERED_LOGIN 
 from gilbi.mistrael.messages.error_messages import ERROR_MIN_LENGTH_PASSWORD, ERROR_DIFFERENT_PASSWORDS
 
-class FormEditAccount(forms.Form):
+class EditAccountForm(forms.Form):
     login = forms.CharField(max_length=20,
                             widget = forms.TextInput(attrs={'size': 25}),
                             required = False)
@@ -21,7 +21,7 @@ class FormEditAccount(forms.Form):
     
     def __init__(self, *args, **kwargs):
         self.base_fields['password'].error_messages['min_length'] = ERROR_MIN_LENGTH_PASSWORD                    
-        super(FormEditAccount, self).__init__(*args, **kwargs)  
+        super(EditAccountForm, self).__init__(*args, **kwargs)  
     
     def clean_login(self):   
         if User.objects.filter(
