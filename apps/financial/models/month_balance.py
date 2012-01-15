@@ -6,6 +6,6 @@ class MonthBalance(models.Model):
     value = models.DecimalField(max_digits=7, decimal_places=2)
         
     class Meta:
-        app_label = 'mistrael'
+        app_label = 'financial'
 
     
