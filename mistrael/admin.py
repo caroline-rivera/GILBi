@@ -2,6 +2,7 @@ from django.contrib import admin
 from gilbi.apps.user_profiles.models import User, Seller, Manager
 from gilbi.apps.books.models import Author, Publisher, Book, BookAuthor
 from gilbi.apps.bookstore.models import Distributor, BookstoreBook, BookOrder, ShelfSale, OrderSale
+from gilbi.apps.bookstore.models import PurchaseItem, PurchaseOrder
 from gilbi.apps.library.models import LibraryBook, Address, Phone, Loan
 from gilbi.apps.financial.models import Invoice, Duplicate, Payment, MonthBalance
 
@@ -19,6 +20,8 @@ admin.site.register(BookstoreBook)
 admin.site.register(BookOrder)
 admin.site.register(ShelfSale)
 admin.site.register(OrderSale)
+admin.site.register(PurchaseItem)
+admin.site.register(PurchaseOrder)
 
 admin.site.register(Address)
 admin.site.register(Phone)

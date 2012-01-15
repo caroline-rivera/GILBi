@@ -1,5 +1,5 @@
 from django.db import models
-from gilbi.mistrael.models.purchase import PurchaseOrder
+from gilbi.apps.bookstore.models.purchase_order import PurchaseOrder
    
 class Invoice(models.Model):
     number = models.IntegerField()
