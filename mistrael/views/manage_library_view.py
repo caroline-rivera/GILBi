@@ -12,8 +12,8 @@ from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
 from gilbi.mistrael.transformers.loan_transformer import GridManagerLoan
-from gilbi.mistrael.forms.borrow_book_form import FormBorrowBook
-from gilbi.mistrael.forms.receive_book_form import FormReceiveBook
+from gilbi.apps.library.forms import BorrowBookForm
+from gilbi.apps.library.forms import ReceiveBookForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_BORROWED, SUCCESS_BOOK_RENEWED
 from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_RECEIVED
 from gilbi.mistrael.transformers.book_transformer import GridLibraryBook
@@ -24,8 +24,8 @@ def index(request):
     elif validate_manager_session(request) == False:
         return HttpResponseRedirect('/perfil/')
     else:
-        form_borrow = FormBorrowBook()
-        form_receive = FormReceiveBook()
+        form_borrow = BorrowBookForm()
+        form_receive = ReceiveBookForm()
 
         return render_to_response('manage_library.html', 
                                   {'form_borrow': form_borrow,
@@ -39,7 +39,7 @@ def borrow_book(request):
     result['user_login_message'] = ""
               
     if request.method == 'GET' and 'book1' in request.GET and 'user_login1' in request.GET: # Formulário enviado
-        form_borrow = FormBorrowBook(request.GET, request.FILES)
+        form_borrow = BorrowBookForm(request.GET, request.FILES)
         
         if form_borrow.is_valid():
 
@@ -87,7 +87,7 @@ def receive_book(request):
     result['user_login_message'] = ""
        
     if request.method == 'GET' and 'book2' in request.GET and 'user_login2' in request.GET: # Formulário enviado
-        form_receive = FormReceiveBook(request.GET, request.FILES)
+        form_receive = ReceiveBookForm(request.GET, request.FILES)
         
         if form_receive.is_valid():
 

@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
+from django.forms import ModelForm
 from gilbi.apps.library.models import Phone, Address
 from gilbi.mistrael.messages.error_messages import *
-from django.forms import ModelForm
 
-class FormLibraryRegister(ModelForm):  
+
+class LibraryRegisterForm(ModelForm):  
     ddd1 = forms.CharField(max_length=2, min_length=2, required = False,
                                  widget = forms.TextInput(attrs={'size': 4}))
     phone1 = forms.CharField(max_length=8, min_length=8, required = False,
@@ -52,7 +53,7 @@ class FormLibraryRegister(ModelForm):
         self.base_fields['zipcode'].widget = forms.TextInput(attrs={'maxlength': 9, 'size': 10})
         self.base_fields['neighborhood'].widget = forms.TextInput(attrs={'maxlength': 30, 'size': 30})
                  
-        super(FormLibraryRegister, self).__init__(*args, **kwargs)  
+        super(LibraryRegisterForm, self).__init__(*args, **kwargs)  
         
         if kwargs.has_key('instance'):
             instance = kwargs['instance']

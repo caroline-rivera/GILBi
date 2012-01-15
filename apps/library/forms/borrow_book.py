@@ -17,7 +17,7 @@ class MyModelChoiceField(ModelChoiceField):
     def label_from_instance(self, obj):
         return obj.id
     
-class FormBorrowBook(forms.Form):
+class BorrowBookForm(forms.Form):
     book1 = MyModelChoiceField(queryset=LibraryBook.objects.order_by('id')) 
     user_login1 = forms.CharField(max_length=50, 
                              widget = forms.TextInput(attrs={'size': 50}))
@@ -25,7 +25,7 @@ class FormBorrowBook(forms.Form):
     def __init__(self, *args, **kwargs):
         self.base_fields['book1'].error_messages['required'] = ERROR_REQUIRED_BOOK_CODE
         self.base_fields['user_login1'].error_messages['required'] = ERROR_REQUIRED_USER_LOGIN                                 
-        super(FormBorrowBook, self).__init__(*args, **kwargs)
+        super(BorrowBookForm, self).__init__(*args, **kwargs)
 
     def clean_book1(self):   
         book1 = self.cleaned_data['book1']  

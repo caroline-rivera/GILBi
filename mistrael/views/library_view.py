@@ -8,7 +8,7 @@ from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.messages.success_messages import SUCCESS_LIBRARY_REGISTER
 from gilbi.apps.user_profiles.models import User
 from gilbi.apps.library.models import Address, Phone, LibraryBook, Loan
-from gilbi.mistrael.forms.library_register_form import FormLibraryRegister
+from gilbi.apps.library.forms import LibraryRegisterForm
 from gilbi.mistrael.transformers.loan_transformer import GridUserLoan
 from gilbi.mistrael.transformers.book_transformer import GridLibraryBook
 
@@ -26,7 +26,7 @@ def index(request):
     result = ""
 
     if request.method == 'POST': # Formulário enviado    
-        form = FormLibraryRegister(request.POST, request.FILES)
+        form = LibraryRegisterForm(request.POST, request.FILES)
 
         if form.is_valid():
             checked_form = form.cleaned_data  
@@ -62,7 +62,7 @@ def index(request):
             
     else: #método GET   
    
-        form = FormLibraryRegister(instance=user)      
+        form = LibraryRegisterForm(instance=user)      
     
     return render_to_response('library.html', 
                               {'form': form,
