@@ -376,16 +376,18 @@ Bookstore.Functions = {
 			dataType: "json",
 			data: data,
 			async: true,
-			success: function(response) {			
+			success: function(response) {	
 				if(response['success_message'] != "")
 				{
 					var selRowNumber = grid.getGridParam('selrow');
-					grid.getRowData(selRowNumber)['situation'].val('Cancelada');
+					var rowData = grid.getRowData(selRowNumber);					
+					grid.jqGrid('setRowData', selRowNumber, {situation:'Cancelada'});
+					
 					grid.resetSelection();
-					//Bookstore.Functions.searchOrdersFn();
 					Helpers.Functions.showPopUpSuccessMsg(divMsg, 
 														  divId, 
 														  response['success_message']);
+					//Bookstore.Functions.searchOrdersFn();	
 				}	
 				
 				if(response['error_message'] != "")
