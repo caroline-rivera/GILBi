@@ -13,7 +13,7 @@ class RegisterAuthorForm(forms.Form):
         self.base_fields['name'].error_messages['required'] = ERROR_REQUIRED_AUTHOR_NAME                               
         super(RegisterAuthorForm, self).__init__(*args, **kwargs)  
     
-    def clean_name(self):   
+    def clean_name(self):
         if Author.objects.filter(
                                name=self.cleaned_data['name']
                                ).exists() == True:

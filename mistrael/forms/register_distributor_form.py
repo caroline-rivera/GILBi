@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
-from gilbi.mistrael.models.distributor import Distributor
+from gilbi.apps.bookstore.models import Distributor
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_DISTRIBUTOR_NAME
 from gilbi.mistrael.messages.error_messages import ERROR_ALREADY_REGISTERED_DISTRIBUTOR
 

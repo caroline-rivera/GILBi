@@ -13,10 +13,7 @@ from django.template import RequestContext
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_seller_session
 from gilbi.apps.user_profiles.models import User
-from gilbi.mistrael.models.book_order import BookOrder
-from gilbi.mistrael.models.bookstore_book import BookstoreBook
-from gilbi.mistrael.models.sale import OrderSale
-from gilbi.mistrael.models.sale import ShelfSale
+from gilbi.apps.bookstore.models import BookOrder, BookstoreBook, OrderSale, ShelfSale
 from gilbi.mistrael.forms.shelf_sale_form import FormShelfSale
 from gilbi.mistrael.transformers.order_transformer import GridOrderTransform
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_BOOK_ID, ERROR_REQUIRED_BOOK_PRICE

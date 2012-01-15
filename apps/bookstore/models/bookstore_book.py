@@ -14,4 +14,4 @@ class BookstoreBook(Book):
         self.total_quantity = (self.total_quantity) - 1
         
     class Meta:
-        app_label = 'mistrael'
+        app_label = 'bookstore'

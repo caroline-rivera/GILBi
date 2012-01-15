@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
-from gilbi.mistrael.models.distributor import Distributor
+from gilbi.apps.bookstore.models import Distributor
 from gilbi.mistrael.forms.register_distributor_form import FormRegisterDistributor
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_DISTRIBUTOR
 from gilbi.mistrael.helpers.session_helper import validate_session

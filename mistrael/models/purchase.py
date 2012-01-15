@@ -1,7 +1,5 @@
 from django.db import models
-from book_order import BookOrder
-from bookstore_book import BookstoreBook
-from distributor import Distributor
+from gilbi.apps.bookstore.models import BookOrder, BookstoreBook, Distributor
 
   
 class PurchaseItem(models.Model):

@@ -2,7 +2,7 @@
 
 from django import forms
 from django.forms import ModelChoiceField
-from gilbi.mistrael.models.bookstore_book import BookstoreBook
+from gilbi.apps.bookstore.models import BookstoreBook
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_BOOK_CODE
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_USER_LOGIN
 

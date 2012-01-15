@@ -1,8 +1,17 @@
+# encoding: utf-8
+
 from django.db import models
 from gilbi.apps.user_profiles.models import User
 from bookstore_book import BookstoreBook
-from gilbi.mistrael.helpers.constants import SITUATION_CHOICES
-  
+
+SITUATION_CHOICES = (
+                  ('S', 'Solicitada'),
+                  ('A', 'Aceita'),
+                  ('R', 'Rejeitada'),
+                  ('D', 'Disponível'),
+                  ('C', 'Cancelada'),
+)
+
 class BookOrder(models.Model):
     user = models.ForeignKey(User, related_name='orders')
     book = models.ForeignKey(BookstoreBook)
@@ -17,4 +26,4 @@ class BookOrder(models.Model):
         self.situation = 'V'
 
     class Meta:
-        app_label = 'mistrael'
+        app_label = 'bookstore'
