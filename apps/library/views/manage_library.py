@@ -27,7 +27,7 @@ def index(request):
         form_borrow = BorrowBookForm()
         form_receive = ReceiveBookForm()
 
-        return render_to_response('manage_library.html', 
+        return render_to_response('library/manage_library.html', 
                                   {'form_borrow': form_borrow,
                                    'form_receive': form_receive},
                                    #'registration_result': registration_result},
@@ -186,7 +186,7 @@ def show_user_informations(request, id):
             address.complement + " - " + address.neighborhood + " - CEP: " + \
             address.zipcode
         
-        return render_to_response('show_user_informations.html', 
+        return render_to_response('library/show_user_informations.html', 
                                   {'information': information},
                                   context_instance=RequestContext(request))   
         

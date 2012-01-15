@@ -64,7 +64,7 @@ def index(request):
    
         form = LibraryRegisterForm(instance=user)      
     
-    return render_to_response('library.html', 
+    return render_to_response('library/library.html', 
                               {'form': form,
                                'result': result}, 
                               context_instance=RequestContext(request))
