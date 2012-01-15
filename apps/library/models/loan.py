@@ -19,4 +19,4 @@ class Loan(models.Model):
         self.return_date = date.today()
         
     class Meta:
-        app_label = 'mistrael'
+        app_label = 'library'

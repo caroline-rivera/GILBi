@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
-from gilbi.mistrael.models.phone import Phone
-from gilbi.apps.library.models import Address
+from gilbi.apps.library.models import Phone, Address
 from gilbi.mistrael.messages.error_messages import *
 from django.forms import ModelForm
 
@@ -70,13 +69,14 @@ class FormLibraryRegister(ModelForm):
             if len(phones) > 3:
                 self.initial['ddd4'] = phones[3].ddd
                 self.initial['phone4'] = phones[3].number  
-                              
-            if instance.address is not None:
-                self.initial['street'] = instance.address.street
-                self.initial['number'] = instance.address.number
-                self.initial['complement'] = instance.address.complement
-                self.initial['zipcode'] = instance.address.zipcode
-                self.initial['neighborhood'] = instance.address.neighborhood
+                               
+            adress = Address.objects.filter(user = instance.id)
+            if len(adress) > 0:
+                self.initial['street'] = adress[0].street
+                self.initial['number'] = adress[0].number
+                self.initial['complement'] = adress[0].complement
+                self.initial['zipcode'] = adress[0].zipcode
+                self.initial['neighborhood'] = adress[0].neighborhood
 
     def clean_ddd1(self):
         if (self.cleaned_data['ddd1'].isdigit() == False and \

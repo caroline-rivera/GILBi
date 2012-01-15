@@ -7,10 +7,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext, loader
 from django.core.context_processors import csrf
-from gilbi.mistrael.models.loan import Loan
+from gilbi.apps.library.models import Loan, Phone, LibraryBook
 from gilbi.apps.user_profiles.models import User
-from gilbi.mistrael.models.phone import Phone
-from gilbi.mistrael.models.library_book import LibraryBook
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
 from gilbi.mistrael.transformers.loan_transformer import GridManagerLoan
@@ -180,12 +178,13 @@ def show_user_informations(request, id):
         information['login'] = user.login
         information['email'] = user.email
         information['phones'] = str_phones
-        if user.address == None:
+        if len(user.address.all()) == 0:
             information['address'] = ""
         else:
-            information['address'] = user.address.street + " " + user.address.number + " " + \
-            user.address.complement + " - " + user.address.neighborhood + " - CEP: " + \
-            user.address.zipcode
+            address = user.address.all()[0]
+            information['address'] = address.street + " " + address.number + " " + \
+            address.complement + " - " + address.neighborhood + " - CEP: " + \
+            address.zipcode
         
         return render_to_response('show_user_informations.html', 
                                   {'information': information},

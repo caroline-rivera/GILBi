@@ -2,10 +2,8 @@
 
 from django import forms
 from django.forms import ModelChoiceField
-from gilbi.mistrael.models.phone import Phone
+from gilbi.apps.library.models import Phone, Loan, LibraryBook, Address
 from gilbi.apps.user_profiles.models import User
-from gilbi.mistrael.models.loan import Loan
-from gilbi.mistrael.models.library_book import LibraryBook
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_BOOK_CODE
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_USER_LOGIN
 from gilbi.mistrael.messages.error_messages import ERROR_INEXISTENT_LIBRARY_BOOK
@@ -63,7 +61,8 @@ class FormBorrowBook(forms.Form):
             raise forms.ValidationError(ERROR_REQUIRED_USER_LOGIN)
         elif user == None:
             raise forms.ValidationError(ERROR_INEXISTENT_LOGIN)
-        elif user.address == None or Phone.objects.filter(user=user.id).exists() == False:
+        elif Address.objects.filter(user=user.id).exists() == False == None or \
+        Phone.objects.filter(user=user.id).exists() == False:
             raise forms.ValidationError(ERROR_INVALID_LIBRARY_REGISTER)
         elif loan is not None and self.data['book1'] != "" and \
         loan.book.id != int(self.data['book1']):

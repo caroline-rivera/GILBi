@@ -3,8 +3,7 @@
 from django import forms
 from django.forms import ModelChoiceField
 from gilbi.apps.user_profiles.models import User
-from gilbi.mistrael.models.loan import Loan
-from gilbi.mistrael.models.library_book import LibraryBook
+from gilbi.apps.library.models import Loan, LibraryBook
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_BOOK_CODE
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_USER_LOGIN
 from gilbi.mistrael.messages.error_messages import ERROR_INEXISTENT_LIBRARY_BOOK

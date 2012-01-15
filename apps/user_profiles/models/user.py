@@ -2,7 +2,6 @@
 
 from django.db import models
 from gilbi.apps.books.models.book import Book
-from gilbi.apps.library.models import Address
 
 import hashlib
 
@@ -33,7 +32,6 @@ class User(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
     institution = models.CharField(max_length=30, null=True)
     profile_phrase = models.CharField(max_length=100, null=True)
-    address = models.ForeignKey(Address, null=True)
     favorite_books = models.ManyToManyField(Book) #nao precisa criar a tabela 
     
     def set_encrypted_password(self, password):

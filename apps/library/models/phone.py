@@ -12,4 +12,4 @@ class Phone(models.Model):
         self.number = number
         
     class Meta:
-        app_label = 'mistrael'
+        app_label = 'library'

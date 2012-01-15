@@ -1,6 +1,8 @@
 from django.db import models
+from gilbi.apps.user_profiles.models import User
 
 class Address(models.Model):
+    user = models.ForeignKey(User, related_name='address')
     street = models.CharField(max_length=50)
     number = models.CharField(max_length=5)
     complement = models.CharField(max_length=50, null=True)

@@ -7,10 +7,7 @@ from django.shortcuts import render_to_response
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.messages.success_messages import SUCCESS_LIBRARY_REGISTER
 from gilbi.apps.user_profiles.models import User
-from gilbi.apps.library.models import Address
-from gilbi.mistrael.models.phone import Phone
-from gilbi.mistrael.models.library_book import LibraryBook
-from gilbi.mistrael.models.loan import Loan
+from gilbi.apps.library.models import Address, Phone, LibraryBook, Loan
 from gilbi.mistrael.forms.library_register_form import FormLibraryRegister
 from gilbi.mistrael.transformers.loan_transformer import GridUserLoan
 from gilbi.mistrael.transformers.book_transformer import GridLibraryBook
@@ -30,7 +27,7 @@ def index(request):
 
     if request.method == 'POST': # Formulário enviado    
         form = FormLibraryRegister(request.POST, request.FILES)
-        
+
         if form.is_valid():
             checked_form = form.cleaned_data  
             street = checked_form['street']
@@ -38,15 +35,16 @@ def index(request):
             complement = checked_form['complement']
             zipcode = checked_form['zipcode']
             neighborhood =  checked_form['neighborhood']
-                                      
-            if user.address is None:          
-                address = Address(street = street,
-                                number = number,
-                                complement = complement,
-                                zipcode = zipcode,
-                                neighborhood = neighborhood)
+    
+            if len(user.address.all()) == 0:          
+                address = Address(user = user,
+                                  street = street,
+                                  number = number,
+                                  complement = complement,
+                                  zipcode = zipcode,
+                                  neighborhood = neighborhood)
             else:
-                address = Address.objects.get(id = user.address.id)
+                address = user.address.all()[0]
                 address.set_data(street, number, complement, zipcode,neighborhood)
 
             registered_phones = Phone.objects.filter(user = user.id)
@@ -59,12 +57,11 @@ def index(request):
             register_phone(user, checked_form['ddd4'], checked_form['phone4'])
             
             address.save()                         
-            user.address = address         
-            user.save()
                 
             result = SUCCESS_LIBRARY_REGISTER
             
-    else: #método GET          
+    else: #método GET   
+   
         form = FormLibraryRegister(instance=user)      
     
     return render_to_response('library.html', 

@@ -2,7 +2,7 @@ from django.contrib import admin
 from gilbi.apps.user_profiles.models import User, Seller, Manager
 from gilbi.apps.books.models import Author, Publisher, Book
 from gilbi.mistrael.models.distributor import Distributor
-from gilbi.mistrael.models.library_book import LibraryBook
+from gilbi.apps.library.models import LibraryBook
 from gilbi.mistrael.models.bookstore_book import BookstoreBook
 
 admin.site.register(User)

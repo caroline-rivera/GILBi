@@ -5,4 +5,4 @@ class LibraryBook(models.Model):
     book = models.ForeignKey(Book)
         
     class Meta:
-        app_label = 'mistrael'
+        app_label = 'library'

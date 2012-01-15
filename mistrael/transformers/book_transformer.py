@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
 from gilbi.apps.books.models import BookAuthor
-from gilbi.mistrael.models.loan import Loan
+from gilbi.apps.library.models import Loan
 
 class GridBookTransform(models.Model):
     name = models.CharField()
