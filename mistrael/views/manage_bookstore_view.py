@@ -5,7 +5,7 @@ from django.template import RequestContext, loader
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from gilbi.apps.bookstore.models import Distributor
-from gilbi.mistrael.forms.register_distributor_form import FormRegisterDistributor
+from gilbi.apps.bookstore.forms import RegisterDistributorForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_DISTRIBUTOR
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
@@ -32,7 +32,7 @@ def register_distributor(request):
     registration_result = ""
         
     if request.method == 'POST': # Formulário enviado
-        form = FormRegisterDistributor(request.POST, request.FILES)
+        form = RegisterDistributorForm(request.POST, request.FILES)
         
         if form.is_valid():
             checked_form = form.cleaned_data            
@@ -41,10 +41,10 @@ def register_distributor(request):
             new_distributor.save()                        
             registration_result = SUCCESS_REGISTER_NEW_DISTRIBUTOR
             
-            form = FormRegisterDistributor()    
+            form = RegisterDistributorForm()    
             
     else: # Página acessada via link (método GET)
-        form = FormRegisterDistributor()
+        form = RegisterDistributorForm()
         
     return render_to_response('register_distributor.html', 
                               {'form': form,

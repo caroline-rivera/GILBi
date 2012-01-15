@@ -12,18 +12,22 @@ from django.template import RequestContext
 
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_seller_session
+
 from gilbi.apps.user_profiles.models import User
 from gilbi.apps.bookstore.models import BookOrder, BookstoreBook, OrderSale, ShelfSale
-from gilbi.mistrael.forms.shelf_sale_form import FormShelfSale
+from gilbi.apps.bookstore.forms import ShelfSaleForm
+
 from gilbi.mistrael.transformers.order_transformer import GridOrderTransform
+from gilbi.mistrael.transformers.book_transformer import GridBookstoreBook
+
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_BOOK_ID, ERROR_REQUIRED_BOOK_PRICE
 from gilbi.mistrael.messages.error_messages import ERROR_INVALID_BOOK_PRICE
 from gilbi.mistrael.messages.error_messages import ERROR_UNAVAILABLE_BOOK, ERROR_INVALID_BOOK
-from gilbi.mistrael.messages.success_messages import SUCCESS_SELLING_BOOK, SUCCESS_SELLING_ORDER
 from gilbi.mistrael.messages.error_messages import ERROR_NO_ORDER_ROW_SELECTED, ERROR_INVALID_ORDER
 from gilbi.mistrael.messages.error_messages import ERROR_INVALID_ORDER_PRICE,ERROR_UNAVAILABLE_ORDER
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_ORDER_PRICE
-from gilbi.mistrael.transformers.book_transformer import GridBookstoreBook
+from gilbi.mistrael.messages.success_messages import SUCCESS_SELLING_BOOK, SUCCESS_SELLING_ORDER
+
 
 def index(request):    
     if validate_session(request) == False:
@@ -31,7 +35,7 @@ def index(request):
     elif validate_seller_session(request) == False:
         return HttpResponseRedirect('/perfil/')
     else:
-        form_shelfsale = FormShelfSale()
+        form_shelfsale = ShelfSaleForm()
         return render_to_response('sell_books.html', 
                                   {'form_shelf_sale': form_shelfsale},
                                   context_instance=RequestContext(request)) 
