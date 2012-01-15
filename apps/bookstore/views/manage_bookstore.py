@@ -20,7 +20,7 @@ def index(request):
     elif validate_manager_session(request) == False:
         return HttpResponseRedirect('/perfil/')
     else:
-        template = loader.get_template('manager_bookstore.html')
+        template = loader.get_template('bookstore/manage_bookstore.html')
         return HttpResponse(template.render(context)) 
     
 def register_distributor(request):
@@ -46,7 +46,7 @@ def register_distributor(request):
     else: # Página acessada via link (método GET)
         form = RegisterDistributorForm()
         
-    return render_to_response('register_distributor.html', 
+    return render_to_response('bookstore/register_distributor.html', 
                               {'form': form,
                                'registration_result': registration_result}, 
                               context_instance=RequestContext(request))

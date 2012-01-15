@@ -36,7 +36,7 @@ def index(request):
         return HttpResponseRedirect('/perfil/')
     else:
         form_shelfsale = ShelfSaleForm()
-        return render_to_response('sell_books.html', 
+        return render_to_response('bookstore/sell_books.html', 
                                   {'form_shelf_sale': form_shelfsale},
                                   context_instance=RequestContext(request)) 
         

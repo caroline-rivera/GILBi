@@ -22,7 +22,7 @@ def index(request):
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/')
     else:
-        template = loader.get_template('bookstore.html')
+        template = loader.get_template('bookstore/bookstore.html')
         return HttpResponse(template.render(context)) 
     
 def search_books(request):
