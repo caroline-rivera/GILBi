@@ -5,8 +5,8 @@ var Helpers = {};
 Helpers.Messages = {
 	
 	All: {
-		ERROR_LOADING_TABLE: 'Erro ao carregar a tabela.',	
-		ERROR_UNEXPECTED: 'Ocorreu um erro inesperado.'	
+		ERROR_LOADING_TABLE: 'Ocorreu um erro inesperado no carregamento da tabela.',	
+		ERROR_UNEXPECTED: 'Ocorreu um erro inesperado. Por favor, contate o administardor do sistema.'	
 	},
 	
 	RegisterEmployee: {

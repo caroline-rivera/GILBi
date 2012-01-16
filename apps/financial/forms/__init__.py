@@ -1,0 +1,2 @@
+from generate_month_balance import GenerateMonthBalanceForm
+from generate_sale_report import GenerateSaleReportForm

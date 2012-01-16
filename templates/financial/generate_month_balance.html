@@ -1,0 +1,39 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/custom/generate_month_balance.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            $('#button_generate').button(); 
+            GenerateMonthBalance.Functions.init();
+        }); 
+    </script>
+{% endblock script %}
+
+{% block conteudo %}
+	<h2>Relatório de Contabilidade</h2
+		
+	<div id="month_balance">	
+	
+		<div class="message_container"></div>		
+				
+		<table>
+			<tr>
+				<td><p>(*) Mês:</p></td>
+				<td><p>{{ form.month }}</p></td>
+			</tr>
+			<tr>
+				<td><p>(*) Ano:</p></td>
+				<td><p>{{ form.year }}</p></td>
+			</tr>
+		</table>		
+	</div>
+	
+    <div id="div_generate" class="tab_save_button">
+        <input id="button_generate" type="submit" value="Gerar Relatório" />
+    </div> 
+    
+    <table id="table_month_balance"></table>
+
+{% endblock %}

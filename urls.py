@@ -87,5 +87,13 @@ urlpatterns = patterns('',
     url(r'^vendas/encomendas/procurarencomenda/$', 
         'apps.bookstore.views.sell_books.search_user_orders'),   
     url(r'^vendas/encomendas/venderencomenda/$', 
-        'apps.bookstore.views.sell_books.sell_order_book'),                           
+        'apps.bookstore.views.sell_books.sell_order_book'),  
+                       
+    url(r'^gerenciarlivraria/relatorios/contabilidade/$', 
+        'apps.financial.views.generate_month_balance.index'), 
+    url(r'^gerenciarlivraria/relatorios/contabilidade/gerar/$', 
+        'apps.financial.views.generate_month_balance.generate'),
+                          
+    url(r'^gerenciarlivraria/relatorios/vendas/$', 
+        'apps.financial.views.generate_sale_report.index'),                       
 )

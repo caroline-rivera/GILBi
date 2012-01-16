@@ -329,7 +329,6 @@ SellBooks.Functions = {
 		$('#order_price').val("");
 		
 		grid.clearGridData();
-
 	},
 
 }	

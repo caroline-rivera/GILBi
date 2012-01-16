@@ -1,0 +1,38 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/custom/generate_sale_report.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+        debugger;
+        	$.datepicker.setDefaults( $.datepicker.regional["pt-BR"] );        
+            $('#button_generate').button(); 
+            $('#id_initial_date').datepicker();
+            $('#id_ending_date').datepicker();
+            //SellBooks.Functions.init();
+        }); 
+    </script>
+{% endblock script %}
+
+{% block conteudo %}
+	<h2>Relatório de Livros Vendidos</h2>	
+		
+	<div id="sale_report">	
+		<table>
+			<tr>
+				<td><p>(*) Data Inicial:</p></td>
+				<td><p>{{ form.initial_date }}</p></td>
+			</tr>
+			<tr>
+				<td><p>(*) Data Final:</p></td>
+				<td><p>{{ form.ending_date }}</p></td>
+			</tr>
+		</table>				
+	</div>
+	
+    <div id="div_generate" class="tab_save_button">
+        <input id="button_generate" type="submit" value="Gerar Relatório" />
+    </div> 
+
+{% endblock %}

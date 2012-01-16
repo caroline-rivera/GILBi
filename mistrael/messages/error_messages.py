@@ -127,3 +127,12 @@ ERROR_REQUIRED_BOOK_PRICE = "O campo Preço do Livro é obrigatório."
 ERROR_INVALID_BOOK_PRICE = "O Preço do Livro é inválido. Digite um valor no formato R$ 999.99."
 ERROR_UNAVAILABLE_BOOK = "Não há exemplares disponíveis para venda. Caso existam, estão reservados."
 ERROR_INVALID_BOOK = "Este livro não existe."
+
+# Gerar Relatório de Contabilidade do Mês
+
+ERROR_REQUIRED_MONTH = "O campo Mês é obrigatório."
+ERROR_REQUIRED_YEAR = "O campo Ano é obrigatório."
+ERROR_INVALID_MONTH = "Escolha um mês entre Janeiro e Dezembro."
+ERROR_INVALID_YEAR = "Esse ano é inválido."
+ERROR_INVALID_MONTH_YEAR = "O mês/ano escolhido é posterior ao mês/ano atual."
+ERROR_MISSING_PREVIOUS_BALANCE = "Não existe contabilidade para o mês anterior. Realize primeiramente esse balanço."
