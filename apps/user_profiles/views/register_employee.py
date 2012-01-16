@@ -16,7 +16,7 @@ def index(request):
     if validate_manager_session(request) == False:
         return HttpResponseRedirect('/perfil/')      
                  
-    return render_to_response('register_employee.html', 
+    return render_to_response('user_profiles/register_employee.html', 
                               {}, 
                               context_instance=RequestContext(request))
     
@@ -116,34 +116,3 @@ def create_message(message, name_user):
     result += name_user
     result += ".</p>" 
     return result
-
-#def get_users_in_jggrid_format(users):
-#    user_javascript = []
-#    
-#    if users == None:
-#        return []
-#    else:
-#        for user in users:
-#            row = {}
-#            row['first_name'] = "\"" + user.first_name + "\""
-#            row['last_name'] = "\"" + user.last_name + "\"" 
-#            row['login'] = "\"" + user.login + "\""
-#            row['email'] = "\"" + user.email + "\""
-#            user_javascript.append(row)           
-#        return user_javascript
-
-
-
-
-
-
-#                seller = Seller(user_ptr_id=user.id)
-#                seller.save()
-#                user.save()
-#                seller = Seller.objects.get(id=user.id)
-                
-#                if is_manager == 'true' and Manager.objects.filter(id=int_id).exists() == False:
-#                    manager = Manager(seller_ptr_id = seller.id)
-#                    manager.save()  
-#                    seller.save()
-#                    user.save() 

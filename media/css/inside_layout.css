@@ -259,7 +259,16 @@ table#search tr td p
 .validation {
 	color: #D63301;
 	background-color: #FFCCBA;
-	background-image: url("/media/img/icons/Knob Attention.png");
+	background-image: url("/media/img/icons/Knob Validation.png");
+}
+
+.validation span {
+	font-style: italic;
+}
+
+.validation ul {
+	margin: 5px 0 0 0;
+	padding: 0 0 0 20px;
 }
 
 

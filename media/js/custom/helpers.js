@@ -107,16 +107,20 @@ Helpers.Functions = {
 //--------------------------------------------------------------------------- createListedMessege	
 	createListedMessege: function(listOfMessages)
 	{
-		var listedMessages = "Corrija as seguintes informações:";
-		var count = 0;
+		var listedMessages = "";
 		
-		while(count < listOfMessages.length)
+		listedMessages += "<span>Corrija as seguintes informações:</span>";
+		listedMessages += "<ul>";
+		
+		for (var i = 0; i < listOfMessages.length; i++)
 		{
-			listedMessages = listedMessages + "<li>";
-			listedMessages = listedMessages + listOfMessages[count];
-			listedMessages = listedMessages + "</li>";
-			count = count + 1;
+			listedMessages += "<li>";
+			listedMessages += listOfMessages[i];
+			listedMessages += "</li>";
 		}
+		
+		listedMessages += "</ul>";
+		
 		return listedMessages;
 	},
 
@@ -151,6 +155,7 @@ Helpers.Functions = {
 			.addClass(type)
 			.html(text)
 			.show()
+			.stop(true, false)
 			.animate({ opacity: 1.0 }, 6000, function() {
 		       $(this).fadeOut(500);
 		    });
