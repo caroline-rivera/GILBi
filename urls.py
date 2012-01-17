@@ -95,5 +95,8 @@ urlpatterns = patterns('',
         'apps.financial.views.generate_month_balance.generate'),
                           
     url(r'^gerenciarlivraria/relatorios/vendas/$', 
-        'apps.financial.views.generate_sale_report.index'),                       
+        'apps.financial.views.generate_sale_report.index'),  
+                       
+    url(r'^gerenciarlivraria/pedidodecompra/$', 
+        'apps.bookstore.views.purchase_order.index'),                     
 )

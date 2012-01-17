@@ -173,7 +173,7 @@ SellBooks.Functions = {
 				{name:'order_date', index:'order_date', width:100},
 		        {name:'name', index:'name', width:230},
 		        {name:'author', index:'author', width:135},
-		        {name:'spiritual_author', index:'author', width:135},
+		        {name:'spiritual_author', index:'spiritual_author', width:135},
 		        {name:'quantity', index:'quantity', width:35},
 		        {name:'situation', index:'situation', width:75} 		
 			];

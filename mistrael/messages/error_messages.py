@@ -136,3 +136,8 @@ ERROR_INVALID_MONTH = "Escolha um mês entre Janeiro e Dezembro."
 ERROR_INVALID_YEAR = "Esse ano é inválido."
 ERROR_INVALID_MONTH_YEAR = "O mês/ano escolhido é posterior ao mês/ano atual."
 ERROR_MISSING_PREVIOUS_BALANCE = "Não existe contabilidade para o mês anterior. Realize primeiramente esse balanço."
+
+# Pedido de Compra
+
+ERROR_REQUIRED_BOOK = "O campo Livro é obrigatório."
+ERROR_REQUIRED_BOOK_QUANTITY = "O campo quantidade é obrigatório."
