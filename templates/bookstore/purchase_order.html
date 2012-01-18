@@ -6,7 +6,8 @@
 	<script type="text/javascript">
 		$(function() {
 			$('#tabs').tabs();
-			$('#button_add_book').button();
+			// TODO: Melhorar isso
+			$('#button_add_book, #button_accept_book, #button_reject_book, #button_remove_item, #button_save_purchase_order').button();
 
 			PurchaseOrder.Functions.init();
 		}); 
@@ -69,9 +70,25 @@
 			
 			<div id="div_add_book" class="tab_search_button">
                 <input id="button_add_book" type="button" value="Adicionar" />
-            </div>   
+            </div>
+                 
+                 
+			<h2>Adicionar encomenda ao Pedido de Compra</h2>       
+			
+			<div id="div_book_order_actions" class="tab_search_button">
+                <input id="button_accept_book" type="button" value="Aceitar" />
+                <input id="button_reject_book" type="button" value="Rejeitar" />
+            </div> 
             
+            
+            <h2>Itens do Pedido de Compra</h2>       
+			            
             <table id="table_purchase_items"></table>
+
+			<div id="div_purchase_order_actions" class="tab_search_button">
+                <input id="button_remove_item" type="button" value="Remover Item" />
+                <input id="button_save_purchase_order" type="button" value="Salvar" />
+            </div>
 				
     	</div>
     	
