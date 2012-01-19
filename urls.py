@@ -92,7 +92,7 @@ urlpatterns = patterns('',
     url(r'^gerenciarlivraria/relatorios/contabilidade/$', 
         'apps.financial.views.generate_month_balance.index'), 
     url(r'^gerenciarlivraria/relatorios/contabilidade/gerar/$', 
-        'apps.financial.views.generate_month_balance.generate'),
+        'apps.financial.views.generate_month_balance.calculate'),
                           
     url(r'^gerenciarlivraria/relatorios/vendas/$', 
         'apps.financial.views.generate_sale_report.index'),  

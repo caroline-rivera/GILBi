@@ -17,17 +17,18 @@
 	<div id="month_balance">	
 	
 		<div class="message_container"></div>		
+		
+		<ol class="fields">
+			<li>
+				<label>(*) Mês:</label>
+				{{ form.month }}
+			</li>
+			<li>
+				<label>(*) Ano:</label>
+				{{ form.year }}
+			</li>
+		</ol>
 				
-		<table>
-			<tr>
-				<td><p>(*) Mês:</p></td>
-				<td><p>{{ form.month }}</p></td>
-			</tr>
-			<tr>
-				<td><p>(*) Ano:</p></td>
-				<td><p>{{ form.year }}</p></td>
-			</tr>
-		</table>		
 	</div>
 	
     <div id="div_generate" class="tab_save_button">

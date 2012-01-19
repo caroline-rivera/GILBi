@@ -7,7 +7,7 @@ class Duplicate(models.Model):
     number = models.IntegerField()
     value = models.DecimalField(max_digits=6, decimal_places=2)
     expiration_date = models.DateField()
-    payment = models.ForeignKey(Payment)
+    payment = models.ForeignKey(Payment, null=True)
         
     class Meta:
         app_label = 'financial'

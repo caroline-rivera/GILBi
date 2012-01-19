@@ -271,8 +271,25 @@ table#search tr td p
 	padding: 0 0 0 20px;
 }
 
+/* CSS para formulários*/
 
-/* Mensagens de erro */
+ol.fields {
+	margin: 15px 0 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+ol.fields li {
+	margin: 0 0 20px 0;
+}
+
+ol.fields li label {
+	padding: 0 10px 0 0;
+	display: inline-block;
+	width: 100px;
+	text-align: left;
+}
+
 
 /* margin: top-bottom rigth-left */
 /* margin: top rigth bottom left */

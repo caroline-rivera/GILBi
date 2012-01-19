@@ -1,6 +1,6 @@
 var GenerateMonthBalance = {};
 
-//------------------------------------------------------------------------------ SELECTORS
+//-------------------------------------------------------------------------------- SELECTORS
 
 GenerateMonthBalance.Selectors = {
 	
@@ -13,30 +13,28 @@ GenerateMonthBalance.Selectors = {
 	}	
 }
 
-//------------------------------------------------------------------------------ FUNCTIONS
+//-------------------------------------------------------------------------------- FUNCTIONS
 
 GenerateMonthBalance.Functions = {
 
-//------------------------------------------------------------------------- init	
+//------------------------------------------------------------------------------------- init	
 	init: function()
 	{
 		var btn = GenerateMonthBalance.Selectors.Buttons;
 		
-		$(btn.generate).click( function() {
-			GenerateMonthBalance.Functions.generateFn();
-		});	
+		$(btn.generate).click( GenerateMonthBalance.Functions.calculateMonthBalance );	
 	},
 
 //------------------------------------------------------------------------- listMonthBalance
 	listMonthBalance: function()
 	{	
-		var grid = $(GenerateMonthBalance.Selectors.Tables.orders),
+		var grid = $(GenerateMonthBalance.Selectors.Tables.balance),
 		    columnsTitles = ['Saldo do Mês anterior', '(+) Total de Vendas do Mês', 
 		                     '(-) Total de Compras do Mês','Saldo do Mês'],
 			columnsSpecification = [
 				{name:'previous_balance', index:'previous_balance', width:200},
 				{name:'sale_total', index:'sale_total', width:200},
-		        {name:'purchase_total', index:'purchase_total', width:200},
+		        {name:'payment_total', index:'payment_total', width:200},
 		        {name:'current_balance', index:'current_balance', width:200}	
 			];
 		
@@ -47,21 +45,32 @@ GenerateMonthBalance.Functions = {
 		    height: 'auto',
 		    multiselect: false,
 		    viewrecords: true,
-		    caption:'Relatório de Contabilidade do Mês'				
+		    caption:'Contabilidade do Mês'				
 		});
 	},
 	
-//------------------------------------------------------------------------- generateFn	
-	generateFn: function()
+//-------------------------------------------------------------------- calculateMonthBalance	
+	calculateMonthBalance: function()
 	{
 		var grid = $(GenerateMonthBalance.Selectors.Tables.balance),
 			$div = $("#month_balance"),
 			$messageContainer = $div.find("div.message_container"),
 		    data = {};
-				
-		data['month_value'] = $('#id_month').val();
-		data['year_value'] = $('#id_year').val();
-
+		
+		if ( $('#id_month').val() == "0" ){		
+			data['month'] = "";
+		}
+		else {
+			data['month'] = $('#id_month').val();
+		}
+		
+		if ( $('#id_year').val() == "0" ){		
+			data['year'] = "";
+		}
+		else {
+			data['year'] = $('#id_year').val();
+		}
+		
 		$.ajax({
 			url: "/gerenciarlivraria/relatorios/contabilidade/gerar/",
 			dataType: "json",
@@ -83,16 +92,17 @@ GenerateMonthBalance.Functions = {
 					}		
 					else
 					{
-						var balance = [];
+						alert("sucesso");
+						var arrayBalance = [];
 		                var balance = {
 		                	previous_balance: response['previous_balance'],
 		                	sale_total: response['sale_total'],
-		                	purchase_total: response['purchase_total'],
+		                	payment_total: response['payment_total'],
 		                	current_balance: response['current_balance']
 		                };
-		                
+		                arrayBalance[0] = balance;
 						GenerateMonthBalance.Functions.listMonthBalance();
-						GenerateMonthBalance.Functions.listFn(orders, grid);					
+						GenerateMonthBalance.Functions.listFn(arrayBalance, grid);					
 					}			
 				}						
 			},

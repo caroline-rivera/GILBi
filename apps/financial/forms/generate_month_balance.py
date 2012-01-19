@@ -8,7 +8,7 @@ from gilbi.mistrael.messages.error_messages import ERROR_INVALID_MONTH, ERROR_IN
 from gilbi.mistrael.messages.error_messages import ERROR_INVALID_MONTH_YEAR, ERROR_MISSING_PREVIOUS_BALANCE
 
 MONTH_CHOICES = (
-    ('', '---------'),
+    (0, '---------'),
     (1, 'Janeiro'),
     (2, 'Fevereiro'),
     (3, 'Março'),
@@ -23,8 +23,8 @@ MONTH_CHOICES = (
     (12, 'Dezembro'),
 )
 
-YEAR_CHOICES = [('', '---------')]
-YEAR_CHOICES.extend([(year, year) for year in range(2009, date.today().year + 1)])
+YEAR_CHOICES = [(0, '---------')]
+YEAR_CHOICES.extend([(year, str(year)) for year in range(2011, date.today().year + 1)])
     
 class GenerateMonthBalanceForm(forms.Form):
     month = forms.ChoiceField(choices = MONTH_CHOICES)
@@ -35,10 +35,7 @@ class GenerateMonthBalanceForm(forms.Form):
         self.base_fields['year'].error_messages['required'] = ERROR_REQUIRED_YEAR                                         
         super(GenerateMonthBalanceForm, self).__init__(*args, **kwargs)     
     
-    def clean_month(self):
-        import pdb
-        pdb.set_trace()
-        
+    def clean_month(self):                 
         if self.cleaned_data['month'].strip() == "":
             raise forms.ValidationError(ERROR_REQUIRED_MONTH)
         
@@ -46,14 +43,10 @@ class GenerateMonthBalanceForm(forms.Form):
         
         if int_month not in range(1,13):
             raise forms.ValidationError(ERROR_INVALID_MONTH)
-#        if self.cleaned_data['password_confirmation'] != self.data['new_password']:
-#            raise forms.ValidationError(ERROR_DIFFERENT_NEW_PASSWORDS)
+
         return self.cleaned_data['month']
     
-    def clean_year(self):
-        import pdb
-        pdb.set_trace()
-        
+    def clean_year(self): 
         if self.data['month'] != "":
             int_month = int(self.data['month'])
         else:
@@ -70,16 +63,32 @@ class GenerateMonthBalanceForm(forms.Form):
         int_month > date.today().month:
             raise forms.ValidationError(ERROR_INVALID_MONTH_YEAR)
         
-        if int_month == 1:
-            previous_month = 12
-            previous_year = int_year - 1
-        else:
-            previous_month = int_month - 1
-            previous_year = int_year
-        
-        if MonthBalance.objects.filter(
-                                       month = previous_month, year = previous_year
-                                       ).exists() == False:
-            raise forms.ValidationError(ERROR_MISSING_PREVIOUS_BALANCE)
+        if int_month is not None:
+            previous_month_year = get_previous_month_year(int_month, int_year)
+
+            if MonthBalance.objects.filter(
+                                           month = previous_month_year['previous_month'], 
+                                           year = previous_month_year['previous_year']
+                                           ).exists() == False and \
+                MonthBalance.objects.filter(
+                                            month = int_month, 
+                                            year = int_year
+                                            ).exists() == False:
+                raise forms.ValidationError(ERROR_MISSING_PREVIOUS_BALANCE)
         
         return self.cleaned_data['year']
+    
+def get_previous_month_year(current_month, current_year):
+    data = {}
+    
+    if current_month == 1:
+        previous_month = 12
+        previous_year = current_year - 1
+    else:
+        previous_month = current_month - 1
+        previous_year = current_year
+        
+    data['previous_month'] = previous_month
+    data['previous_year'] = previous_year
+    
+    return data
