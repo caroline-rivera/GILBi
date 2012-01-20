@@ -48,7 +48,7 @@ GenerateSaleReport.Functions = {
 		    rowList:[10,20,30],
 		    height: 'auto',
 		    pager: '#bsales',
-		    sortname: 'name',
+		    sortname: 'date',
 		    sortorder: 'asc',
 		    multiselect: false,
 		    viewrecords: true,

@@ -23,11 +23,10 @@ RegisterEmployee.Functions = {
 	
 	init: function()
 	{
-		var btn = RegisterEmployee.Selectors.Buttons;
-		
-		var grid = $('#table_users');
-		var columnsTitles = ['Id','Nome','Sobrenome', 'Login', 'E-mail'];
-		var columnsSpecification = [
+		var btn = RegisterEmployee.Selectors.Buttons,		
+			grid = $('#table_users'),
+			columnsTitles = ['Id','Nome','Sobrenome', 'Login', 'E-mail'],
+			columnsSpecification = [
 			{name:'id', index:'id', hidden:true},
 	        {name:'first_name', index:'first_name', width:120},
 	        {name:'last_name', index:'last_name', width:120},
@@ -60,13 +59,13 @@ RegisterEmployee.Functions = {
 			
 			for (var i = 0; i < selArrowNumerations.length; i++)
 			{
-				numeration = selArrowNumerations[i]
+				var numeration = selArrowNumerations[i]
 				userIds[i] = grid.getRowData(numeration)['id'];
 			}
 						
 			if (userIds.length == 0)
 			{
-				msg = Helpers.Messages.RegisterEmployee.NO_SEL_ARROW;
+				var msg = Helpers.Messages.RegisterEmployee.NO_SEL_ARROW;
 				Helpers.Functions.showPopUpErrorMsg($("#message"), "message", msg);
 			}
 			else
@@ -107,7 +106,7 @@ RegisterEmployee.Functions = {
 				RegisterEmployee.Functions.listFn(users)							
 			},
 			error: function() {	
-				msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
 				Helpers.Functions.showPopUpErrorMsg($("#message"), "message", msg);		
 			}
 		});
@@ -155,68 +154,9 @@ RegisterEmployee.Functions = {
 				}				
 			},
 			error: function() {	
-				msg = Helpers.Messages.RegisterEmployee.ERROR_SAVING_EMPLOYEE;
+				var msg = Helpers.Messages.RegisterEmployee.ERROR_SAVING_EMPLOYEE;
 				Helpers.Functions.showPopUpErrorMsg($("#message"), "message", msg);		
 			}
 		});	
 	}
 }
-
-
-
-/*$(document).ready(function() {
-	var dados = [
-					{id:"1", first_name:"Caroline", last_name:"Rivera", login:"carolcullen", email:"caroline.rivera@hotmail.com"},
-					{id:"2", first_name:"Fill", last_name:"Motta", login:"fill", email:"fill_motta@hotmail.com"},
-					{id:"3", first_name:"Regina", last_name:"Fernandes", login:"regina", email:"regina@hotmail.com"},
-				]
-	
-	jQuery('#table_users').jqGrid({
-		data: dados,
-		datatype: 'local',
-		colNames: ['Id','Nome','Sobrenome', 'Login', 'E-mail'],
-	    colModel:[
-	        {name:'id',index:'id', width:50},
-	        {name:'first_name',index:'first_name', width:120},
-	        {name:'last_name',index:'last_name', width:120},
-	        {name:'login',index:'login', width:120},
-	        {name:'email',index:'email', width:300} 
-		],
-		rowNum: 3,
-		rowList:[5,10,20],
-	    height: 'auto',
-	    pager: '#busers',
-	    sortname: 'nome',
-	    viewrecords: true,
-	    sortorder: 'asc',
-	    caption:'Lista de usuários disponíveis'	
-	});
-});*/
-
-/*for(var i = 0, len = rowIds.length; i < len; i++)
-{
-    var currRow = rowIds[i];
-    grid.jqGrid('delRowData', currRow);
-}*/
-		
-/*	
-		grid.jqGrid({
-			url:"/gerenciarlivraria/cadastrarfuncionario/pesquisar/",
-		    datatype: 'json',
-		    mtype: 'GET',
-			getData: RegisterEmployee.Functions.searchFn(),
-			colNames: columnsTitles,
-		    colModel:columnsSpecification,
-			rowList:[5,10,20],
-		    height: 'auto',
-		    pager: '#busers',
-		    multiselect: true,
-		    sortname: 'first_name',
-		    viewrecords: true,
-		    sortorder: 'asc',
-		    caption:'Lista de usuários disponíveis',
-		    loadComplete: function() {
-			    alert("grid is loaded/reloaded");
-			}
-		    				
-		});*/

@@ -253,7 +253,7 @@ SellBooks.Functions = {
 					
 		if (selRowNumber == null)
 		{
-			return '';
+			return "";
 		}
 		else
 		{		

@@ -66,9 +66,9 @@ ManageLibrary.Functions = {
 //------------------------------------------------------------------------- searchBookInfo	
 	searchBookInfo: function(book_id, tab)
 	{
-		var data = {};
-		var divMsg = $("#msg_tab1");
-		var divId =	"msg_tab1";
+		var data = {},
+			divMsg = $("#msg_tab1"),
+			divId =	"msg_tab1";
 				
 		data['book_id'] = book_id;		
 		
@@ -94,7 +94,7 @@ ManageLibrary.Functions = {
 				ManageLibrary.Functions.listBookInformationFn(books, tab);							
 			},
 			error: function() {	
-				msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
+				var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
 				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
 			}
 		});		
@@ -103,9 +103,9 @@ ManageLibrary.Functions = {
 //------------------------------------------------------------------------- borrowBook	
 	borrowBook: function()
 	{
-		var data = {};
-		var divMsg = $("#msg_result_tab1");
-		var divId =	"msg_result_tab1";
+		var data = {},
+			divMsg = $("#msg_result_tab1"),
+			divId =	"msg_result_tab1";
 				
 		data['book1'] = $('#id_book1').val();	
 		data['user_login1'] = $('#id_user_login1').val();	
@@ -119,7 +119,7 @@ ManageLibrary.Functions = {
 				ManageLibrary.Functions.showResultMessage(divMsg, divId, response);		
 			},
 			error: function() {	
-				msg = Helpers.Messages.ManageLibrary.ERROR_BORROWING_BOOK;
+				var msg = Helpers.Messages.ManageLibrary.ERROR_BORROWING_BOOK;
 				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
 			}
 		});		
@@ -128,9 +128,9 @@ ManageLibrary.Functions = {
 //------------------------------------------------------------------------- receiveBook	
 	receiveBook: function()
 	{
-		var data = {};
-		var divMsg = $("#msg_result_tab2");
-		var divId =	"msg_result_tab2";
+		var data = {},
+			divMsg = $("#msg_result_tab2"),
+			divId =	"msg_result_tab2";
 				
 		data['book2'] = $('#id_book2').val();	
 		data['user_login2'] = $('#id_user_login2').val();	
@@ -144,7 +144,7 @@ ManageLibrary.Functions = {
 				ManageLibrary.Functions.showResultMessage(divMsg, divId, response);					
 			},
 			error: function() {	
-				msg = Helpers.Messages.ManageLibrary.ERROR_RECEIVING_BOOK;
+				var msg = Helpers.Messages.ManageLibrary.ERROR_RECEIVING_BOOK;
 				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
 			}
 		});		
@@ -154,6 +154,7 @@ ManageLibrary.Functions = {
 	showResultMessage: function(divMsg, divId, response)
 	{
 		var message = "";
+		
 		if(response['success_message'] != "")
 		{
 			ManageLibrary.Functions.cleanPageData();
@@ -204,12 +205,12 @@ ManageLibrary.Functions = {
 //------------------------------------------------------------------------- listLoans
 	listLoans: function()
 	{	
-		var table = ManageLibrary.Selectors.Tables;	
-		var grid = $(table.loans);
-		var columnsTitles = ['Código<br />Livro', 'Nome do Livro', 'Data de<br />Empréstimo', 
+		var table = ManageLibrary.Selectors.Tables,	
+			grid = $(table.loans),
+			columnsTitles = ['Código<br />Livro', 'Nome do Livro', 'Data de<br />Empréstimo', 
 							'Data para<br />Devolução', 'Data de<br />Devolução',
-							'Nome  do Usuário'];
-		var columnsSpecification = [
+							'Nome  do Usuário'],
+			columnsSpecification = [
 			{name:'id', index:'id', width:40},
 	        {name:'book_name', index:'book_name', width:230},	
 	        {name:'loan_date', index:'loan_date', width:70},
@@ -236,11 +237,10 @@ ManageLibrary.Functions = {
 //------------------------------------------------------------------------- searchLoansFn	
 	searchLoansFn: function(tab)
 	{
-		var table = ManageLibrary.Selectors.Tables;	
-		var grid = $(table.loans);
-		var divMsg = $('#msg_tab3');
-		var divId = "msg_tab3";
-		var msg = Helpers.Messages.Library.ERROR_LOADING_LOANS;
+		var table = ManageLibrary.Selectors.Tables,	
+			grid = $(table.loans),
+			divMsg = $('#msg_tab3'),
+			divId = "msg_tab3";
 				
 		$.ajax({
 			url: "/gerenciarbiblioteca/livrosemprestados/listar/",
@@ -264,7 +264,7 @@ ManageLibrary.Functions = {
 				ManageLibrary.Functions.listFn(loans, grid);							
 			},
 			error: function() {	
-				msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
 				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
 			}
 		});		

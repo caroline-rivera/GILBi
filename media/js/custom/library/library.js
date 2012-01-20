@@ -46,11 +46,11 @@ Library.Functions = {
 //------------------------------------------------------------------------- listBooks
 	listBooks: function()
 	{	
-		var table = Library.Selectors.Tables;	
-		var grid = $(table.books);
-		var columnsTitles = ['Código', 'Nome','Autor(es)', 'Autor(es) Espiritual(ais)', 
-								'Editora', 'Situação'];
-		var columnsSpecification = [
+		var table = Library.Selectors.Tables,	
+			grid = $(table.books),
+			columnsTitles = ['Código', 'Nome','Autor(es)', 'Autor(es) Espiritual(ais)', 
+								'Editora', 'Situação'],
+			columnsSpecification = [
 			{name:'id', index:'id', width:42},
 	        {name:'name', index:'name', width:200},
 	        {name:'author', index:'author', width:130},
@@ -77,11 +77,11 @@ Library.Functions = {
 //------------------------------------------------------------------------- searchBooksFn	
 	searchBooksFn: function(tab)
 {
-		var table = Library.Selectors.Tables;
-		var grid = $(table.books);
-		var divMsg = $("#msg_tab2");
-		var divId =	"msg_tab2";		
-		var data = {};
+		var table = Library.Selectors.Tables,
+			grid = $(table.books),
+			divMsg = $("#msg_tab2"),
+			divId =	"msg_tab2",		
+			data = {};
 		
 		data['name'] = $('#name').val().trim();
 		data['author'] = $('#author').val().trim();
@@ -109,7 +109,7 @@ Library.Functions = {
 				Library.Functions.listFn(books, grid);							
 			},
 			error: function() {	
-				msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
 				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
 			}
 		});		
@@ -119,12 +119,12 @@ Library.Functions = {
 //------------------------------------------------------------------------- listUserLoans
 	listUserLoans: function()
 	{	
-		var table = Library.Selectors.Tables;	
-		var grid = $(table.loans);
-		var columnsTitles = ['Código<br />Livro', 'Nome do Livro','Autor(es)', 'Autor(es) Espiritual(ais)', 
+		var table = Library.Selectors.Tables,	
+			grid = $(table.loans),
+			columnsTitles = ['Código<br />Livro', 'Nome do Livro','Autor(es)', 'Autor(es) Espiritual(ais)', 
 							'Data de<br />Empréstimo', 'Data para<br />Devolução', 
-							'Data de<br />Devolução'];
-		var columnsSpecification = [
+							'Data de<br />Devolução'],
+			columnsSpecification = [
 			{name:'id', index:'id', width:40},
 	        {name:'name', index:'name', width:220},
 	        {name:'author', index:'author', width:135},
@@ -152,11 +152,10 @@ Library.Functions = {
 //------------------------------------------------------------------------- searchLoansFn	
 	searchLoansFn: function(tab)
 	{
-		var table = Library.Selectors.Tables;	
-		var grid = $(table.loans);
-		var divMsg = $('#msg_tab3');
-		var divId = "msg_tab3";
-		var msg = Helpers.Messages.Library.ERROR_LOADING_LOANS;
+		var table = Library.Selectors.Tables,	
+			grid = $(table.loans),
+			divMsg = $('#msg_tab3'),
+			divId = "msg_tab3";
 				
 		$.ajax({
 			url: "/biblioteca/meusemprestimos/listar/",
@@ -181,7 +180,7 @@ Library.Functions = {
 				Library.Functions.listFn(loans, grid);							
 			},
 			error: function() {	
-				msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
 				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
 			}
 		});		
