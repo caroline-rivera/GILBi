@@ -7,8 +7,9 @@ from gilbi.mistrael.messages.error_messages import *
 from gilbi.mistrael.helpers.password_helper import compare_passwords
 from gilbi.mistrael.helpers.session_helper import create_session
 from gilbi.mistrael.helpers.session_helper import destroy_session
+from gilbi.mistrael.helpers.session_helper import validate_session
 
-def login(request):  
+def login(request):      
     c = {}
     c.update(csrf(request)) 
        
@@ -30,9 +31,6 @@ def login(request):
         else: #sucesso na validação
             create_session(request, registered_user.id)
             return HttpResponseRedirect('perfil/')
-#            context = RequestContext(request, c)        
-#            template = loader.get_template('user_profile.html')
-#            return HttpResponse(template.render(context)) 
             
     context = RequestContext(request, c)
     template = loader.get_template('user_profiles/login.html')
