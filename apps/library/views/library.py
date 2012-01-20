@@ -9,8 +9,7 @@ from gilbi.mistrael.messages.success_messages import SUCCESS_LIBRARY_REGISTER
 from gilbi.apps.user_profiles.models import User
 from gilbi.apps.library.models import Address, Phone, LibraryBook, Loan
 from gilbi.apps.library.forms import LibraryRegisterForm
-from gilbi.mistrael.transformers.loan_transformer import GridUserLoan
-from gilbi.mistrael.transformers.book_transformer import GridLibraryBook
+from gilbi.apps.library.grid_formats import UserLoanGridFormat, LibraryBookGridFormat
 
 
 def index(request):  
@@ -143,14 +142,14 @@ def list_loans(request):
 def transform_to_grid_book_list(books):
     grid_list = []
     for book in books:
-        book_grid_format = GridLibraryBook(book)   
+        book_grid_format = LibraryBookGridFormat(book)   
         grid_list.append(book_grid_format)
     return grid_list
 
 def transform_to_grid_loan_list(loans):
     grid_list = []
     for loan in loans:
-        loan_grid_format = GridUserLoan(loan)   
+        loan_grid_format = UserLoanGridFormat(loan)   
         grid_list.append(loan_grid_format)
     return grid_list
 

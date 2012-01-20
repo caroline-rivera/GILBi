@@ -10,8 +10,7 @@ from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.apps.bookstore.models import BookOrder, BookstoreBook
 from gilbi.apps.books.models import Book
 from gilbi.apps.user_profiles.models import User
-from gilbi.mistrael.transformers.book_transformer import GridBookTransform
-from gilbi.mistrael.transformers.order_transformer import GridOrderTransform
+from gilbi.apps.bookstore.grid_formats import BookGridFormat, OrderGridFormat
 from datetime import datetime
 
 def index(request):
@@ -190,14 +189,14 @@ def cancel_orders(request):
 def transform_to_grid_book_list(books):
     grid_list = []
     for book in books:
-        book_grid_format = GridBookTransform(book)   
+        book_grid_format = BookGridFormat(book)   
         grid_list.append(book_grid_format)
     return grid_list
 
 def transform_to_grid_order_list(orders):
     grid_list = []
     for order in orders:
-        order_grid_format = GridOrderTransform(order)   
+        order_grid_format = OrderGridFormat(order)   
         grid_list.append(order_grid_format)
     return grid_list
 

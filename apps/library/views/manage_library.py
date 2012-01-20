@@ -11,12 +11,11 @@ from gilbi.apps.library.models import Loan, Phone, LibraryBook
 from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
-from gilbi.mistrael.transformers.loan_transformer import GridManagerLoan
+from gilbi.apps.library.grid_formats import ManagerLoanGridFormat, LibraryBookGridFormat
 from gilbi.apps.library.forms import BorrowBookForm
 from gilbi.apps.library.forms import ReceiveBookForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_BORROWED, SUCCESS_BOOK_RENEWED
 from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_RECEIVED
-from gilbi.mistrael.transformers.book_transformer import GridLibraryBook
 
 def index(request):   
     if validate_session(request) == False:
@@ -149,7 +148,7 @@ def show_book_informations(request):
         if(str_id != ""):                     
             book_id = int(str_id)            
             library_book = LibraryBook.objects.get(id=book_id)
-            book = GridLibraryBook(library_book)            
+            book = LibraryBookGridFormat(library_book)            
             book_list.append(book)
                
         response = serializers.serialize("json", book_list)     
@@ -193,6 +192,6 @@ def show_user_informations(request, id):
 def transform_to_grid_loan_list(loans):
     grid_list = []
     for loan in loans:
-        loan_grid_format = GridManagerLoan(loan)   
+        loan_grid_format = ManagerLoanGridFormat(loan)   
         grid_list.append(loan_grid_format)
     return grid_list

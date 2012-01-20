@@ -17,8 +17,7 @@ from gilbi.apps.user_profiles.models import User
 from gilbi.apps.bookstore.models import BookOrder, BookstoreBook, OrderSale, ShelfSale
 from gilbi.apps.bookstore.forms import ShelfSaleForm
 
-from gilbi.mistrael.transformers.order_transformer import GridOrderTransform
-from gilbi.mistrael.transformers.book_transformer import GridBookstoreBook
+from gilbi.apps.bookstore.grid_formats import OrderGridFormat, BookstoreBookGridFormat
 
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_BOOK_ID, ERROR_REQUIRED_BOOK_PRICE
 from gilbi.mistrael.messages.error_messages import ERROR_INVALID_BOOK_PRICE
@@ -53,7 +52,7 @@ def show_book_informations(request):
         if(str_id != ""):                     
             book_id = int(str_id)            
             bookstore_book = BookstoreBook.objects.get(id=book_id)
-            book = GridBookstoreBook(bookstore_book)            
+            book = BookstoreBookGridFormat(bookstore_book)            
             book_list.append(book)
                
         response = serializers.serialize("json", book_list)     
@@ -197,7 +196,7 @@ def sell_order_book(request):
 def transform_to_grid_order_list(orders):
     grid_list = []
     for order in orders:
-        order_grid_format = GridOrderTransform(order)   
+        order_grid_format = OrderGridFormat(order)   
         grid_list.append(order_grid_format)
     return grid_list
 
