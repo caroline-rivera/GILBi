@@ -1,5 +1,13 @@
 {% extends "inside_base.html" %}
 
+{% block script %}    
+    <script type="text/javascript">
+        $(function() {       
+            $('#save_button').button(); 
+        }); 
+    </script>
+{% endblock script %}
+
 {% block conteudo %}
 	<form method="post" action="">
 	
@@ -16,8 +24,10 @@
 	
 		</div>
 		
-		<div id="save_button">
-			<input id="botao" type="submit" value="Cadastrar" />
+		<br />
+		
+		<div id="div_save" class="tab_save_button">
+			<input type="submit" id="save_button" value="Cadastrar" />
 		</div>
 		
 	</form>

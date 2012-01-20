@@ -6,6 +6,9 @@
 	
 	<script type="text/javascript">
         $(function() {   	
+        	$('#edit_button').button(); 
+        	$('#exclude_button').button(); 
+        	
             var serverParams =
             {
             	{% if not result and not form.errors %}
@@ -48,7 +51,9 @@
 			</div>	
 		</div>		
 	</form>
-
+	
+	<br /><br />
+	
 	<h2>Excluir minha Conta</h2>
 	
 	<div id="exclude_text" class="text">

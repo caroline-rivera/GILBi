@@ -1,5 +1,12 @@
 {% extends "inside_base.html" %}
 
+{% block script %}    
+    <script type="text/javascript">
+        $(function() {       
+            $('#save_button').button(); 
+        }); 
+    </script>
+{% endblock script %}
 
 {% block conteudo %}
 	<form enctype="multipart/form-data" method="post" action="">
@@ -48,10 +55,13 @@
 				<p>Centro Espírita: {{ form.institution }}</p>	
 	
 		</div>
-		<div id="save_button">
-			<input id="botao" type="submit" value="Salvar" />
-		</div>
+	
+		<br />
 		
+		<div id="div_save" class="tab_save_button">
+			<input type="submit" id="save_button" value="Salvar" />
+		</div>	
+			
 	</form>
 
 {% endblock %}
