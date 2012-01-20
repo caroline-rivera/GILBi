@@ -85,7 +85,7 @@ def sell_shelf_book(request):
 
             if is_valid_book(request.GET['book_id']) == True:   
                 book = BookstoreBook.objects.get(id=int(request.GET['book_id'])) 
-                if book.avaiable_quantity == 0 and len(result['validation_message']) == 0:
+                if book.available_quantity == 0 and len(result['validation_message']) == 0:
                     result['error_message'] = ERROR_UNAVAILABLE_BOOK
             else:
                 book = None

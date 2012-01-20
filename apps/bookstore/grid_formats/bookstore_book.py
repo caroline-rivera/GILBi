@@ -40,7 +40,7 @@ class BookstoreBookGridFormat(models.Model):
         return str_author
     
     def set_available_quantity(self, book):
-        return str(book.avaiable_quantity)
+        return str(book.available_quantity)
     
     def set_reserved_quantity(self, book):
-        return str(book.total_quantity - book.avaiable_quantity)
+        return str(book.total_quantity - book.available_quantity)

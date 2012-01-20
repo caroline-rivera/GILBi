@@ -111,7 +111,7 @@ Bookstore.Functions = {
 	        {name:'author', index:'author', width:140},
 	        {name:'spiritual_author', index:'author', width:140},
 	        {name:'publisher', index:'publisher', width:160}, 	
-	        {name:'avaiable_quantity', index:'avaiable_quantity', width:80}	
+	        {name:'available_quantity', index:'available_quantity', width:80}	
 		];
 		
 		grid.jqGrid({
@@ -202,7 +202,7 @@ Bookstore.Functions = {
 	                	author: item.fields['author'],
 	                	spiritual_author: item.fields['spiritual_author'],
 	                	publisher: item.fields['publisher'],
-	                	avaiable_quantity: item.fields['avaiable_quantity']
+	                	available_quantity: item.fields['available_quantity']
 	                }
 	                books[i] = book;
                 });

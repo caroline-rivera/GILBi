@@ -10,6 +10,7 @@ SITUATION_CHOICES = (
                   ('R', 'Rejeitada'),
                   ('D', 'Disponível'),
                   ('C', 'Cancelada'),
+                  ('V', 'Vendida')
 )
 
 class BookOrder(models.Model):
