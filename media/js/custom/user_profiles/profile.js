@@ -63,33 +63,3 @@ Profile.Functions = {
 	}
     
 }
-
-
-/*
-		$(function() {
-			$('#edit_status').hide();
-     
-	        $('#status').click(function() {
-	        	$('#status').fadeOut("fast");
-	           	$('#edit_status').fadeIn("fast");	        
-	        });
-	        
-	        $('#ok_button').click(function() {
-	        	debugger;
-	        	var description = $('#description').val();
-	        	var description_length = description.length;
-	        	if( description_length > 100)
-	        	{
-	        		$('#error_msg').css(
-						        		{"background":"url({{ MEDIA_URL }}/img/icons/error.png) no-repeat 10px 10px #fdf0eb",
-						        		"border":"solid 1px #cd0a0a"}
-						        		);
-					$('#error_msg').html("").append("Tamanho máximo de 100 caracteres.").slideDown("fast").delay(3500).slideUp("fast");
-				}
-				else
-				{
-					$('#form_edit_status').submit($.post("/perfil/alterarstatus/"));
-				}
-	        });	        
-		});	
-*/
