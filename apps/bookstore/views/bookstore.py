@@ -172,7 +172,8 @@ def cancel_orders(request):
  
         order = BookOrder.objects.get(id=order_id) 
         
-        if (order.situation == 'R'):
+        if (order.situation == 'R' or order.situation == 'A' or \
+            order.situation == 'D' or order.situation == 'V'):
             result['error_message'] = ERROR_CANCELING_ORDER
         elif(order.situation == 'C'):
             result['error_message'] = ERROR_ORDER_ALREADY_CANCELED

@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 SUCCESS_REGISTER_NEW_USER = "Cadastro realizado com sucesso! Verifique seu e-mail para ativar a conta." 
 
@@ -32,10 +32,8 @@ SUCCESS_REGISTER_SELLER = "Vendedor cadastrado com sucesso: "
 SUCCESS_ADD_FAVORITE_BOOK = "Número de livros novos adicionados aos Favoritos: "
 
 # Adicionar encomendas
-SUCCESS_ORDERING_BOOK = """
-                        <p>Encomenda de livro solicitada com sucesso!</p>
-                        <p>Acompanhe seu pedido na aba Minhas Encomendas.</p>
-                        """
+SUCCESS_ORDERING_BOOK = "Encomenda de livro solicitada com sucesso! Acompanhe seu pedido na aba Minhas Encomendas."
+
 # Cancelar encomenda
 SUCCESS_CANCELING_ORDER = "Encomenda cancelada com sucesso!"
 

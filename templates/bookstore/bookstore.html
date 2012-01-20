@@ -30,6 +30,7 @@
 		<!Primeira aba>
 		<div id="tab1">
 			<table id="favorite_books">
+				<p>Preencha os campos para procurar por um livro:</p>
 				<tr>
 					<td>Nome:</td>
 					<td><input type="text" id="name_tab1" name="name" maxlength="20" size="40" /></td>
@@ -48,7 +49,7 @@
 				<input id="button_search_tab1" type="submit" value="Procurar" />
 			</div>
 			
-			<div id="msg_tab1"></div>
+			<div class="message_container"></div>
 			
 			<table id="table_favorites"></table>
 			<div id="bfavorites"></div>
@@ -61,6 +62,8 @@
     	<! Segunda aba>
 		<div id="tab2">
 			<table id="order_books">
+				<p>Preencha os campos para procurar por um livro:</p>
+				
 				<tr>
 					<td>Nome:</td>
 					<td><input type="text" id="name_tab2" name="name" maxlength="20" size="40" /></td>
@@ -78,8 +81,8 @@
 			<div id="div_search_tab2" class="tab_search_button">			
 				<input id="button_search_tab2" type="submit" value="Procurar" />
 			</div>
-			
-			<div id="msg_tab2"></div>
+						
+			<div class="message_container"></div>
 			
 			<p>Quantidade de livros a encomendar: <input type="text" id="quantity" name="quantity" maxlength="2" size="5" /></p>
 			
@@ -93,10 +96,15 @@
     	
     	<! Terceira aba>
 		<div id="tab3">
-			<div id="msg_tab3"></div>
-		
+			
+			<div class="message_container"></div>  
+			
 			<table id="table_user_orders"></table>
 			<div id="bmyorders"></div>
+			
+			<br />
+			<h3>Observação:</h3>
+			<p>Apenas encomendas com status Solicitada poderão ser canceladas.</p>
 			
 			<br />
 			<h3>Situações:</h3>

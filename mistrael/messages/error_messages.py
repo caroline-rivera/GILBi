@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 #Cadastrar Usuário
 ERROR_ALREADY_REGISTERED_LOGIN = "Já existe um usuário com esse login."   
@@ -69,7 +69,7 @@ ERROR_ADD_FAVORITE_BOOK = "Nenhum novo livro foi adicionado aos Favoritos."
 ERROR_INVALID_QUANTITY = "Forneça um valor numérico entre 1 e 20."
 
 # Cancelar encomenda
-ERROR_CANCELING_ORDER = "Encomenda que foi rejeitada não pode ser cancelada."
+ERROR_CANCELING_ORDER = "Essa encomenda não pode ser cancelada."
 ERROR_ORDER_ALREADY_CANCELED = "Esta encomenda já foi cancelada."
 
 #cadastro na biblioteca

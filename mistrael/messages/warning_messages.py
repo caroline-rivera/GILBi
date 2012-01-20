@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 WARNING_EDIT_ACCOUNT = "Nenhum dado da sua conta foi alterado." 
 

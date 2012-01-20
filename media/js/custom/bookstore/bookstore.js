@@ -38,7 +38,7 @@ Bookstore.Functions = {
 		$(btn.add_tab1).click( function() {
 			var grid = $(Bookstore.Selectors.Tables.favorites);
 			var divMsg = $('#msg_tab1');
-			Bookstore.Functions.getSelectedColumnsFn(grid, divMsg, "msg_tab1");	
+			Bookstore.Functions.getSelectedColumnsFn(grid, $("#tab1"));	
 		});
 		
 		/* Funcoes para a tab2: Encomendas de Livros */
@@ -51,7 +51,7 @@ Bookstore.Functions = {
 		$(btn.add_tab2).click( function() {
 			var grid = $(Bookstore.Selectors.Tables.orders);
 			var divMsg = $('#msg_tab2');
-			Bookstore.Functions.getSelectedRowFn(grid, divMsg, "msg_tab2");	
+			Bookstore.Functions.getSelectedRowFn(grid, $("#tab2"));	
 		});
 		
 		/* Funcoes para a tab3: Encomendas do usuario */
@@ -64,7 +64,7 @@ Bookstore.Functions = {
 		$(btn.cancel_tab3).click( function() {
 			var grid = $(Bookstore.Selectors.Tables.userOrders);
 			var divMsg = $('#msg_tab3');
-			Bookstore.Functions.getSelectedRowFn(grid, divMsg, "msg_tab3");	
+			Bookstore.Functions.getSelectedRowFn(grid, $("#tab3"));	
 		});
 
 	},
@@ -169,8 +169,8 @@ Bookstore.Functions = {
 		if(tab == "1")
 		{
 			var grid = $(table.favorites),
-				divMsg = $("#msg_tab1"),
-				divId =	"msg_tab1";
+				$tab = $("#tab1"),
+				$messageContainer = $tab.find("div.message_container");
 				
 			data['name'] = $('#name_tab1').val().trim();
 			data['author'] = $('#author_tab1').val().trim();
@@ -180,8 +180,8 @@ Bookstore.Functions = {
 		if(tab == "2")
 		{
 			var grid = $(table.orders),
-				divMsg = $("#msg_tab2"),
-				divId =	"msg_tab2";	
+				$tab = $("#tab2"),
+				$messageContainer = $tab.find("div.message_container");
 			
 			data['name'] = $('#name_tab2').val().trim();
 			data['author'] = $('#author_tab2').val().trim();
@@ -211,7 +211,7 @@ Bookstore.Functions = {
 			},
 			error: function() {	
 				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});		
 	},
@@ -219,10 +219,9 @@ Bookstore.Functions = {
 //------------------------------------------------------------------------- searchOrdersFn	
 	searchOrdersFn: function(tab)
 	{
-		var table = Bookstore.Selectors.Tables,	
-			grid = $(table.userOrders),
-			divMsg = $('#msg_tab3'),
-			divId = "msg_tab3";
+		var grid = $(Bookstore.Selectors.Tables.userOrders),
+			$tab = $("#tab3"),
+			$messageContainer = $tab.find("div.message_container");
 				
 		$.ajax({
 			url: "/livraria/encomendas/listar/",
@@ -248,7 +247,7 @@ Bookstore.Functions = {
 			},
 			error: function() {	
 				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});		
 	},
@@ -266,8 +265,10 @@ Bookstore.Functions = {
 	},	
 
 //------------------------------------------------------------------------- getSelectedColumnsFn		
-	getSelectedColumnsFn: function(grid, divMsg, divId)
+	getSelectedColumnsFn: function(grid, $tab)
 	{
+		var $messageContainer = $tab.find("div.message_container");
+			
 		var selArrowNumerations = grid.getGridParam('selarrrow'),
 			bookIds = [];
 		
@@ -280,49 +281,51 @@ Bookstore.Functions = {
 		if (bookIds.length == 0)
 		{
 			var msg = Helpers.Messages.Book.NO_SEL_ARROW;
-			Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);
+			Helpers.Functions.showWarningMsg($messageContainer, msg);
 		}
 		else
 		{		
-			Bookstore.Functions.saveFn(bookIds, divMsg, divId);
+			Bookstore.Functions.saveFn(bookIds, $tab);
 		}
 	},
 
 //------------------------------------------------------------------------- getSelectedRowFn		
-	getSelectedRowFn: function(grid, divMsg, divId)
+	getSelectedRowFn: function(grid, $tab)
 	{
-		var selRowNumber = grid.getGridParam('selrow');
+		var selRowNumber = grid.getGridParam('selrow'),
+			$messageContainer = $tab.find("div.message_container");
 					
 		if (selRowNumber == null)
 		{
 			var msg = Helpers.Messages.Book.NO_SEL_ARROW;
-			Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);
+			Helpers.Functions.showWarningMsg($messageContainer, msg);
 		}
 		else
 		{		
 			var bookId = grid.getRowData(selRowNumber)['id'];
 			
-			if(divId == "msg_tab2")
+			if($tab.selector == "#tab2")
 			{
-				Bookstore.Functions.saveFn(bookId, divMsg, divId);
+				Bookstore.Functions.saveFn(bookId, $tab);
 			}
 			
-			if(divId == "msg_tab3")
+			if($tab.selector == "#tab3")
 			{
-				Bookstore.Functions.cancelFn(bookId, divMsg, divId);
+				Bookstore.Functions.cancelFn(bookId, $tab);
 			}
 		}
 	},
 //------------------------------------------------------------------------- saveFn		
-	saveFn: function(ids, divMsg, divId)
+	saveFn: function(ids, $tab)
 	{
 		var data = {},	
 			url = "",
-			grid = $(Bookstore.Selectors.Tables.favorites);
+			grid = $(Bookstore.Selectors.Tables.favorites),
+			$messageContainer = $tab.find("div.message_container");
 		
 		data['book_ids'] = [ids];
 		
-		if(divId == "msg_tab1")
+		if($tab.selector == "#tab1")
 		{
 			url = "/livraria/adicionarfavoritos/";
 		}
@@ -344,37 +347,37 @@ Bookstore.Functions = {
 				{
 					$("#quantity").val("");
 					grid.resetSelection();
-					Helpers.Functions.showPopUpSuccessMsg(divMsg, 
-														  divId, 
-														  response['success_message']);
+					Helpers.Functions.showSuccessMsg($messageContainer, 
+													 response['success_message']);
 				}	
 				
 				if(response['error_message'] != "")
 				{
-					Helpers.Functions.showPopUpErrorMsg(divMsg, 
-														divId, 
-														response['error_message']);
+					Helpers.Functions.showErrorMsg($messageContainer, 
+													 response['error_message']);
 				}			
 			},
 			error: function() {	
 				var msg = Helpers.Messages.Book.ERROR_SAVING_BOOK;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				Helpers.Functions.showErrorMsg($messageContainer, msg);
 			}
 		});	
 	},
 	
 //------------------------------------------------------------------------- cancelFn		
-	cancelFn: function(ids, divMsg, divId)
+	cancelFn: function(ids, $tab)
 	{
+		debugger;
 		var data = {},	
 			url = "",
-			grid = $(Bookstore.Selectors.Tables.userOrders);
+			grid = $(Bookstore.Selectors.Tables.userOrders),
+			$messageContainer = $tab.find("div.message_container");
 		
 		data['order_ids'] = [ids];
 		
 		$.ajax({
 			traditional: true,
-			url: "/livraria/encomendas/cancelar",
+			url: "/livraria/encomendas/cancelar/",
 			dataType: "json",
 			data: data,
 			async: true,
@@ -386,21 +389,19 @@ Bookstore.Functions = {
 					grid.jqGrid('setRowData', selRowNumber, {situation:'Cancelada'});
 					
 					grid.resetSelection();
-					Helpers.Functions.showPopUpSuccessMsg(divMsg, 
-														  divId, 
-														  response['success_message']);
+					Helpers.Functions.showSuccessMsg($messageContainer, 
+													 response['success_message']);
 				}	
 				
 				if(response['error_message'] != "")
 				{
-					Helpers.Functions.showPopUpErrorMsg(divMsg, 
-														divId, 
-														response['error_message']);
+					Helpers.Functions.showErrorMsg($messageContainer, 
+													 response['error_message']);
 				}			
 			},
 			error: function() {	
 				var msg = Helpers.Messages.Order.ERROR_CANCELING_ORDER;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				Helpers.Functions.showErrorMsg($messageContainer, msg);	
 			}
 		});	
 	}
