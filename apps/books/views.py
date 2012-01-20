@@ -9,7 +9,15 @@ from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_AUTHOR
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
 
-
+def index(request):
+    if validate_session(request) == False:
+        return HttpResponseRedirect('/logout/') 
+    elif validate_manager_session(request) == False:
+        return HttpResponseRedirect('/perfil/')
+    else:
+        return render_to_response('books/books_collection.html', 
+                                  {}, context_instance=RequestContext(request)) 
+            
 def register_author(request):
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/')

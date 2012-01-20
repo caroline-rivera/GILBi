@@ -1,0 +1,20 @@
+{% extends "inside_base.html" %}
+
+{% block conteudo %}
+	
+	{% csrf_token %}	
+	<div id="middle">
+	    <h2>Acervo de Livros</h2>
+	    
+	    <br /><br />
+	    
+		<div id="records">	
+			<h3>Cadastros</h3>
+		
+			<p><a href="/acervo/cadastrarautor/">Cadastrar Autor</a></p>
+			<p><a href="/acervo/cadastrareditora/">Cadastrar Editora</a></p>
+			<p><a href="/acervo/cadastrarlivro/">Cadastrar Livro</a></p>
+		</div>
+			
+	</div>
+{% endblock %}

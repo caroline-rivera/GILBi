@@ -86,7 +86,7 @@ RegisterEmployee.Functions = {
 		data['email'] = $(searchFields.email).val().trim();
 		
 		$.ajax({
-			url: "/gerenciarlivraria/cadastrarfuncionario/pesquisar/",
+			url: "/cadastrarfuncionario/pesquisar/",
 			dataType: "json",
 			data: data,
 			async: true,
@@ -134,7 +134,7 @@ RegisterEmployee.Functions = {
 		
 		$.ajax({
 			traditional: true,
-			url: "/gerenciarlivraria/cadastrarfuncionario/salvar/",
+			url: "/cadastrarfuncionario/salvar/",
 			dataType: "json",
 			data: data,
 			async: true,

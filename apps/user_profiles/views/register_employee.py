@@ -27,7 +27,7 @@ def search(request):
         return HttpResponseRedirect('/perfil/') 
     
     if request.method == 'POST':
-        return HttpResponseRedirect('/gerenciarlivraria/cadastrarfuncionario/') 
+        return HttpResponseRedirect('/cadastrarfuncionario/') 
     
     elif 'first_name' in request.GET and 'last_name' in request.GET and 'login' in request.GET and 'email' in request.GET:
         first_name = request.GET['first_name']
@@ -54,7 +54,7 @@ def search(request):
         return HttpResponse(response, mimetype="text/javascript")
     
     else:
-        return HttpResponseRedirect('/gerenciarlivraria/cadastrarfuncionario/') 
+        return HttpResponseRedirect('/cadastrarfuncionario/') 
 
 def save(request):
     if validate_session(request) == False:
@@ -106,7 +106,7 @@ def save(request):
         response = json.dumps(result)
         return HttpResponse(response, mimetype="text/javascript")
     else:
-        return HttpResponseRedirect('/gerenciarlivraria/cadastrarfuncionario/') 
+        return HttpResponseRedirect('/cadastrarfuncionario/') 
 
 
 def create_message(message, name_user):
