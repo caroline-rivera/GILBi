@@ -56,7 +56,9 @@ urlpatterns = patterns('',
     url(r'^gerenciarlivraria/$', 'apps.bookstore.views.manage_bookstore.index'),
     url(r'^gerenciarlivraria/cadastrardistribuidora/$', 
         'apps.bookstore.views.manage_bookstore.register_distributor'),   
-                       
+    url(r'^gerenciarlivraria/livro/(?P<book_id>\d+)/json/$', 
+        'apps.bookstore.views.manage_bookstore.get_book_json'), 
+                                          
     url(r'^livraria/$', 'apps.bookstore.views.bookstore.index'),   
     url(r'^livraria/pesquisar/$', 'apps.bookstore.views.bookstore.search_books'),   
     url(r'^livraria/adicionarfavoritos/$', 'apps.bookstore.views.bookstore.add_favorites'),

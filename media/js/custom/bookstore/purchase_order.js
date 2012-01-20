@@ -73,20 +73,24 @@ PurchaseOrder.Functions = {
 //-------------------------------------------------------------------------- addBookToPurchaseOrder
 	addBookToPurchaseOrder: function(event) {
 		
-		// 'quantity' eu peguei da tela
-		var $quantity = $("#id_quantity"),
-		    quantity = $quantity.val();
+		var bookId = $("#id_book").val(),
+		    quantity = $("#id_quantity").val();
+		    
+		// TODO: Fazer validação client-side
 		
-		// 'book' voltou do servidor
-		var book = {
-			"id": 1,
-			"name": "Livro legal",
-			"author": "Alex",
-			"spiritualAuthor": "Carol",
-			"publisher": "A Editora"
-		};		
-		
-		PurchaseOrder.Functions._addItemToPurchaseOrder(book, quantity);
+		$.ajax({
+			url: "/gerenciarlivraria/livro/"+bookId+"/json",
+			dataType: "json",
+			success: function(book) {
+				//var book = $.extend({}, json.fields, { id: json.pk });
+				
+				PurchaseOrder.Functions._addItemToPurchaseOrder(book, quantity);
+			},
+			error: function() {	
+				//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
+				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+			}
+		});
 	},
 	
 //--------------------------------------------------------------------- addBookOrderToPurchaseOrder

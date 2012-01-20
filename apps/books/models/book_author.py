@@ -13,6 +13,9 @@ class BookAuthor(models.Model):
     author = models.ForeignKey(Author)
     book = models.ForeignKey(Book)
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, default='F')
+    
+    def __unicode__(self):
+        return self.author.name
         
     class Meta:
         app_label = 'books'
