@@ -38,7 +38,56 @@ PurchaseOrder.Functions = {
 //------------------------------------------------------------------------- createOrdersTable
 	createOrdersTable: function() {
 			
+		var grid = $(PurchaseOrder.Selectors.Tables.orders),
+		    columnsTitles = ['Nome do Usuário', 'Livro', /*'Autor(es)', 
+		    				 'Autor(es) Espiritual(ais)',*/'Editora', 'Data', 'Quantidade'],
+			columnsSpecification = [
+				{name:'userName', index:'userName', width:160},
+		        {name:'bookName', index:'bookName', width:220},
+		        {name:'publisher', index:'publisher', width:170}, 
+		        {name:'date', index:'date', width:110}, 
+		        {name:'quantity', index:'quantity', width:70}		
+			];
 		
+		grid.jqGrid({
+			datatype: 'local',
+			colNames: columnsTitles,
+		    colModel:columnsSpecification,
+		    height: 'auto',
+		    multiselect: false,
+		    sortname: 'bookName',
+		    viewrecords: true,
+		    caption:'Encomendas de Usuário',
+		    userdata: {
+				purchaseItems: []
+			}			
+		});			
+
+		$.ajax({
+			url: "/gerenciarlivraria/encomendas/json",
+			dataType: "json",
+			success: function(response) {
+				var orders = [];
+				$.each(response, function(i, item){
+	                var order = {
+	                	id: item.pk,
+	                	userName: item.fields['user_name'],
+	                	bookName: item.fields['name'],
+	                	publisher: item.fields['publisher'],
+	                	quantity: item.fields['quantity'],
+	                	date: item.fields['order_date']
+	                };
+	                orders[i] = order;
+                });
+
+				PurchaseOrder.Functions.listFn(orders, grid);							
+			},
+			error: function() {	
+				//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
+				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+			}
+		});
+				
 	},
 	
 //------------------------------------------------------------------------- createPurchaseItemsTable
@@ -48,11 +97,11 @@ PurchaseOrder.Functions = {
 		    columnsTitles = ['Livro', 'Autor(es)', 'Autor(es) Espiritual(ais)','Editora', 
 		    			     'Quantidade'],
 			columnsSpecification = [
-		        {name:'bookName', index:'bookName', width:230},
-		        {name:'author', index:'author', width:140},
-		        {name:'spiritualAuthor', index:'spiritualAuthor', width:140},
-		        {name:'publisher', index:'publisher', width:100}, 
-		        {name:'quantity', index:'quantity', width:80}		
+		        {name:'bookName', index:'bookName', width:200},
+		        {name:'author', index:'author', width:150},
+		        {name:'spiritualAuthor', index:'spiritualAuthor', width:150},
+		        {name:'publisher', index:'publisher', width:150}, 
+		        {name:'quantity', index:'quantity', width:65}		
 			];
 		
 		grid.jqGrid({
@@ -61,13 +110,13 @@ PurchaseOrder.Functions = {
 		    colModel:columnsSpecification,
 		    height: 'auto',
 		    multiselect: true,
-		    sortname: 'name',
 		    viewrecords: true,
 		    caption:'Itens do Pedido de Compra',
 		    userdata: {
 				purchaseItems: []
 			}			
-		});
+		});	
+		
 	},
 	
 //-------------------------------------------------------------------------- addBookToPurchaseOrder
@@ -79,7 +128,7 @@ PurchaseOrder.Functions = {
 		// TODO: Fazer validação client-side
 		
 		$.ajax({
-			url: "/gerenciarlivraria/livro/"+bookId+"/json",
+			url: "/gerenciarlivraria/livros/"+bookId+"/json",
 			dataType: "json",
 			success: function(book) {
 				//var book = $.extend({}, json.fields, { id: json.pk });
@@ -96,22 +145,25 @@ PurchaseOrder.Functions = {
 //--------------------------------------------------------------------- addBookOrderToPurchaseOrder
 	addBookOrderToPurchaseOrder: function(event) {
 		
-		// 'quantity' veio da grid
-		var quantity = 3;
+		var ordersGrid = $(PurchaseOrder.Selectors.Tables.orders),
+		    //bookOrderId = ordersGrid.jqGrid("getGridParam", "selrow");
+		    bookOrderId = ordersGrid.getGridParam('selrow');
 		
-		// 'book' veio da grid
-		var book = {
-			"id": 3,
-			"name": "Livro legal",
-			"author": "Alex",
-			"spiritualAuthor": "Carol",
-			"publisher": "A Editora"
-		};
-		
-		// 'orderId' veio da grid
-		var bookOrderId = 20;
-		
-		PurchaseOrder.Functions._addItemToPurchaseOrder(book, quantity, bookOrderId);
+		$.ajax({
+			url: "/gerenciarlivraria/encomendas/"+bookOrderId+"/json",
+			dataType: "json",
+			success: function(response) {
+				//var book = $.extend({}, json.fields, { id: json.pk });				
+				
+				PurchaseOrder.Functions._addItemToPurchaseOrder(response.book,
+				                                                response.quantity,
+				                                                bookOrderId);
+			},
+			error: function() {	
+				//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
+				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+			}
+		});
 	},
 	
 //-------------------------------------------------------------------------- addItemToPurchaseOrder
@@ -218,7 +270,7 @@ PurchaseOrder.Functions = {
 		
 		for(var i = 0; i < data.length; i++)
         {
-            grid.jqGrid('addRowData', i, data[i]);
+            grid.jqGrid('addRowData', data[i].id, data[i]);
         }
 		
 	}

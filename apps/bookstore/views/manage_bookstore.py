@@ -7,7 +7,8 @@ import json
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from gilbi.apps.books.models import Book
-from gilbi.apps.bookstore.grid_formats import BookGridFormat
+from gilbi.apps.bookstore.models import BookOrder
+from gilbi.apps.bookstore.grid_formats import OrderGridFormat
 from gilbi.apps.bookstore.models import Distributor
 from gilbi.apps.bookstore.forms import RegisterDistributorForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_DISTRIBUTOR
@@ -43,7 +44,39 @@ def get_book_json(request, book_id):
     
     response = json.dumps(book_dictionary)
     return HttpResponse(response, mimetype="text/javascript")
+
+def get_requested_orders(request):
+    orders = BookOrder.objects.filter(situation="S")
+    orders_grid_format = []
     
+    for order in orders:
+        order_grid_format = OrderGridFormat(order)
+        orders_grid_format.append(order_grid_format)
+    
+    response = serializers.serialize("json", orders_grid_format)     
+    return HttpResponse(response, mimetype="text/javascript")
+
+def get_book_order_book_json(request, book_order_id):  
+    book_order = BookOrder.objects.get(id=book_order_id) 
+    
+    book = {
+        "id": book_order.book.id,
+        "name": book_order.book.name,
+        "author": '\n'.join([str(book_author) for book_author in book_order.book.bookauthor_set.filter(category='F')]),
+        "spiritualAuthor": '\n'.join([str(book_author) for book_author in book_order.book.bookauthor_set.filter(category='E')]),
+        "publisher": str(book_order.book.publisher)
+    }
+    
+    # TODO: Usar o serializers e acabar com essa nojeira
+    book_dictionary = {
+        'book': book,
+        'quantity': book_order.quantity
+    }
+    
+    response = json.dumps(book_dictionary)
+    return HttpResponse(response, mimetype="text/javascript") 
+
+
 def register_distributor(request):
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/')

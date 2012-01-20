@@ -4,17 +4,21 @@ from django.db import models
 from gilbi.apps.books.models import BookAuthor
 
 class OrderGridFormat(models.Model):
+    user_name = models.CharField()
     name = models.CharField()
     author = models.CharField()
     spiritual_author = models.CharField()
+    publisher = models.CharField()
     order_date = models.CharField()
     quantity = models.IntegerField()
     situation = models.CharField()
     def __init__(self, order):
         self.id = order.id
+        self.user_name = order.user.first_name + " " + order.user.last_name
         self.name = order.book.name
         self.author = self.set_authors(order.book)
         self.spiritual_author = self.set_spiritual_authors(order.book)
+        self.publisher = order.book.publisher.name
         self.order_date = self.set_date(order.order_date)
         self.quantity = order.quantity
         self.situation = self.set_situation(order.situation)
