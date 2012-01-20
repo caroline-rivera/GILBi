@@ -92,7 +92,6 @@ GenerateMonthBalance.Functions = {
 					}		
 					else
 					{
-						alert("sucesso");
 						var arrayBalance = [];
 		                var balance = {
 		                	previous_balance: response['previous_balance'],

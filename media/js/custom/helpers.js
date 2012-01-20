@@ -145,6 +145,7 @@ Helpers.Functions = {
 	{
 		Helpers.Functions.showMessage($messageContainer, "warning", text);
 	},
+	
 //------------------------------------------------------------------------------ showMessage	
 	showMessage: function($messageContainer, type, text)
 	{
@@ -159,5 +160,17 @@ Helpers.Functions = {
 			.animate({ opacity: 1.0 }, 6000, function() {
 		       $(this).fadeOut(500);
 		    });
+	},
+	
+//------------------------------------------------------------------------------ listFn	
+	listFn: function(data, grid)
+	{		
+		grid.clearGridData();
+		
+		for(var i = 0; i < data.length; i++)
+        {
+            grid.jqGrid('addRowData', i, data[i]);
+        }
+		
 	}
-}
+}	

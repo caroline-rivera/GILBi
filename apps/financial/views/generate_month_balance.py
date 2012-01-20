@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 import json
-from decimal import Decimal, getcontext
+from decimal import Decimal
 from datetime import date
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext

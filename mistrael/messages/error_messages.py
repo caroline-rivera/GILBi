@@ -137,7 +137,15 @@ ERROR_INVALID_YEAR = "Esse ano é inválido."
 ERROR_INVALID_MONTH_YEAR = "O mês/ano escolhido é posterior ao mês/ano atual."
 ERROR_MISSING_PREVIOUS_BALANCE = "Não existe contabilidade para o mês anterior. Realize primeiramente esse balanço."
 
+# Gerar Relatório de Vendas
+
+ERROR_REQUIRED_INITIAL_DATE = "O campo Data Inicial é obrigatório."
+ERROR_REQUIRED_ENDING_DATE = "O campo Data Final é obrigatório."
+
 # Pedido de Compra
 
 ERROR_REQUIRED_BOOK = "O campo Livro é obrigatório."
 ERROR_REQUIRED_BOOK_QUANTITY = "O campo quantidade é obrigatório."
+ERROR_INVALID_INITIAL_DATE = "A Data Inicial é inválida. Forneça um valor no formato: 99/99/9999."
+ERROR_INVALID_ENDING_DATE = "A Data Final é inválida. Forneça um valor no formato: 99/99/9999."
+ERROR_REQUIRED_INVALID_DATES = "A Data Final deve ser maior que a Data Inicial."

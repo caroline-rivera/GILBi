@@ -5,12 +5,11 @@
     
     <script type="text/javascript">
         $(function() {
-        debugger;
         	$.datepicker.setDefaults( $.datepicker.regional["pt-BR"] );        
             $('#button_generate').button(); 
             $('#id_initial_date').datepicker();
             $('#id_ending_date').datepicker();
-            //SellBooks.Functions.init();
+            GenerateSaleReport.Functions.init();
         }); 
     </script>
 {% endblock script %}
@@ -19,20 +18,27 @@
 	<h2>Relatório de Livros Vendidos</h2>	
 		
 	<div id="sale_report">	
-		<table>
-			<tr>
-				<td><p>(*) Data Inicial:</p></td>
-				<td><p>{{ form.initial_date }}</p></td>
-			</tr>
-			<tr>
-				<td><p>(*) Data Final:</p></td>
-				<td><p>{{ form.ending_date }}</p></td>
-			</tr>
-		</table>				
+	
+		<div class="message_container"></div>		
+		
+		<ol class="fields">
+			<li>
+				<label>(*) Data Inicial:</label>
+				{{ form.initial_date }}
+			</li>
+			<li>
+				<label>(*) Data Final:</label>
+				{{ form.ending_date }}
+			</li>
+		</ol>
+						
 	</div>
 	
     <div id="div_generate" class="tab_save_button">
         <input id="button_generate" type="submit" value="Gerar Relatório" />
     </div> 
+    
+    <table id="table_sales_report"></table>
+    <div id="bsales"></div>
 
 {% endblock %}
