@@ -106,7 +106,12 @@ urlpatterns = patterns('',
         'apps.financial.views.generate_sale_report.index'),  
     url(r'^gerenciarlivraria/relatorios/vendas/listar/$', 
         'apps.financial.views.generate_sale_report.list_sales'),
-                                          
+    
+    url(r'^gerenciarlivraria/pagamento/$', 
+        'apps.financial.views.register_payment.index'),
+    url(r'^gerenciarlivraria/pagamento/cadastrar/$', 
+        'apps.financial.views.register_payment.register'),
+                                                                                
     url(r'^gerenciarlivraria/pedidodecompra/$', 
         'apps.bookstore.views.purchase_order.index'),                     
 )

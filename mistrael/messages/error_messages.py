@@ -150,3 +150,12 @@ ERROR_INVALID_INITIAL_DATE = "A Data Inicial é inválida. Forneça um valor no 
 ERROR_INVALID_ENDING_DATE = "A Data Final é inválida. Forneça um valor no formato: 99/99/9999."
 ERROR_REQUIRED_INVALID_DATES = "A Data Final deve ser maior que a Data Inicial."
 ERROR_REQUIRED_DISTRIBUTOR = "O campo Distribuidora é obrigatório."
+
+# Realizar Pagamento
+
+ERROR_REQUIRED_INVOICE = "O campo Nota Fiscal é obrigatório."
+ERROR_REQUIRED_DUPLICATE = "O campo Duplicata é obrigatório."
+ERROR_INVALID_INVOICE_DUPLICATE = "Essa duplicata não pertence a essa nota fiscal."
+ERROR_DUPLICATE_ALREADY_PAID = "O pagamento dessa duplicata já foi cadastrado."
+ERROR_REQUIRED_PAYMENT_DATE = "O campo Data de Pagamento é obrigatório."
+ERROR_INVALID_PAYMENT_DATE = "A Data de Pagamento é inválida."

@@ -52,3 +52,6 @@ SUCCESS_SELLING_ORDER = "A encomenda foi vendida com sucesso!"
 
 # Vender livro da prateleira
 SUCCESS_SELLING_BOOK = "O livro foi vendido com sucesso!"
+
+# Cadastrar Pagamento
+SUCCESS_REGISTER_PAYMENT = "O pagamento da duplicata foi cadastrado com sucesso!"

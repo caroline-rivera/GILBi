@@ -8,6 +8,9 @@ class Duplicate(models.Model):
     value = models.DecimalField(max_digits=6, decimal_places=2)
     expiration_date = models.DateField()
     payment = models.ForeignKey(Payment, null=True)
+    
+    def set_payment(self, payment):
+        self.payment = payment
         
     class Meta:
         app_label = 'financial'

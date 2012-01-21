@@ -1,0 +1,50 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/custom/financial/register_payment.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+        
+        	$.datepicker.setDefaults( $.datepicker.regional["pt-BR"] );
+        
+            $('#button_register').button(); 
+            $('#id_payment_date').datepicker();
+            
+            RegisterPayment.Functions.init();
+            
+        }); 
+    </script>
+    
+{% endblock script %}
+
+{% block conteudo %}
+	<h2>Cadastrar Pagamento</h2
+		
+	<div id="register_payment">	
+	
+		<div class="message_container"></div>		
+		
+		<ol class="fields">
+			<li>
+				<label>(*) Nota Fiscal:</label>
+				{{ form_payment.invoice }}
+			</li>
+			<li>
+				<label>(*) Duplicata:</label>
+				{{ form_payment.duplicate }}
+			</li>
+			<li>
+				<label>(*) Data de Pagamento:</label>
+				{{ form_payment.payment_date }}
+			</li>
+		</ol>
+				
+	</div>
+	
+    <div id="div_register" class="tab_save_button">
+        <input id="button_register" type="submit" value="Cadastrar" />
+    </div> 
+    
+{% endblock %}
