@@ -36,14 +36,14 @@ class RegisterBookForm(forms.Form):
         self.base_fields['publisher'].error_messages['required'] = ERROR_REQUIRED_PUBLISHER_NAME
         self.base_fields['author'].error_messages['required'] = ERROR_REQUIRED_ONE_AUTHOR_NAME                                  
         super(RegisterBookForm, self).__init__(*args, **kwargs)
-          
+            
     def clean_name(self):   
         if Book.objects.filter(
                                name=self.cleaned_data['name']
                                ).exists() == True:
             raise forms.ValidationError(ERROR_ALREADY_REGISTERED_BOOK)
         return self.cleaned_data['name']
-    
+       
     def clean_spiritual_author(self):
         if 'author' in self.cleaned_data and 'spiritual_author' in self.cleaned_data:
             for spiritual_author in self.cleaned_data['spiritual_author']:

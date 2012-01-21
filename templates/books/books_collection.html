@@ -1,20 +1,99 @@
 {% extends "inside_base.html" %}
 
+{% block script %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/custom/books/books_collection.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            $('#tabs').tabs();
+            $('#button_register_author').button(); 
+            $('#button_register_publisher').button();
+            $('#button_register_book').button();
+
+            BooksCollection.Functions.init();
+        }); 
+    </script>
+{% endblock script %}
+
 {% block conteudo %}
+    <h2>Acervo de Livros</h2>
+    
+    <div id="tabs">
+        <ul>
+            <li><a href="#tab1">Livro</a></li>
+            <li><a href="#tab2">Autor</a></li>
+            <li><a href="#tab3">Editora</a></li>
+        </ul>
+
+        {# Primeira aba #}
+        <div id="tab1">        
+            <h2>Cadastrar Novo Livro</h2>
+                                    
+            <div class="message_container"></div>    
 	
-	{% csrf_token %}	
-	<div id="middle">
-	    <h2>Acervo de Livros</h2>
-	    
-	    <br /><br />
-	    
-		<div id="records">	
-			<h3>Cadastros</h3>
-		
-			<p><a href="/acervo/cadastrarautor/">Cadastrar Autor</a></p>
-			<p><a href="/acervo/cadastrareditora/">Cadastrar Editora</a></p>
-			<p><a href="/acervo/cadastrarlivro/">Cadastrar Livro</a></p>
-		</div>
+			<p>(*) Nome do Livro:</p> 
+			<p>{{ form_book.name }}</p>
 			
-	</div>
-{% endblock %}
+			<p>Foto:</p> 
+			<p>{{ form_book.photo }}</p>
+			
+			<p>Descrição:</p> 
+			<p>{{ form_book.description }}</p>
+				
+			<p>(*) Editora:</p> 
+			<p>{{ form_book.publisher }}</p>	
+			
+			<p>(*) Autor(es):</p> 
+			<p>{{ form_book.author }}</p>	
+			
+			<p>Autor(es) Espiritual(ais):</p> 
+			<p>{{ form_book.spiritual_author }}</p>
+	            
+            <div id="div_register_book" class="tab_save_button">
+                <input id="button_register_book" type="submit" value="Cadastrar" />
+            </div>  
+            
+            </form>                 
+        </div>
+        
+        {# Segunda aba #}
+        <div id="tab2">        
+            <h2>Cadastrar Novo Autor</h2>
+                                    
+            <div class="message_container"></div>     
+		
+			<ol class="fields">			
+				<li>
+					<label>(*) Nome:</label>
+					{{ form_author.author_name }}
+				</li>
+			</ol>
+			
+			<br />
+			            
+            <div id="div_register_author" class="tab_save_button">
+                <input id="button_register_author" type="submit" value="Cadastrar" />
+            </div>                    
+        </div>
+
+        {# Terceira aba #}
+        <div id="tab3">        
+            <h2>Cadastrar Nova Editora</h2>         
+                                    
+            <div class="message_container"></div>       
+		
+			<ol class="fields">			
+				<li>
+					<label>(*) Nome:</label>
+					{{ form_publisher.publisher_name }}
+				</li>
+			</ol>          
+            
+            <br />
+            <div id="div_register_publisher" class="tab_save_button">
+                <input id="button_register_publisher" type="submit" value="Cadastrar" />
+            </div>                    
+        </div>
+                   
+    </div>
+{% endblock conteudo %}
