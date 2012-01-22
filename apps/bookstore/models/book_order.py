@@ -26,5 +26,8 @@ class BookOrder(models.Model):
     def sell_order(self):
         self.situation = 'V'
 
+    def available_order(self):
+        self.situation = 'D'
+        
     class Meta:
         app_label = 'bookstore'

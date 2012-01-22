@@ -55,3 +55,6 @@ SUCCESS_SELLING_BOOK = "O livro foi vendido com sucesso!"
 
 # Cadastrar Pagamento
 SUCCESS_REGISTER_PAYMENT = "O pagamento da duplicata foi cadastrado com sucesso!"
+
+#Cadastrar Nota Fiscal
+SUCCESS_REGISTER_INVOICE = "A Nota Fiscal e os livros do pedido de compra foram cadastrados com sucesso!"

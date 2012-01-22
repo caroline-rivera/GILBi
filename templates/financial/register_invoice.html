@@ -1,0 +1,73 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/custom/financial/register_invoice.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+        	$.datepicker.setDefaults( $.datepicker.regional["pt-BR"] );    
+        	    
+            $('#button_add_duplicate').button(); 
+            $('#button_remove_duplicate').button();
+            $('#button_save_invoice').button();
+            
+            $('#expiration_date_1').datepicker();
+            
+            $('#value_1').maskMoney({symbol:'R$ ', showSymbol:true, thousands:'', decimal:'.', symbolStay: true});
+            
+            RegisterInvoice.Functions.init();
+        }); 
+    </script>
+{% endblock script %}
+
+{% block conteudo %}
+	<h2>Cadastrar Nota Fiscal de Pedido de Compra</h2>	
+		
+	<div id="register_invoice">	
+	
+		<div class="message_container"></div>		
+		
+		<ol class="fields">
+			<li>
+				<label>(*) Pedido de Compra:</label>
+				{{ form_invoice.purchase_order }}
+			</li>
+			<li>
+				<label>(*) Número da Nota Fiscal:</label>
+				{{ form_invoice.number }}
+			</li>
+			<li>
+				<label>(*) Número de Série:</label>
+				{{ form_invoice.series }}
+			</li>
+		</ol>
+						
+	</div>	
+         
+    <div id="div_duplicates_buttons" class="tab_search_button">
+    	<input id="button_add_duplicate" type="button" value="Adicionar Duplicata" />
+        <input id="button_remove_duplicate" type="button" value="Remover Duplicata" />
+    </div> 
+
+	<ol id="duplicates" class="fields">
+		<li>
+			<ul>
+				<label>(*) Número da Duplicata:</label>
+				<input type="text" value="1" disabled="disabled" />
+			</ul>
+			<ul>
+				<label>(*) Data de Expiração:</label>
+				<input id="expiration_date_1" type="text" maxlength="10"/>
+			</ul>
+			<ul>
+				<label>(*) Valor:</label>
+				<input id="value_1" type="text" maxlength="10"/>
+			</ul>
+		</li>
+	</ol>
+		
+    <div id="div_save_button" class="tab_save_button">
+        <input id="button_save_invoice" type="button" value="Salvar" />
+    </div>     
+
+{% endblock %}

@@ -13,5 +13,9 @@ class BookstoreBook(Book):
     def sell_order(self):
         self.total_quantity = (self.total_quantity) - 1
         
+    def update_book_quantity(self, total_quantity, available_quantity):
+        self.total_quantity += total_quantity
+        self.available_quantity += available_quantity
+        
     class Meta:
         app_label = 'bookstore'

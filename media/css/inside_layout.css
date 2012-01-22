@@ -290,6 +290,17 @@ ol.fields li label {
 	text-align: left;
 }
 
+ol.fields li ul {
+	margin: 0 0 10px 0;
+	padding: 0;
+}
+
+ol.fields li ul label {
+	padding: 0 10px 0 0;
+	display: inline-block;
+	width: 150px;
+	text-align: left;
+}
 
 /* margin: top-bottom rigth-left */
 /* margin: top rigth bottom left */
