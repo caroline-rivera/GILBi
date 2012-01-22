@@ -53,18 +53,17 @@ def register(request):
                 total_quantity = checked_form['total_quantity']  
                 available_quantity = checked_form['available_quantity']
 
-                import pdb
-                pdb.set_trace()    
-        
-                bookstore_book = BookstoreBook(book_ptr_id = book.id,
+                bookstore_book = BookstoreBook(id = book.id,
                                                total_quantity = total_quantity,
                                                available_quantity = available_quantity,
-                                               suggested_price = Decimal(price))
-                
-                try:
-                    bookstore_book.save()
-                except IntegrityError:
-                    print IntegrityError
+                                               suggested_price = Decimal(price),
+                                               name = book.name,
+                                               photo = book.photo,
+                                               description = book.description,
+                                               publisher = book.publisher, 
+                                               )
+
+                bookstore_book.save()
                              
                 result['success_message'] = SUCCESS_REGISTER_BOOKSTORE_BOOK
                     

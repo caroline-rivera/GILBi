@@ -65,7 +65,7 @@ def edit(request):
             data['institution'] = checked_form['institution']
             data['gender'] = checked_form['gender']
             data['birthday'] = checked_form['birthday']
-            
+
             user.set_profile_data(data)          
             user.save()
             result = SUCCESS_EDIT_PROFILE

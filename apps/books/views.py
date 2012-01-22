@@ -114,11 +114,11 @@ def register_book(request):
                                    'publisher' in request.GET:    
     
         form = RegisterBookForm(request.GET, request.FILES)
-        
+        import pdb
+        pdb.set_trace()        
         if form.is_valid():
             checked_form = form.cleaned_data    
-            import pdb
-            pdb.set_trace()   
+ 
             new_book = Book(name = checked_form['name'].strip(),
                             photo = checked_form['photo'],
                             description = checked_form['description'].strip(),

@@ -16,11 +16,10 @@
     
     <script type="text/javascript">
         $(function() {  
-                  
-            $('#button_register_book').button();    
-                    
             $.datepicker.setDefaults( $.datepicker.regional["pt-BR"] ); 
             $('#id_price').maskMoney({symbol:'R$ ', showSymbol:true, thousands:'', decimal:'.', symbolStay: true});
+                              
+            $('#button_register_book').button();    
 
             RegisterBookstoreBook.Functions.init();
         }); 
@@ -56,10 +55,7 @@
         <div id="div_register_book" class="tab_save_button">
             <input id="button_register_book" type="submit" value="Cadastrar" />
         </div>  
-        
-        </form>                 
+                
     </div>
-        
-                   
-    </div>
+
 {% endblock conteudo %}

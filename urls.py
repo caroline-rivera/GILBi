@@ -122,6 +122,10 @@ urlpatterns = patterns('',
                        
     url(r'^gerenciarlivraria/cadastrarlivro/$', 
         'apps.bookstore.views.register_bookstore_book.index'),     
+
+#    url(r'^gerenciarlivraria/cadastrarlivro/$', 
+#        'apps.books.views.register_book'), 
+                       
     url(r'^gerenciarlivraria/cadastrarlivro/cadastrar/$', 
         'apps.bookstore.views.register_bookstore_book.register'),              
 )

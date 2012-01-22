@@ -46,8 +46,6 @@ BooksCollection.Functions = {
 		    data = {};		
 		
 		url += $("#id_name").val();
-		url += "&photo=";
-		url += $("#id_photo").val();
 		url += "&description=";
 		url += $("#id_description").val();
 		url += "&publisher=";
@@ -74,30 +72,7 @@ BooksCollection.Functions = {
 				url += authors[i];
 			}
 		}	
-
-		/*			
-		data['name'] = $("#id_name").val();
-		data['photo'] = $("#id_photo").val();
-		data['description'] = $("#id_description").val();
-		data['publisher'] = $("#id_publisher").val();
-		data['author'] = [];
-		
-		if ($("#id_author").val() != null)
-		{
-			//data['author'] = $("#id_author").val();
-			var authors  = $("#id_author").val();
-			
-			for(var i = 0; i < authors.length; i++)
-			{
-				data['author'][i] = authors[i];
-			}
-		}
-
-		if ($("#id_spiritual_author").val() != null)
-		{
-			data['spiritual_author'] = $("#id_spiritual_author").val();
-		}	
-*/
+	
 		BooksCollection.Functions.sendData(url, data, $messageContainer)		
 	},
 
