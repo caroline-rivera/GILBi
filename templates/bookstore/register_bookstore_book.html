@@ -1,0 +1,65 @@
+{% extends "inside_base.html" %}
+
+{% block style %}
+	<style type="text/css">
+		ol.fields li label {
+			padding: 0 10px 0 0;
+			display: inline-block;
+			width: 155px;
+			text-align: left;
+		}	
+	</style>  
+{% endblock style %}
+	
+{% block script %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/custom/bookstore/register_bookstore_book.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {  
+                  
+            $('#button_register_book').button();    
+                    
+            $.datepicker.setDefaults( $.datepicker.regional["pt-BR"] ); 
+            $('#id_price').maskMoney({symbol:'R$ ', showSymbol:true, thousands:'', decimal:'.', symbolStay: true});
+
+            RegisterBookstoreBook.Functions.init();
+        }); 
+    </script>
+{% endblock script %}
+
+{% block conteudo %}
+    <h2>Cadastrar Novo Livro na Livraria</h2>
+
+    <div id="register_bookstore_book">  
+                                
+        <div class="message_container"></div>    
+
+		<ol class="fields">			
+			<li>
+				<label>(*) Livro:</label>
+				{{ form_bookstore_book.book }}
+			</li>
+			<li>
+				<label>(*) Preço Sugerido:</label>
+				{{ form_bookstore_book.price }}
+			</li>
+			<li>
+				<label>(*) Quantidade Total:</label>
+				{{ form_bookstore_book.total_quantity }}
+			</li>
+			<li>
+				<label>(*) Quantidade Disponível:</label>
+				{{ form_bookstore_book.available_quantity }}
+			</li>
+		</ol>
+		
+        <div id="div_register_book" class="tab_save_button">
+            <input id="button_register_book" type="submit" value="Cadastrar" />
+        </div>  
+        
+        </form>                 
+    </div>
+        
+                   
+    </div>
+{% endblock conteudo %}

@@ -168,3 +168,14 @@ ERROR_REQUIRED_INVOICE_SERIES = "O campo Número de Série é obrigatório."
 ERROR_INVALID_INVOICE_NUMBER = "O Número da Nota Fiscal é inválido." 
 ERROR_INVALID_INVOICE_SERIES = "O Número de Série é inválido."
 ERROR_EXISTENT_INVOICE = "Já existe uma nota fiscal cadastrada para esse pedido de compra." 
+
+#Cadastrar Livro da Livraria
+
+ERROR_REQUIRED_BOOKSTORE_BOOK = "O campo Livro é obrigatório."
+ERROR_REQUIRED_BOOKSTORE_BOOK_PRICE = "O campo Preço Sugerido é obrigatório."
+ERROR_REQUIRED_BOOKSTORE_BOOK_TOTAL_QUANTITY = "O campo Quantidade Total é obrigatório."
+ERROR_REQUIRED_BOOKSTORE_BOOK_AVAILABLE_QUANTITY = "O campo Quantidade Disponível é obrigatório."
+ERROR_INVALID_PRICE = "O campo Preço Sugerido é inválido. Preencha com um valor no formato R$ 99.99."
+ERROR_INVALID_BOOKSTORE_BOOK_TOTAL_QUANTITY = "O campo Quantidade Total é inválido. Prencha com um número inteiro positivo."
+ERROR_INVALID_BOOKSTORE_BOOK_AVAILABLE_QUANTITY = "O campo Quantidade Disponível é inválido. Prencha com um número inteiro positivo."
+ERROR_EXISTENT_BOOKSTORE_BOOK = "Esse livro já está cadastrado na livraria."

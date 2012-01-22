@@ -118,5 +118,10 @@ urlpatterns = patterns('',
         'apps.financial.views.register_invoice.register'),
                                                                                                    
     url(r'^gerenciarlivraria/pedidodecompra/$', 
-        'apps.bookstore.views.purchase_order.index'),                     
+        'apps.bookstore.views.purchase_order.index'),   
+                       
+    url(r'^gerenciarlivraria/cadastrarlivro/$', 
+        'apps.bookstore.views.register_bookstore_book.index'),     
+    url(r'^gerenciarlivraria/cadastrarlivro/cadastrar/$', 
+        'apps.bookstore.views.register_bookstore_book.register'),              
 )

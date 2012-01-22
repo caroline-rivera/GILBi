@@ -1,5 +1,16 @@
 {% extends "inside_base.html" %}
 
+{% block style %}
+	<style type="text/css">
+		ol.fields li label {
+			padding: 0 10px 0 0;
+			display: inline-block;
+			width: 155px;
+			text-align: left;
+		}	
+	</style>  
+{% endblock style %}
+
 {% block script %}
     <script type="text/javascript" src="{{ MEDIA_URL }}js/custom/financial/register_invoice.js"></script>
     

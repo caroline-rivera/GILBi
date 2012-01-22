@@ -2,3 +2,4 @@ from register_distributor import RegisterDistributorForm
 from shelf_sale import ShelfSaleForm
 from new_purchase_item import NewPurchaseItemForm
 from new_purchase_order import NewPurchaseOrderForm
+from register_bookstore_book import RegisterBookstoreBookForm
