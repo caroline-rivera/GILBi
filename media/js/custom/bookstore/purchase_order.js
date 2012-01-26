@@ -145,9 +145,8 @@ PurchaseOrder.Functions = {
 //--------------------------------------------------------------------- addBookOrderToPurchaseOrder
 	addBookOrderToPurchaseOrder: function(event) {
 		
-		var ordersGrid = $(PurchaseOrder.Selectors.Tables.orders),
-		    //bookOrderId = ordersGrid.jqGrid("getGridParam", "selrow");
-		    bookOrderId = ordersGrid.getGridParam('selrow');
+		var $ordersGrid = $(PurchaseOrder.Selectors.Tables.orders),
+		    bookOrderId = $ordersGrid.jqGrid("getGridParam", "selrow");
 		
 		$.ajax({
 			url: "/gerenciarlivraria/encomendas/"+bookOrderId+"/json",
@@ -157,7 +156,10 @@ PurchaseOrder.Functions = {
 				
 				PurchaseOrder.Functions._addItemToPurchaseOrder(response.book,
 				                                                response.quantity,
-				                                                bookOrderId);
+				                                                bookOrderId);                  
+				                             
+				// Esconde a encomenda, para que não possa ser aceita novamente                   
+				$ordersGrid.find("#"+bookOrderId).hide();
 			},
 			error: function() {	
 				//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
@@ -207,7 +209,7 @@ PurchaseOrder.Functions = {
 		} else {
 			
 			var existingItem = 
-					PurchaseOrder.Functions._findPurchaseItemByBookId(purchaseItems,
+					PurchaseOrder.Functions._findPurchaseItemInformationByBookId(purchaseItems,
 			                                                          purchaseItem.bookId).item,
                 newQuantity = (+rowData.quantity) + (+quantity);
 		
@@ -229,6 +231,7 @@ PurchaseOrder.Functions = {
 	removeItemFromPurchaseOrder: function(event) {
 		
 		var $grid = $(PurchaseOrder.Selectors.Tables.purchaseItems),
+		    $ordersGrid = $(PurchaseOrder.Selectors.Tables.orders),
 		
 			userData = $grid.jqGrid("getGridParam", "userdata"),
 			purchaseItems = userData.purchaseItems,
@@ -240,21 +243,31 @@ PurchaseOrder.Functions = {
 		for (var i = 0; i < selectedIds.length; i++) {
 			
 			var selectedId = selectedIds[i],
-			    index = PurchaseOrder.Functions._findPurchaseItemByBookId(purchaseItems,
-			                                                              selectedId).index;
-			
+			    purchaseItemInformation = 
+			        PurchaseOrder.Functions._findPurchaseItemInformationByBookId(purchaseItems, selectedId),
+			    index = purchaseItemInformation.index,
+			    bookOrdersIds = purchaseItemInformation.item.bookOrdersIds;
+						
 			// Remove o item do modelo                                                             
 			purchaseItems.splice(index, 1);
 			
 			// Remove o item da visualização			
 			$grid.jqGrid("delRowData", selectedId);
+			
+			// Mostra novamente na tabela de encomenda
+			for (var j = 0; j < bookOrdersIds.length; j++) {
+				var bookOrderId = bookOrdersIds[j];
+				$ordersGrid.find("#"+bookOrderId).show();
+			}
 		}
 		
-	},	
+		$ordersGrid.jqGrid("resetSelection");
 		
-//------------------------------------------------------------------------ findPurchaseItemByBookId
+	},	
+
+//------------------------------------------------------------ _findPurchaseItemInformationByBookId
 	
-	_findPurchaseItemByBookId: function(purchaseItems, bookId) {
+	_findPurchaseItemInformationByBookId: function(purchaseItems, bookId) {
 	
 		for (var i = 0; i < purchaseItems.length; i++) {
 			if (purchaseItems[i].bookId == bookId) {
