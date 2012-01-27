@@ -12,7 +12,8 @@ class BookChoiceField(ModelChoiceField):
     
 class NewPurchaseItemForm(forms.Form):
     book = BookChoiceField(queryset=BookstoreBook.objects.order_by('name')) 
-    quantity = forms.IntegerField()
+    quantity = forms.CharField(max_length=3, 
+                             widget = forms.TextInput(attrs={'size': 10}))
     
     def __init__(self, *args, **kwargs):
         self.base_fields['book'].error_messages['required'] = ERROR_REQUIRED_BOOK

@@ -172,5 +172,13 @@ Helpers.Functions = {
             grid.jqGrid('addRowData', i, data[i]);
         }
 		
-	}
+	},
+	
+//------------------------------------------------------------------------------ isValidQuantity	
+	isValidQuantity: function(stringNumber)
+	{		
+		var reDigits = /^\d+$/;		
+		
+		return reDigits.test(stringNumber);		
+	},
 }	

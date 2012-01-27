@@ -18,6 +18,7 @@ PurchaseOrder.Selectors = {
 	},
 	
 	MessageContainers: {
+		books: "#book_message_container",
 		orders: "#order_message_container",
 		purchaseOrder: "#purchase_order_message_container"
 	}
@@ -92,8 +93,8 @@ PurchaseOrder.Functions = {
 				PurchaseOrder.Functions.listFn(orders, grid);							
 			},
 			error: function() {	
-				//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
-				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});
 				
@@ -131,50 +132,78 @@ PurchaseOrder.Functions = {
 //-------------------------------------------------------------------------- addBookToPurchaseOrder
 	addBookToPurchaseOrder: function(event) {
 		
-		var bookId = $("#id_book").val(),
-		    quantity = $("#id_quantity").val();
+		var $messageContainer = $(PurchaseOrder.Selectors.MessageContainers.books),
+			bookId = $("#id_book").val(),
+		    quantity = $("#id_quantity").val(),
+		    messages = [];
 		    
-		// TODO: Fazer validação client-side
+		if (bookId == "") {			
+			messages[0] = "O campo Livro é obrigatório.";			
+		} 
 		
-		$.ajax({
-			url: "/gerenciarlivraria/livros/"+bookId+"/json",
-			dataType: "json",
-			success: function(book) {
-				//var book = $.extend({}, json.fields, { id: json.pk });
+		if (quantity == "") {
+			
+			messages[messages.length] = "O campo Quantidade é obrigatório.";
+			
+		} else if ( Helpers.Functions.isValidQuantity(quantity) == false) {
+			
+			messages[messages.length] = "A quantidade é inválida. Preencha com um valor numérico.";
+		}
 				
-				PurchaseOrder.Functions._addItemToPurchaseOrder(book, quantity);
-			},
-			error: function() {	
-				//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
-				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
-			}
-		});
+		if (messages.length != 0) {
+			
+			Helpers.Functions.showValidationMsg($messageContainer, messages);
+			
+		} else {		
+			$.ajax({
+				url: "/gerenciarlivraria/livros/"+bookId+"/json",
+				dataType: "json",
+				success: function(book) {
+					//var book = $.extend({}, json.fields, { id: json.pk });
+					
+					PurchaseOrder.Functions._addItemToPurchaseOrder(book, quantity);
+				},
+				error: function() {	
+					var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+					Helpers.Functions.showErrorMsg($messageContainer, msg);		
+				}
+			});
+		}
 	},
 	
 //--------------------------------------------------------------------- addBookOrderToPurchaseOrder
 	addBookOrderToPurchaseOrder: function(event) {
 		
-		var $ordersGrid = $(PurchaseOrder.Selectors.Tables.orders),
+		var $messageContainer = $(PurchaseOrder.Selectors.MessageContainers.orders),
+			$ordersGrid = $(PurchaseOrder.Selectors.Tables.orders),
 		    bookOrderId = $ordersGrid.jqGrid("getGridParam", "selrow");
-		
-		$.ajax({
-			url: "/gerenciarlivraria/encomendas/"+bookOrderId+"/json",
-			dataType: "json",
-			success: function(response) {
-				//var book = $.extend({}, json.fields, { id: json.pk });				
-				
-				PurchaseOrder.Functions._addItemToPurchaseOrder(response.book,
-				                                                response.quantity,
-				                                                bookOrderId);                  
-				                             
-				// Esconde a encomenda, para que não possa ser aceita novamente                   
-				$ordersGrid.find("#"+bookOrderId).hide();
-			},
-			error: function() {	
-				//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
-				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
-			}
-		});
+
+		if (bookOrderId == null) {
+			
+			Helpers.Functions.showWarningMsg($messageContainer, 
+											 "Selecione pelo menos uma encomenda para ser rejeitada.");
+			
+		} else {			
+	
+			$.ajax({
+				url: "/gerenciarlivraria/encomendas/"+bookOrderId+"/json",
+				dataType: "json",
+				success: function(response) {
+					//var book = $.extend({}, json.fields, { id: json.pk });				
+					
+					PurchaseOrder.Functions._addItemToPurchaseOrder(response.book,
+					                                                response.quantity,
+					                                                bookOrderId);                  
+					                             
+					// Esconde a encomenda, para que não possa ser aceita novamente                   
+					$ordersGrid.find("#"+bookOrderId).hide();
+				},
+				error: function() {	
+					var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+					Helpers.Functions.showErrorMsg($messageContainer, msg);		
+				}
+			});
+		}
 	},
 	
 //-------------------------------------------------------------------------- addItemToPurchaseOrder
@@ -239,7 +268,8 @@ PurchaseOrder.Functions = {
 //--------------------------------------------------------------------- removeItemFromPurchaseOrder
 	removeItemFromPurchaseOrder: function(event) {
 		
-		var $grid = $(PurchaseOrder.Selectors.Tables.purchaseItems),
+		var $messageContainer = $(PurchaseOrder.Selectors.MessageContainers.purchaseOrder),
+			$grid = $(PurchaseOrder.Selectors.Tables.purchaseItems),
 		    $ordersGrid = $(PurchaseOrder.Selectors.Tables.orders),
 		
 			userData = $grid.jqGrid("getGridParam", "userdata"),
@@ -248,29 +278,41 @@ PurchaseOrder.Functions = {
 			// Faz uma cópia, pra não "confundir" o loop
 			selectedIds = $grid.jqGrid("getGridParam", "selarrrow").slice();
 		
+		if (purchaseItems.length === 0) {
+			
+			Helpers.Functions.showWarningMsg($messageContainer, 
+											 "Não há itens no Pedido de Compras!");
+			
+		} else if (selectedIds.length == 0) {
+			
+			Helpers.Functions.showWarningMsg($messageContainer, 
+											 "Selecione pelo menos um item do pedido para ser removido.");	
 		
-		for (var i = 0; i < selectedIds.length; i++) {
-			
-			var selectedId = selectedIds[i],
-			    purchaseItemInformation = 
-			        PurchaseOrder.Functions._findPurchaseItemInformationByBookId(purchaseItems, selectedId),
-			    index = purchaseItemInformation.index,
-			    bookOrdersIds = purchaseItemInformation.item.bookOrdersIds;
-						
-			// Remove o item do modelo                                                             
-			purchaseItems.splice(index, 1);
-			
-			// Remove o item da visualização			
-			$grid.jqGrid("delRowData", selectedId);
-			
-			// Mostra novamente na tabela de encomenda
-			for (var j = 0; j < bookOrdersIds.length; j++) {
-				var bookOrderId = bookOrdersIds[j];
-				$ordersGrid.find("#"+bookOrderId).show();
+	    } else {
+	    	
+			for (var i = 0; i < selectedIds.length; i++) {
+				
+				var selectedId = selectedIds[i],
+				    purchaseItemInformation = 
+				        PurchaseOrder.Functions._findPurchaseItemInformationByBookId(purchaseItems, selectedId),
+				    index = purchaseItemInformation.index,
+				    bookOrdersIds = purchaseItemInformation.item.bookOrdersIds;
+							
+				// Remove o item do modelo                                                             
+				purchaseItems.splice(index, 1);
+				
+				// Remove o item da visualização			
+				$grid.jqGrid("delRowData", selectedId);
+				
+				// Mostra novamente na tabela de encomenda
+				for (var j = 0; j < bookOrdersIds.length; j++) {
+					var bookOrderId = bookOrdersIds[j];
+					$ordersGrid.find("#"+bookOrderId).show();
+				}
 			}
-		}
-		
-		$ordersGrid.jqGrid("resetSelection");
+			
+			$ordersGrid.jqGrid("resetSelection");	    	
+	    }
 		
 	},	
 
@@ -292,24 +334,32 @@ PurchaseOrder.Functions = {
 		var $grid = $(PurchaseOrder.Selectors.Tables.orders),
 			$messageContainer = $(PurchaseOrder.Selectors.MessageContainers.orders),
 			selectedRowId = $grid.jqGrid("getGridParam", "selrow");
-			
-		if (selectedRowId != null) {
 
-			$.ajax({
-				url: "/gerenciarlivraria/encomendas/"+selectedRowId+"/rejeitar",
-				dataType: "json",
-				success: function(response) {
-					
-	 				$grid.jqGrid("delRowData", selectedRowId);	
-	 				Helpers.Functions.showSuccessMsg($messageContainer, 
-	 												 response['success_message']);
-				},
-				error: function() {	
-					//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
-					//Helpers.Functions.showErrorMsg($messageContainer, msg);		
-				}
-			});
-					
+		if (selectedRowId == null) {
+			
+			Helpers.Functions.showWarningMsg($messageContainer, 
+											 "Selecione pelo menos uma encomenda para ser rejeitada.");
+			
+		} else {
+	    			
+			if (selectedRowId != null) {
+	
+				$.ajax({
+					url: "/gerenciarlivraria/encomendas/"+selectedRowId+"/rejeitar",
+					dataType: "json",
+					success: function(response) {
+						
+		 				$grid.jqGrid("delRowData", selectedRowId);	
+		 				Helpers.Functions.showSuccessMsg($messageContainer, 
+		 												 response['success_message']);
+					},
+					error: function() {	
+						var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+						Helpers.Functions.showErrorMsg($messageContainer, msg);		
+					}
+				});
+						
+			}
 		}
 	},	
 
@@ -325,11 +375,13 @@ PurchaseOrder.Functions = {
 		
 		if (userData.purchaseItems.length === 0) {
 			
-			Helpers.Functions.showWarningMsg($messageContainer, "Não há itens no Pedido de Compras!");
+			Helpers.Functions.showWarningMsg($messageContainer, 
+											 "Não há itens no Pedido de Compras!");
 			
 		} else if (distributor === "") {
 			
-			Helpers.Functions.showValidationMsg($messageContainer, ["O campo Distribuidora é obrigatório."]);	
+			Helpers.Functions.showValidationMsg($messageContainer, 
+												["O campo Distribuidora é obrigatório."]);	
 		
 	    } else {
 			
@@ -351,10 +403,15 @@ PurchaseOrder.Functions = {
 					$distributor.val("");
 					
 					Helpers.Functions.showSuccessMsg($messageContainer, 
-												     response['success_message']);					
+												     response['success_message']);	
+												     
+					// Limpa livros
+					$("#id_book").val("");		
+					$("#id_quantity").val("");
+							
 				},
 				error: function() {	
-					var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
+					var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
 					Helpers.Functions.showErrorMsg($messageContainer, msg);		
 				}
 			});
