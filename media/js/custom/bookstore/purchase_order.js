@@ -7,12 +7,17 @@ PurchaseOrder.Selectors = {
 	Buttons: {
 		add: "#button_add_book",
 		accept: "#button_accept_book",
+		reject: "#button_reject_book",
 		remove: "#button_remove_item"
 	},
 	
 	Tables: {
 		orders: "#table_orders",
 		purchaseItems: "#table_purchase_items"
+	},
+	
+	MessageContainers: {
+		orders: "#order_message_container"
 	}
 }
 
@@ -33,6 +38,7 @@ PurchaseOrder.Functions = {
 		$(btn.add).click(PurchaseOrder.Functions.addBookToPurchaseOrder);
 		$(btn.accept).click(PurchaseOrder.Functions.addBookOrderToPurchaseOrder);
 		$(btn.remove).click(PurchaseOrder.Functions.removeItemFromPurchaseOrder);
+		$(btn.reject).click(PurchaseOrder.Functions.rejectBookOrder);
 	},
 
 //------------------------------------------------------------------------- createOrdersTable
@@ -275,7 +281,35 @@ PurchaseOrder.Functions = {
 			}
 		}
 	},	
-		
+
+//--------------------------------------------------------------------------------- rejectBookOrder
+	
+	rejectBookOrder: function() {
+
+		var $grid = $(PurchaseOrder.Selectors.Tables.orders),
+			$messageContainer = $(PurchaseOrder.Selectors.MessageContainers.orders),
+			selectedRowId = $grid.jqGrid("getGridParam", "selrow");
+			
+		if (selectedRowId != null) {
+
+			$.ajax({
+				url: "/gerenciarlivraria/encomendas/"+selectedRowId+"/rejeitar",
+				dataType: "json",
+				success: function(response) {
+					
+	 				$grid.jqGrid("delRowData", selectedRowId);	
+	 				Helpers.Functions.showSuccessMsg($messageContainer, 
+	 												 response['success_message']);
+				},
+				error: function() {	
+					//var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
+					//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+				}
+			});
+					
+		}
+	},	
+			
 //------------------------------------------------------------------------- listFn	
 	listFn: function(data, grid)
 	{		

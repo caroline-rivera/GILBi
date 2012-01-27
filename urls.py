@@ -52,7 +52,9 @@ urlpatterns = patterns('',
         'apps.books.views.register_publisher'),
     url(r'^acervo/cadastrarlivro/$', 
         'apps.books.views.register_book'),
-                                                                                 
+
+    url(r'^gerenciarlivraria/pedidodecompra/$', 
+        'apps.bookstore.views.purchase_order.index'),                                                                                    
     url(r'^gerenciarlivraria/$', 'apps.bookstore.views.manage_bookstore.index'),
     url(r'^gerenciarlivraria/cadastrardistribuidora/$', 
         'apps.bookstore.views.manage_bookstore.register_distributor'),   
@@ -62,6 +64,8 @@ urlpatterns = patterns('',
         'apps.bookstore.views.manage_bookstore.get_requested_orders'),
     url(r'^gerenciarlivraria/encomendas/(?P<book_order_id>\d+)/json/$', 
         'apps.bookstore.views.manage_bookstore.get_book_order_book_json'),
+    url(r'^gerenciarlivraria/encomendas/(?P<book_order_id>\d+)/rejeitar/$', 
+        'apps.bookstore.views.manage_bookstore.reject_book_order'),
                                           
     url(r'^livraria/$', 'apps.bookstore.views.bookstore.index'),   
     url(r'^livraria/pesquisar/$', 'apps.bookstore.views.bookstore.search_books'),   
@@ -115,10 +119,8 @@ urlpatterns = patterns('',
     url(r'^gerenciarlivraria/notafiscal/$', 
         'apps.financial.views.register_invoice.index'),
     url(r'^gerenciarlivraria/notafiscal/cadastrar/$', 
-        'apps.financial.views.register_invoice.register'),
-                                                                                                   
-    url(r'^gerenciarlivraria/pedidodecompra/$', 
-        'apps.bookstore.views.purchase_order.index'),   
+        'apps.financial.views.register_invoice.register'),                                                                                                
+
                        
     url(r'^gerenciarlivraria/cadastrarlivro/$', 
         'apps.bookstore.views.register_bookstore_book.index'),     

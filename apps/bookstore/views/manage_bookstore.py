@@ -11,7 +11,7 @@ from gilbi.apps.bookstore.models import BookOrder
 from gilbi.apps.bookstore.grid_formats import OrderGridFormat
 from gilbi.apps.bookstore.models import Distributor
 from gilbi.apps.bookstore.forms import RegisterDistributorForm
-from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_DISTRIBUTOR
+from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_DISTRIBUTOR, SUCCESS_REJECT_BOOK_ORDER
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
 
@@ -76,6 +76,18 @@ def get_book_order_book_json(request, book_order_id):
     response = json.dumps(book_dictionary)
     return HttpResponse(response, mimetype="text/javascript") 
 
+def reject_book_order(request, book_order_id):  
+    book_order = BookOrder.objects.get(id=book_order_id) 
+
+    book_order.reject_order();
+    
+    book_order.save()
+    
+    result = {}
+    result['success_message'] = SUCCESS_REJECT_BOOK_ORDER   
+      
+    response = json.dumps(result)
+    return HttpResponse(response, mimetype="text/javascript") 
 
 def register_distributor(request):
     if validate_session(request) == False:

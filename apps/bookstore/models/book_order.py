@@ -28,6 +28,9 @@ class BookOrder(models.Model):
 
     def available_order(self):
         self.situation = 'D'
-        
+
+    def reject_order(self):
+        self.situation = 'R'
+                
     class Meta:
         app_label = 'bookstore'
