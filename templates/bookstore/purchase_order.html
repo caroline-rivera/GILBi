@@ -66,7 +66,7 @@
 			<ol class="fields">
 				<li>
 					<label for="id_distributor">Distribuidora:</label>
-					{{ form_purchase_order.distributor }}
+					{{ form_new_purchase_order.distributor }}
 				</li>	
 			</ol>
 						            
@@ -82,7 +82,14 @@
     	{# Segunda aba #}
 		<div id="tab2">	
 											
-			<div class="message_container"></div>
+            <h2>Pedidos de Compra Existentes</h2>       
+			
+			<ol class="fields">
+				<li>
+					<label for="id_distributor">Distribuidora:</label>
+					{{ form_purchase_order.purchase_orders }}
+				</li>	
+			</ol>			
 			   		
     	</div>   	
     			
