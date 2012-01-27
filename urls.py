@@ -54,7 +54,10 @@ urlpatterns = patterns('',
         'apps.books.views.register_book'),
 
     url(r'^gerenciarlivraria/pedidodecompra/$', 
-        'apps.bookstore.views.purchase_order.index'),                                                                                    
+        'apps.bookstore.views.purchase_order.index'),    
+    url(r'^gerenciarlivraria/pedidodecompra/salvar/$', 
+        'apps.bookstore.views.purchase_order.save'),                    
+                                                                                                        
     url(r'^gerenciarlivraria/$', 'apps.bookstore.views.manage_bookstore.index'),
     url(r'^gerenciarlivraria/cadastrardistribuidora/$', 
         'apps.bookstore.views.manage_bookstore.register_distributor'),   

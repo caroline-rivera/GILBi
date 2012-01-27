@@ -8,7 +8,8 @@ PurchaseOrder.Selectors = {
 		add: "#button_add_book",
 		accept: "#button_accept_book",
 		reject: "#button_reject_book",
-		remove: "#button_remove_item"
+		remove: "#button_remove_item",
+		save: "#button_save_purchase_order"
 	},
 	
 	Tables: {
@@ -17,7 +18,8 @@ PurchaseOrder.Selectors = {
 	},
 	
 	MessageContainers: {
-		orders: "#order_message_container"
+		orders: "#order_message_container",
+		purchaseOrder: "#purchase_order_message_container"
 	}
 }
 
@@ -39,6 +41,7 @@ PurchaseOrder.Functions = {
 		$(btn.accept).click(PurchaseOrder.Functions.addBookOrderToPurchaseOrder);
 		$(btn.remove).click(PurchaseOrder.Functions.removeItemFromPurchaseOrder);
 		$(btn.reject).click(PurchaseOrder.Functions.rejectBookOrder);
+		$(btn.save).click(PurchaseOrder.Functions.savePurchaseOrder);
 	},
 
 //------------------------------------------------------------------------- createOrdersTable
@@ -308,6 +311,56 @@ PurchaseOrder.Functions = {
 			});
 					
 		}
+	},	
+
+//------------------------------------------------------------------------------- savePurchaseOrder
+	
+	savePurchaseOrder: function() {
+		
+		var $grid = $(PurchaseOrder.Selectors.Tables.purchaseItems),
+		    $messageContainer = $(PurchaseOrder.Selectors.MessageContainers.purchaseOrder),
+		    $distributor = $("#id_distributor")
+			userData = $grid.jqGrid("getGridParam", "userdata"),
+			distributor = $distributor.val();
+		
+		if (userData.purchaseItems.length === 0) {
+			
+			Helpers.Functions.showWarningMsg($messageContainer, "Não há itens no Pedido de Compras!");
+			
+		} else if (distributor === "") {
+			
+			Helpers.Functions.showValidationMsg($messageContainer, ["O campo Distribuidora é obrigatório."]);	
+		
+	    } else {
+			
+			var data = { 
+				purchaseItems: JSON.stringify(userData.purchaseItems),
+				distributor: distributor
+			};
+			
+			$.ajax({
+				url: "/gerenciarlivraria/pedidodecompra/salvar/",
+				type: "POST",
+				data: data,
+				dataType: "json",
+				success: function(response) {
+					
+					// Limpa o pedido
+					$grid.jqGrid("clearGridData");
+					$grid.jqGrid("getGridParam", "userdata").purchaseItems = [];
+					$distributor.val("");
+					
+					Helpers.Functions.showSuccessMsg($messageContainer, 
+												     response['success_message']);					
+				},
+				error: function() {	
+					var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
+					Helpers.Functions.showErrorMsg($messageContainer, msg);		
+				}
+			});
+			
+		}
+		
 	},	
 			
 //------------------------------------------------------------------------- listFn	

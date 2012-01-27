@@ -3,7 +3,7 @@ from distributor import Distributor
 from purchase_item import PurchaseItem
    
 class PurchaseOrder(models.Model):
-    date_of_order = models.DateField()
+    date_of_order = models.DateField(null=True)
     itens = models.ManyToManyField(PurchaseItem)
     distributor = models.ForeignKey(Distributor)
         
