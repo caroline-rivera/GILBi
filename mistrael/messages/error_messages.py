@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 #Cadastrar Usuário
-ERROR_ALREADY_REGISTERED_LOGIN = "Já existe um usuário com esse login."   
-ERROR_ALREADY_REGISTERED_EMAIL = "Já existe um usuário com esse e-mail." 
+ERROR_ALREADY_REGISTERED_LOGIN = "Já existe um usuário cadastrado com esse login."   
+ERROR_ALREADY_REGISTERED_EMAIL = "Já existe um usuário cadastrado com esse e-mail." 
 ERROR_DIFFERENT_PASSWORDS = "Senha de confirmação diferente da senha escolhida."
 ERROR_REQUIRED_FIRST_NAME = "O campo Nome é obrigatório."
 ERROR_REQUIRED_LAST_NAME = "O campo Sobrenome é obrigatório."
@@ -29,7 +29,7 @@ ERROR_DIFFERENT_NEW_PASSWORDS = "Senha de confirmação diferente da nova senha 
 ERROR_MANDATORY_FIELDS = "Preencha todos os campos."
 ERROR_LOGIN_NOT_REGISTERED = "Não existe um usuário cadastrado com esse login." 
 ERROR_INVALID_PASSWORD = "Senha inválida."
-ERROR_INACTIVE_ACCOUNT = "Sua conta está inativa. Por favor verifique seu e-mail para ativá-la."
+ERROR_INACTIVE_ACCOUNT = "Sua conta está inativa. Por favor, verifique seu e-mail para ativá-la."
 ERROR_INVALID_URL = "Essa url é inválida."
 
 #Ativar conta
@@ -57,7 +57,7 @@ ERROR_SAME_PHYSICAL_SPIRITUAL_AUTHOR = "Os autores devem ser diferentes dos auto
 
 #Editar Perfil
 ERROR_REQUIRED_GENDER = "O campo Gênero é obrigatório."
-ERROR_INVALID_DATE = "A data de aniversário é inválida."
+ERROR_INVALID_DATE = "A data de nascimento é inválida."
 
 #Definir Status
 ERROR_MAX_LENGTH_STATUS = "Tamanho máximo de 100 caracteres."
@@ -155,7 +155,7 @@ ERROR_REQUIRED_DISTRIBUTOR = "O campo Distribuidora é obrigatório."
 
 ERROR_REQUIRED_INVOICE = "O campo Nota Fiscal é obrigatório."
 ERROR_REQUIRED_DUPLICATE = "O campo Duplicata é obrigatório."
-ERROR_INVALID_INVOICE_DUPLICATE = "Essa duplicata não pertence a essa nota fiscal."
+ERROR_INVALID_INVOICE_DUPLICATE = "Essa duplicata não pertence a essa Nota Fiscal."
 ERROR_DUPLICATE_ALREADY_PAID = "O pagamento dessa duplicata já foi cadastrado."
 ERROR_REQUIRED_PAYMENT_DATE = "O campo Data de Pagamento é obrigatório."
 ERROR_INVALID_PAYMENT_DATE = "A Data de Pagamento é inválida."
