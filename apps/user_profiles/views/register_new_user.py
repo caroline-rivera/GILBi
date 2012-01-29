@@ -16,10 +16,10 @@ def register(request):
         
         if form.is_valid():
             checked_form = form.cleaned_data
-            new_user = User(first_name = checked_form['first_name'],
-                            last_name = checked_form['last_name'],
-                            login = checked_form['login'],
-                            email = checked_form['email'],
+            new_user = User(first_name = checked_form['first_name'].strip(),
+                            last_name = checked_form['last_name'].strip(),
+                            login = checked_form['login'].strip().lower(),
+                            email = checked_form['email'].strip().lower(),
                             password = checked_form['password'],
                             gender = checked_form['gender']) 
             new_user.set_encrypted_password(checked_form['password'])

@@ -37,17 +37,27 @@ class RegisterNewUserForm(forms.Form):
         self.base_fields['password'].error_messages['min_length'] = ERROR_MIN_LENGTH_PASSWORD         
         self.base_fields['password_confirmation'].error_messages['required'] = ERROR_REQUIRED_CONFIRMATION_PASSWORD                                       
         super(RegisterNewUserForm, self).__init__(*args, **kwargs)  
+
+    def clean_first_name(self):   
+        if self.cleaned_data['first_name'].strip() == "":
+            raise forms.ValidationError(ERROR_REQUIRED_FIRST_NAME)
+        return self.cleaned_data['first_name']
     
+    def clean_last_name(self):   
+        if self.cleaned_data['last_name'].strip() == "":
+            raise forms.ValidationError(ERROR_REQUIRED_LAST_NAME)
+        return self.cleaned_data['last_name']
+        
     def clean_email(self):   
         if User.objects.filter(
-                               email=self.cleaned_data['email']
+                               email=self.cleaned_data['email'].strip().lower()
                                ).exists() == True:
             raise forms.ValidationError(ERROR_ALREADY_REGISTERED_EMAIL)
         return self.cleaned_data['email']
     
     def clean_login(self):   
         if User.objects.filter(
-                               login=self.cleaned_data['login']
+                               login=self.cleaned_data['login'].strip().lower()
                                ).exists() == True:
             raise forms.ValidationError(ERROR_ALREADY_REGISTERED_LOGIN)
         return self.cleaned_data['login']
