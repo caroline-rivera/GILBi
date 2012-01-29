@@ -109,13 +109,11 @@ def register_book(request):
     result['validation_message'] = []  
      
     if request.method == 'GET' and 'name' in request.GET and \
-                                   'photo' in request.GET and \
                                    'description' in request.GET and \
                                    'publisher' in request.GET:    
     
         form = RegisterBookForm(request.GET, request.FILES)
-        import pdb
-        pdb.set_trace()        
+ 
         if form.is_valid():
             checked_form = form.cleaned_data    
  
