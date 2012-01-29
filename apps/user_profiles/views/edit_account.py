@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+import os
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -8,6 +9,7 @@ from gilbi.apps.user_profiles.models import User
 from gilbi.apps.user_profiles.forms import EditAccountForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_ACCOUNT, SUCCESS_EXCLUDE_ACCOUNT
 from gilbi.mistrael.messages.warning_messages import WARNING_EDIT_ACCOUNT
+from gilbi.mistrael.helpers.session_helper import destroy_session
 
 def index(request):
     if validate_session(request) == False:
@@ -57,17 +59,23 @@ def edit(request):
 
 def exclude(request):
     if validate_session(request) == False:
-        return HttpResponseRedirect('/logout/') #tela de login
+        return HttpResponseRedirect('/logout/') 
 
-    if request.method == 'POST': # Formulário enviado
+    if request.method == 'POST': 
            
         id = request.session['user_id']
     
         if User.objects.filter(id=id).exists() == True:
             user = User.objects.get(id=id)   
-            user.delete() 
-            # TO DO: colocar todos os deletes 
-        return HttpResponseRedirect('/logout/') 
+                                    
+            user.disable_account()
+            
+            for book in user.favorite_books.all():
+                book.delete()
+                            
+            user.save() 
+
+            return HttpResponseRedirect('/logout/') 
     
     else: #método GET   
         return HttpResponseRedirect('/perfil/')      

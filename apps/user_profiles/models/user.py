@@ -37,13 +37,17 @@ class User(models.Model):
     def set_encrypted_password(self, password):
         self.password = hashlib.sha224(password).hexdigest()
         
-    def set_profile_data(self, profile_data):
+    def set_profile_data(self, profile_data):        
+        if str(self.photo) != FEMALE_IMG_PATH and str(self.photo) != MALE_IMG_PATH:
+            self.photo.delete()
+            
         self.first_name = profile_data['first_name']
         self.last_name = profile_data['last_name']
         self.photo = profile_data['photo']
         self.gender = profile_data['gender']
         self.institution = profile_data['institution']
-        self.birthday = profile_data['birthday']
+        self.birthday = profile_data['birthday']        
+            
         if profile_data['photo'] == None:
             self.set_default_avatar()
         else:
@@ -58,5 +62,13 @@ class User(models.Model):
     def set_profile_phrase(self, profile_phrase):
         self.profile_phrase = profile_phrase
         
+    def disable_account(self):        
+        if str(self.photo) != FEMALE_IMG_PATH and str(self.photo) != MALE_IMG_PATH:
+            self.photo.delete()
+            
+        self.set_default_avatar()
+        self.member_since = None
+        self.profile_phrase = None
+                
     class Meta:
         app_label = 'user_profiles'
