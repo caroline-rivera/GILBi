@@ -1,12 +1,14 @@
 {% extends "outside_base.html" %}
 
 {% block conteudo %}
-	<form method="post" action="">
+	<form method="post" action="/">
 	
 		{% csrf_token %}	
 	
 		<div id="login_user">	
 			<h2>Faça o seu login!</h2>
+			
+			<div id="msg_result"></div>
 			
 			<h4>{{ registration_result }}</h4>
 			<h4>{{ error }}</h4>

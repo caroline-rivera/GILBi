@@ -61,10 +61,8 @@ def activate_account(request, id, code):
     else:
         registered_user.member_since = date.today()
         registered_user.save()
-        registration_result = SUCCESS_ACTIVATE_ACCOUNT
-        
-    #TO DO
-    #return HttpResponseRedirect('/') #tela de login
+        registration_result = SUCCESS_ACTIVATE_ACCOUNT        
+
         
     return render_to_response('user_profiles/login.html', 
                               {'registration_result': registration_result}, 
@@ -85,9 +83,6 @@ def disable_account(request, id, code):
     else:
         registered_user.delete()
         registration_result = SUCCESS_DISABLE_ACCOUNT
-
-    #TODO
-    #return HttpResponseRedirect('/') #tela de login
             
     return render_to_response('user_profiles/login.html', 
                               {'registration_result': registration_result}, 
