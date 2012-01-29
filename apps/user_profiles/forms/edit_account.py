@@ -25,7 +25,7 @@ class EditAccountForm(forms.Form):
     
     def clean_login(self):   
         if User.objects.filter(
-                               login=self.cleaned_data['login']
+                               login=self.cleaned_data['login'].strip().lower()
                                ).exists() == True:
             raise forms.ValidationError(ERROR_ALREADY_REGISTERED_LOGIN)
         return self.cleaned_data['login']

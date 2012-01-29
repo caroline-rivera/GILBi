@@ -14,7 +14,7 @@ def login(request):
     c.update(csrf(request)) 
        
     if request.method == 'POST': # Formulário enviado
-        provided_login = request.POST['login']   
+        provided_login = request.POST['login'].strip().lower()   
         provided_password = request.POST['password']
         registered_user = None
         

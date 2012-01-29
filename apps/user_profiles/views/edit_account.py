@@ -35,12 +35,12 @@ def edit(request):
             if User.objects.filter(id=id).exists() == True:
                 user = User.objects.get(id=id)     
             
-            if checked_form['login'] != "":
-                user.login = checked_form['login']
+            if checked_form['login'].strip() != "":
+                user.login = checked_form['login'].strip().lower()
             if checked_form['password'] != "":  
                 user.set_encrypted_password(checked_form['password']) 
                       
-            if checked_form['login'] == "" and checked_form['password'] == "":
+            if checked_form['login'].strip() == "" and checked_form['password'] == "":
                 result = WARNING_EDIT_ACCOUNT 
             else:
                 user.save()            
