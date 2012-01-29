@@ -33,3 +33,12 @@ class EditProfileForm(ModelForm):
                                
         super(EditProfileForm, self).__init__(*args, **kwargs)  
 
+    def clean_first_name(self):   
+        if self.cleaned_data['first_name'].strip() == "":
+            raise forms.ValidationError(ERROR_REQUIRED_FIRST_NAME)
+        return self.cleaned_data['first_name']
+    
+    def clean_last_name(self):   
+        if self.cleaned_data['last_name'].strip() == "":
+            raise forms.ValidationError(ERROR_REQUIRED_LAST_NAME)
+        return self.cleaned_data['last_name']
