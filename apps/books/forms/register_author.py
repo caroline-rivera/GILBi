@@ -18,7 +18,7 @@ class RegisterAuthorForm(forms.Form):
             raise forms.ValidationError(ERROR_REQUIRED_AUTHOR_NAME)
         
         if Author.objects.filter(
-                               name=self.cleaned_data['author_name']
+                               name=self.cleaned_data['author_name'].strip()
                                ).exists() == True:
             raise forms.ValidationError(ERROR_ALREADY_REGISTERED_AUTHOR)
         return self.cleaned_data['author_name']
