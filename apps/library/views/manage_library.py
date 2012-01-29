@@ -12,10 +12,10 @@ from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
 from gilbi.apps.library.grid_formats import ManagerLoanGridFormat, LibraryBookGridFormat
-from gilbi.apps.library.forms import BorrowBookForm
-from gilbi.apps.library.forms import ReceiveBookForm
+from gilbi.apps.library.forms import RegisterLibraryBookForm, BorrowBookForm, ReceiveBookForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_BORROWED, SUCCESS_BOOK_RENEWED
 from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_RECEIVED
+from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_LIBRARY_BOOK
 
 def index(request):   
     if validate_session(request) == False:
@@ -25,17 +25,58 @@ def index(request):
     else:
         form_borrow = BorrowBookForm()
         form_receive = ReceiveBookForm()
+        form_library_book = RegisterLibraryBookForm()
 
         return render_to_response('library/manage_library.html', 
-                                  {'form_borrow': form_borrow,
+                                  {'form_library_book': form_library_book,
+                                   'form_borrow': form_borrow,
                                    'form_receive': form_receive},
-                                   #'registration_result': registration_result},
                                   context_instance=RequestContext(request)) 
+
+
+def register(request):
+    if validate_session(request) == False:
+        return HttpResponseRedirect('/logout/')
+    elif validate_manager_session(request) == False:
+        return HttpResponseRedirect('/perfil/')
+    else:
+        result = {}
+        result['success_message'] = ""
+        result['validation_message'] = []      
+              
+        if request.method == 'GET' and 'book' in request.GET:   
+            
+            form = RegisterLibraryBookForm(request.GET, request.FILES)
+
+            if form.is_valid():
+                checked_form = form.cleaned_data
+                book = checked_form['book']
+
+                library_book = LibraryBook(book = book)
+                library_book.save()
+                
+                new_book = LibraryBook.objects.order_by('-pk')[0]
+                book_code = new_book.id
+                             
+                result['success_message'] = SUCCESS_REGISTER_LIBRARY_BOOK + str(book_code) + ')'
+                result['book_id'] = str(book_code)
+                    
+            else:                                 
+                if form._errors and 'book' in form._errors:
+                        result['validation_message'].append(form._errors['book'][0])
+                          
+            response = json.dumps(result)   
+            return HttpResponse(response, mimetype="text/javascript") 
+        else:
+            return HttpResponseRedirect('/gerenciarbiblioteca/') 
+
+
 def borrow_book(request):
     result = {}
     result['success_message'] = ""
-    result['book_id_message'] = ""
-    result['user_login_message'] = ""
+    result['error_message'] = ""
+    result['validation_message'] = []
+
               
     if request.method == 'GET' and 'book1' in request.GET and 'user_login1' in request.GET: # Formulário enviado
         form_borrow = BorrowBookForm(request.GET, request.FILES)
@@ -71,10 +112,10 @@ def borrow_book(request):
         return HttpResponseRedirect('/gerenciarbiblioteca/')
     
     if form_borrow._errors and 'book1' in form_borrow._errors:
-        result['book_id_message'] = form_borrow._errors['book1'][0]
+        result['validation_message'].append(form_borrow._errors['book1'][0])
         
     if form_borrow._errors and 'user_login1' in form_borrow._errors:
-        result['user_login_message'] = form_borrow._errors['user_login1'][0]
+        result['validation_message'].append(form_borrow._errors['user_login1'][0])
         
     response = json.dumps(result)
     return HttpResponse(response, mimetype="text/javascript")   
@@ -82,8 +123,8 @@ def borrow_book(request):
 def receive_book(request):    
     result = {}
     result['success_message'] = ""
-    result['book_id_message'] = ""
-    result['user_login_message'] = ""
+    result['error_message'] = ""
+    result['validation_message'] = []
        
     if request.method == 'GET' and 'book2' in request.GET and 'user_login2' in request.GET: # Formulário enviado
         form_receive = ReceiveBookForm(request.GET, request.FILES)
@@ -111,10 +152,10 @@ def receive_book(request):
         return HttpResponseRedirect('/gerenciarbiblioteca/')
         
     if form_receive._errors and 'book2' in form_receive._errors:
-        result['book_id_message'] = form_receive._errors['book2'][0]
+        result['validation_message'].append(form_receive._errors['book2'][0])
         
     if form_receive._errors and 'user_login2' in form_receive._errors:
-        result['user_login_message'] = form_receive._errors['user_login2'][0]
+        result['validation_message'].append(form_receive._errors['user_login2'][0])
         
     response = json.dumps(result)
     return HttpResponse(response, mimetype="text/javascript")  

@@ -5,6 +5,7 @@ var ManageLibrary = {};
 ManageLibrary.Selectors = {
 	
 	Buttons: {
+		save: '#button_register_book',
 		search: '#button_search',
 		borrow: '#button_borrow',
 		receive: '#button_receive'
@@ -23,53 +24,110 @@ ManageLibrary.Functions = {
 	init: function()
 	{
 		var btn = ManageLibrary.Selectors.Buttons;
+
+		/* Funcoes para a tab1: Cadastrar Livros */
+	
+		$(btn.save).click( function() {
+			ManageLibrary.Functions.registerNewLibraryBook();
+		});
 		
-		/* Funcoes para a tab1: Emprestar Livros */
+		$("a[href=#tab1]").click(function(){
+			ManageLibrary.Functions.cleanPageData();
+		});
+				
+		/* Funcoes para a tab2: Emprestar Livros */
 		
 		$("#id_book1").change(function(){
 			var book_id = $("#id_book1 option:selected").val();
-			ManageLibrary.Functions.searchBookInfo(book_id, "_tab1");
+			ManageLibrary.Functions.searchBookInfo(book_id, "_tab2");
 		});
 		
 		$(btn.borrow).click( function() {
 			ManageLibrary.Functions.borrowBook();
 		});
 		
-		$("a[href=#tab1]").click(function(){
+		$("a[href=#tab2]").click(function(){
 			ManageLibrary.Functions.cleanPageData();
 		});
 		
-		/* Funcoes para a tab2: Receber Livros */
+		/* Funcoes para a tab3: Receber Livros */
 		
 		$("#id_book2").change(function(){
 			var book_id = $("#id_book2 option:selected").text();
-			ManageLibrary.Functions.searchBookInfo(book_id, "_tab2");
+			ManageLibrary.Functions.searchBookInfo(book_id, "_tab3");
 		});
 		
 		$(btn.receive).click( function() {
 			ManageLibrary.Functions.receiveBook();
 		});
 		
-		$("a[href=#tab2]").click(function(){
+		$("a[href=#tab3]").click(function(){
 			ManageLibrary.Functions.cleanPageData();
 		});
 		
-		/* Funcoes para a tab3: Emprestimos */
+		/* Funcoes para a tab4: Emprestimos */
 		ManageLibrary.Functions.listLoans();
 		
-		$("a[href=#tab3]").click(function(){
+		$("a[href=#tab4]").click(function(){
 		  ManageLibrary.Functions.searchLoansFn();
 		});
 
 	},
 
+//----------------------------------------------------------------- registerNewLibraryBook	
+	registerNewLibraryBook: function()
+	{
+		var $tab = $('#tab1'),
+			$messageContainer = $tab.find("div.message_container"),
+		    data = {};
+		
+		data['book'] = $("#id_book").val();
+		
+		$.ajax({
+			url: "/gerenciarbiblioteca/cadastrarlivro/cadastrar/",
+			dataType: "json",
+			data: data,
+			async: true,
+			success: function(response) {
+				if( (response['validation_message']).length != 0 )
+				{
+					Helpers.Functions.showValidationMsg($messageContainer, 
+														response['validation_message']);
+				}
+				else
+				{	
+					if( (response['success_message']).length != 0 )
+					{
+						var $tab2 = $('#tab2'),
+							combo2 = $tab2.find("#id_book1"),	
+							$tab3 = $('#tab3'),
+							combo3 = $tab3.find("#id_book2"),
+							bookId = response['book_id'];
+							
+				        combo2.append('<option value="'+bookId+'">'+bookId+'</option>');
+				        combo3.append('<option value="'+bookId+'">'+bookId+'</option>');
+				        
+						Helpers.Functions.showSuccessMsg($messageContainer, 
+														 response['success_message']);
+					}
+				}
+				
+									
+			},
+			error: function() {	
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
+			}
+		});		
+	},
+	
 //------------------------------------------------------------------------- searchBookInfo	
 	searchBookInfo: function(book_id, tab)
 	{
 		var data = {},
-			divMsg = $("#msg_tab1"),
-			divId =	"msg_tab1";
-				
+			$tab = $('#tab2'),
+			$messageContainer = $tab.find("div.message_container");
+							
 		data['book_id'] = book_id;		
 		
 		$.ajax({
@@ -94,8 +152,8 @@ ManageLibrary.Functions = {
 				ManageLibrary.Functions.listBookInformationFn(books, tab);							
 			},
 			error: function() {	
-				var msg = Helpers.Messages.ManageLibrary.ERROR_LOADING_BOOK_INFORMATION;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});		
 	},
@@ -104,9 +162,9 @@ ManageLibrary.Functions = {
 	borrowBook: function()
 	{
 		var data = {},
-			divMsg = $("#msg_result_tab1"),
-			divId =	"msg_result_tab1";
-				
+			$tab = $('#tab2'),
+			$messageContainer = $tab.find("div.message_container");
+							
 		data['book1'] = $('#id_book1').val();	
 		data['user_login1'] = $('#id_user_login1').val();	
 
@@ -116,11 +174,11 @@ ManageLibrary.Functions = {
 			data: data,
 			async: true,
 			success: function(response) {				
-				ManageLibrary.Functions.showResultMessage(divMsg, divId, response);		
+				ManageLibrary.Functions.showResultMessage($messageContainer, response);		
 			},
 			error: function() {	
-				var msg = Helpers.Messages.ManageLibrary.ERROR_BORROWING_BOOK;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});		
 	},
@@ -129,8 +187,8 @@ ManageLibrary.Functions = {
 	receiveBook: function()
 	{
 		var data = {},
-			divMsg = $("#msg_result_tab2"),
-			divId =	"msg_result_tab2";
+			$tab = $('#tab3'),
+			$messageContainer = $tab.find("div.message_container");
 				
 		data['book2'] = $('#id_book2').val();	
 		data['user_login2'] = $('#id_user_login2').val();	
@@ -141,43 +199,40 @@ ManageLibrary.Functions = {
 			data: data,
 			async: true,
 			success: function(response) {				
-				ManageLibrary.Functions.showResultMessage(divMsg, divId, response);					
+				ManageLibrary.Functions.showResultMessage($messageContainer, response);					
 			},
 			error: function() {	
-				var msg = Helpers.Messages.ManageLibrary.ERROR_RECEIVING_BOOK;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});		
 	},
 
 //------------------------------------------------------------------------- showResultMessage	
-	showResultMessage: function(divMsg, divId, response)
+	showResultMessage: function($messageContainer, response)
 	{
-		var message = "";
-		
-		if(response['success_message'] != "")
-		{
-			ManageLibrary.Functions.cleanPageData();
-			Helpers.Functions.showPopUpSuccessMsg(divMsg, 
-												  divId, 
-												  response['success_message']);
-		}		
-					
-		if(response['book_id_message'] != "" || response['user_login_message'] != "")
-		{
-			message = response['book_id_message'];
+		if(response['validation_message'] != "") {
 			
-			if (response['user_login_message'] != "")
-			{
-				message = message + "</ br>";
-			}
-			
-			message = message + response['user_login_message'];
-			
-			Helpers.Functions.showPopUpErrorMsg(divMsg, 
-												divId, 
-												message);
+			Helpers.Functions.showValidationMsg($messageContainer, 
+												response['validation_message']);
 		}	
+		
+		else {	
+			
+			if(response['error_message'] != "")
+			{
+				ManageLibrary.Functions.cleanPageData();
+				Helpers.Functions.showSuccessMsg($messageContainer, 
+												 response['error_message']);
+			}	
+			if(response['success_message'] != "")
+			{
+				ManageLibrary.Functions.cleanPageData();
+				Helpers.Functions.showSuccessMsg($messageContainer, 
+											     response['success_message']);
+			}	
+				
+		}			
 	},
 
 //------------------------------------------------------------------------- listBookInformationFn
@@ -239,8 +294,8 @@ ManageLibrary.Functions = {
 	{
 		var table = ManageLibrary.Selectors.Tables,	
 			grid = $(table.loans),
-			divMsg = $('#msg_tab3'),
-			divId = "msg_tab3";
+			$tab = $('#tab4'),
+			$messageContainer = $tab.find("div.message_container");
 				
 		$.ajax({
 			url: "/gerenciarbiblioteca/livrosemprestados/listar/",
@@ -264,8 +319,8 @@ ManageLibrary.Functions = {
 				ManageLibrary.Functions.listFn(loans, grid);							
 			},
 			error: function() {	
-				var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
-				Helpers.Functions.showPopUpErrorMsg(divMsg, divId, msg);		
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);			
 			}
 		});		
 	},
@@ -286,24 +341,27 @@ ManageLibrary.Functions = {
 	cleanPageData: function()
 	{
 		/* Dados da tab1 */
+		$('#id_book').val("");	
+		
+		/* Dados da tab2 */
 		$('#id_book1').val("");	
 		$('#id_user_login1').val("");	
-		
-		$("#content_name_tab1").html("");
-		$("#content_author_tab1").html("");
-		$("#content_sauthor_tab1").html("");
-		$("#content_publisher_tab1").html("");
-		$("#content_situation_tab1").html("");
-
-		/* Dados da tab2 */
-		$('#id_book2').val("");	
-		$('#id_user_login2').val("");
 		
 		$("#content_name_tab2").html("");
 		$("#content_author_tab2").html("");
 		$("#content_sauthor_tab2").html("");
 		$("#content_publisher_tab2").html("");
-		$("#content_situation_tab2").html("");	
+		$("#content_situation_tab2").html("");
+
+		/* Dados da tab3 */
+		$('#id_book2').val("");	
+		$('#id_user_login2').val("");
+		
+		$("#content_name_tab3").html("");
+		$("#content_author_tab3").html("");
+		$("#content_sauthor_tab3").html("");
+		$("#content_publisher_tab3").html("");
+		$("#content_situation_tab3").html("");	
 
 	},
 

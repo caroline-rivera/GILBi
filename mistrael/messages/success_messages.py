@@ -62,5 +62,8 @@ SUCCESS_REGISTER_INVOICE = "A Nota Fiscal e os livros do pedido de compra foram 
 #Cadastrar Livro na Livraria
 SUCCESS_REGISTER_BOOKSTORE_BOOK = "O livro foi cadastrado com sucesso na livraria."
 
+#Cadastrar Livro na Livraria
+SUCCESS_REGISTER_LIBRARY_BOOK = "O livro foi cadastrado com sucesso na biblioteca. (CÓDIGO DO LIVRO: "
+
 # Rejeitar Encomendas
 SUCCESS_REJECT_BOOK_ORDER = "A encomenda foi rejeitada com sucesso!"
