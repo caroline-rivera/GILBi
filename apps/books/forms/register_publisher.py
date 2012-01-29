@@ -18,7 +18,7 @@ class RegisterPublisherForm(forms.Form):
             raise forms.ValidationError(ERROR_REQUIRED_PUBLISHER_NAME)
           
         if Publisher.objects.filter(
-                               name=self.cleaned_data['publisher_name']
+                               name=self.cleaned_data['publisher_name'].strip()
                                ).exists() == True:
             raise forms.ValidationError(ERROR_ALREADY_REGISTERED_PUBLISHER)
         return self.cleaned_data['publisher_name']
