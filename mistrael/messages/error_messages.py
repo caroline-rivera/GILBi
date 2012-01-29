@@ -179,3 +179,4 @@ ERROR_INVALID_PRICE = "O campo Preço Sugerido é inválido. Preencha com um val
 ERROR_INVALID_BOOKSTORE_BOOK_TOTAL_QUANTITY = "O campo Quantidade Total é inválido. Prencha com um número inteiro positivo."
 ERROR_INVALID_BOOKSTORE_BOOK_AVAILABLE_QUANTITY = "O campo Quantidade Disponível é inválido. Prencha com um número inteiro positivo."
 ERROR_EXISTENT_BOOKSTORE_BOOK = "Esse livro já está cadastrado na livraria."
+ERROR_INVALID_BOOKSTOREBOOK_QUANTITIES = "A Quantidade Total deve ser maior ou igual à Quantidade Disponível."

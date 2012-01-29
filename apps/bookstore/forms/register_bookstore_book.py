@@ -13,6 +13,7 @@ from gilbi.mistrael.messages.error_messages import ERROR_INVALID_PRICE
 from gilbi.mistrael.messages.error_messages import ERROR_INVALID_BOOKSTORE_BOOK_TOTAL_QUANTITY
 from gilbi.mistrael.messages.error_messages import ERROR_INVALID_BOOKSTORE_BOOK_AVAILABLE_QUANTITY
 from gilbi.mistrael.messages.error_messages import ERROR_EXISTENT_BOOKSTORE_BOOK
+from gilbi.mistrael.messages.error_messages import ERROR_INVALID_BOOKSTOREBOOK_QUANTITIES
 
 class BookChoiceField(ModelChoiceField):
     
@@ -75,6 +76,10 @@ class RegisterBookstoreBookForm(forms.Form):
                     raise forms.ValidationError(ERROR_INVALID_BOOKSTORE_BOOK_AVAILABLE_QUANTITY)
             except ValueError:            
                 raise forms.ValidationError(ERROR_INVALID_BOOKSTORE_BOOK_AVAILABLE_QUANTITY)
+
+        if 'total_quantity' in self.cleaned_data:
+            if available_quantity > self.cleaned_data['total_quantity']:
+                raise forms.ValidationError(ERROR_INVALID_BOOKSTOREBOOK_QUANTITIES)
         
         return self.cleaned_data['available_quantity']
 
