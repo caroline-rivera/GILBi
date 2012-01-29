@@ -15,7 +15,7 @@ class RegisterDistributorForm(forms.Form):
     
     def clean_name(self):   
         if Distributor.objects.filter(
-                               name=self.cleaned_data['name']
+                               name=self.cleaned_data['name'].strip()
                                ).exists() == True:
             raise forms.ValidationError(ERROR_ALREADY_REGISTERED_DISTRIBUTOR)
         return self.cleaned_data['name']

@@ -102,7 +102,7 @@ def register_distributor(request):
         
         if form.is_valid():
             checked_form = form.cleaned_data            
-            new_distributor = Distributor(name = checked_form['name'])
+            new_distributor = Distributor(name = checked_form['name'].strip())
             
             new_distributor.save()                        
             registration_result = SUCCESS_REGISTER_NEW_DISTRIBUTOR
