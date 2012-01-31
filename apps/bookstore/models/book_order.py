@@ -34,6 +34,9 @@ class BookOrder(models.Model):
 
     def accept_order(self):
         self.situation = 'A'
+
+    def return_order(self):
+        self.situation = 'S'
                         
     class Meta:
         app_label = 'bookstore'

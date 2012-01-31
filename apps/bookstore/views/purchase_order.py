@@ -128,5 +128,30 @@ def conclude(request, purchase_order_id):
     result['success_message'] = 'Pedido finalizado com sucesso!'
   
     response = json.dumps(result)
+    return HttpResponse(response, mimetype="text/javascript")
+
+def exclude(request, purchase_order_id):  
+    if validate_session(request) == False:
+        return HttpResponseRedirect('/logout/') 
+    
+    if validate_manager_session(request) == False:
+        return HttpResponseRedirect('/perfil/')
+    
+    purchase_order = PurchaseOrder.objects.get(id=purchase_order_id)
+    purchase_items = purchase_order.itens.all()
+    
+    for item in purchase_items:
+        orders = item.book_order.all()
+        
+        for order in orders:
+            order.return_order()
+            order.save()
+    
+    purchase_order.delete()
+    
+    result = {}
+    result['success_message'] = 'Pedido excluído com sucesso!'
+  
+    response = json.dumps(result)
     return HttpResponse(response, mimetype="text/javascript") 
     

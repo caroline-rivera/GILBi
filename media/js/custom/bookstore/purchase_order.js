@@ -10,7 +10,8 @@ PurchaseOrder.Selectors = {
 		reject: "#button_reject_book",
 		remove: "#button_remove_item",
 		save: "#button_save_purchase_order",
-		conclude: "#button_conclude_purchase_order"
+		conclude: "#button_conclude_purchase_order",
+		exclude: "#button_exclude_purchase_order"
 	},
 	
 	Tables: {
@@ -56,27 +57,8 @@ PurchaseOrder.Functions = {
 		PurchaseOrder.Functions.createPurchaseItemsViewTable();
 		
 		$(cbo.purchaseOrders).change(PurchaseOrder.Functions.showPurchaseOrder);
-		$(btn.conclude).click(function() {
-			
-			var $messageContainer = $(PurchaseOrder.Selectors.MessageContainers.purchaseOrderView),
-			    $grid = $(PurchaseOrder.Selectors.Tables.purchaseItemsView),
-			    purchaseOrderId = $(PurchaseOrder.Selectors.Combos.purchaseOrders).val();				
-		
-			$.ajax({
-				url: "/gerenciarlivraria/pedidodecompra/"+purchaseOrderId+"/finalizar",
-				dataType: "json",
-				success: function(response) {
-					Helpers.Functions.showSuccessMsg($messageContainer, response['success_message']);
-					$grid.jqGrid("clearGridData");	
-				},
-				error: function() {	
-					//var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
-					//Helpers.Functions.showErrorMsg($messageContainer, msg);		
-				}
-			});
-			
-		});
-		$(btn.exclude).click(function() { });
+		$(btn.conclude).click(PurchaseOrder.Functions.concludePurchaseOrder);
+		$(btn.exclude).click(PurchaseOrder.Functions.excludePurchaseOrder);
 	},
 
 //------------------------------------------------------------------------- createOrdersTable
@@ -527,6 +509,45 @@ PurchaseOrder.Functions = {
 			}
 		});	
 	},
+
+//--------------------------------------------------------------------------- concludePurchaseOrder
+	
+	concludePurchaseOrder: function() {
+			
+		PurchaseOrder.Functions._actOnPurchaseOrder("finalizar");
+		
+	},
+
+//---------------------------------------------------------------------------- excludePurchaseOrder
+	
+	excludePurchaseOrder: function() {
+			
+		PurchaseOrder.Functions._actOnPurchaseOrder("excluir");
+		
+	},
+
+//----------------------------------------------------------------------------- _actOnPurchaseOrder
+	
+	_actOnPurchaseOrder: function(action) {
+			
+		var $messageContainer = $(PurchaseOrder.Selectors.MessageContainers.purchaseOrderView),
+		    $grid = $(PurchaseOrder.Selectors.Tables.purchaseItemsView),
+		    purchaseOrderId = $(PurchaseOrder.Selectors.Combos.purchaseOrders).val();				
+	
+		$.ajax({
+			url: "/gerenciarlivraria/pedidodecompra/"+purchaseOrderId+"/"+action,
+			dataType: "json",
+			success: function(response) {
+				Helpers.Functions.showSuccessMsg($messageContainer, response['success_message']);
+				$grid.jqGrid("clearGridData");	
+			},
+			error: function() {	
+				//var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+			}
+		});
+		
+	},	
 			
 //------------------------------------------------------------------------- listFn	
 	listFn: function(data, grid)
