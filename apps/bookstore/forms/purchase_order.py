@@ -21,9 +21,8 @@ class PurchaseOrderChoiceField(ModelChoiceField):
         return label 
         
 class PurchaseOrderForm(forms.Form):
-    purchase_orders = PurchaseOrderChoiceField(queryset=PurchaseOrder.objects.order_by('id'),
-                                               empty_label = "Número - Data de Encomenda - Distribuidora") 
-
+    purchase_order = PurchaseOrderChoiceField(queryset=PurchaseOrder.objects.order_by('id'),
+                                               empty_label = "Número - Status - Distribuidora") 
 
        
     def __init__(self, *args, **kwargs):                          

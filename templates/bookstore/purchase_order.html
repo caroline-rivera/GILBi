@@ -8,7 +8,7 @@
 			$('#tabs').tabs();
 			// TODO: Melhorar isso
 			$('#button_add_book, #button_accept_book, #button_reject_book, #button_remove_item, #button_save_purchase_order').button();
-
+			$('#button_edit_purchase_order, #button_conclude_purchase_order').button();
 			PurchaseOrder.Functions.init();
 		}); 
 	</script>
@@ -82,15 +82,24 @@
     	{# Segunda aba #}
 		<div id="tab2">	
 											
-            <h2>Pedidos de Compra Existentes</h2>       
+            <h2>Pedidos de Compra Existentes</h2>
+            
+            <div id="purchase_order_view_message_container" class="message_container"></div>
 			
 			<ol class="fields">
 				<li>
 					<label for="id_distributor">Distribuidora:</label>
-					{{ form_purchase_order.purchase_orders }}
+					{{ form_purchase_order.purchase_order }}
 				</li>	
 			</ol>			
-			   		
+			
+			<table id="table_purchase_items_view"></table>   	
+			
+			<div id="div_purchase_order_view_actions" class="tab_save_button" style="display: none;">
+                <input id="button_edit_purchase_order" type="button" value="Editar Pedido" style="display: none;" />
+                <input id="button_conclude_purchase_order" type="button" value="Finalizar Pedido" />
+            </div>
+            	
     	</div>   	
     			
 	</div>

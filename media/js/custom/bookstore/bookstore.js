@@ -348,7 +348,7 @@ Bookstore.Functions = {
 					$("#quantity").val("");
 					grid.resetSelection();
 					Helpers.Functions.showSuccessMsg($messageContainer, 
-													 response['success_message']);
+													response['success_message']);
 				}	
 				
 				if(response['error_message'] != "")

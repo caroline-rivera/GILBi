@@ -10,6 +10,8 @@ from gilbi.apps.bookstore.forms import NewPurchaseItemForm, NewPurchaseOrderForm
 from gilbi.apps.bookstore.models import PurchaseOrder, PurchaseItem, Distributor, BookstoreBook, BookOrder
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from django.core import serializers
+from gilbi.apps.bookstore.grid_formats import PurchaseItemGridFormat
 
 def index(request):    
     if validate_session(request) == False:
@@ -41,8 +43,7 @@ def save(request):
         distributor = Distributor.objects.get(id=distributor_id)
         
         #TODO: Tirar o date_of_order e rodar syncdb        
-        purchase_order = PurchaseOrder(date_of_order=date.today(),
-                                       distributor=distributor)  
+        purchase_order = PurchaseOrder(distributor=distributor)  
         purchase_order.save()
         
         for purchase_item in purchase_items:
@@ -76,4 +77,56 @@ def save(request):
     else: #Método GET
         return HttpResponseRedirect('/gerenciarlivraria/pedidodecompra/')
         
-        
+
+def show(request):  
+    if validate_session(request) == False:
+        return HttpResponseRedirect('/logout/') 
+    
+    if validate_manager_session(request) == False:
+        return HttpResponseRedirect('/perfil/')
+    
+    if request.method == 'GET' and 'purchase_order' in request.GET:   
+        form = PurchaseOrderForm(request.GET, request.FILES)
+
+        if form.is_valid():
+            checked_form = form.cleaned_data
+            purchase_order = checked_form['purchase_order']  
+    
+            items = purchase_order.itens.all()
+            
+            items_grid_format = [PurchaseItemGridFormat(item) for item in items]
+            
+            partial_response = serializers.serialize("json", items_grid_format)
+    
+            items_json = json.loads(partial_response)
+            response_dic = {
+                'read_only': purchase_order.date_of_order is not None,
+                'items': items_json,
+            }
+    
+            response = json.dumps(response_dic)
+            return HttpResponse(response, mimetype="text/javascript")
+        else:
+            return HttpResponse([], mimetype="text/javascript")            
+    else:
+        return HttpResponseRedirect('/gerenciarlivraria/')
+    
+
+def conclude(request, purchase_order_id):  
+    if validate_session(request) == False:
+        return HttpResponseRedirect('/logout/') 
+    
+    if validate_manager_session(request) == False:
+        return HttpResponseRedirect('/perfil/')
+    
+    purchase_order = PurchaseOrder.objects.get(id=purchase_order_id)
+    
+    purchase_order.conclude()
+    purchase_order.save()        
+    
+    result = {}
+    result['success_message'] = 'Pedido finalizado com sucesso!'
+  
+    response = json.dumps(result)
+    return HttpResponse(response, mimetype="text/javascript") 
+    

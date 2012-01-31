@@ -9,18 +9,25 @@ PurchaseOrder.Selectors = {
 		accept: "#button_accept_book",
 		reject: "#button_reject_book",
 		remove: "#button_remove_item",
-		save: "#button_save_purchase_order"
+		save: "#button_save_purchase_order",
+		conclude: "#button_conclude_purchase_order"
 	},
 	
 	Tables: {
 		orders: "#table_orders",
-		purchaseItems: "#table_purchase_items"
+		purchaseItems: "#table_purchase_items",
+		purchaseItemsView: "#table_purchase_items_view",
 	},
 	
 	MessageContainers: {
 		books: "#book_message_container",
 		orders: "#order_message_container",
-		purchaseOrder: "#purchase_order_message_container"
+		purchaseOrder: "#purchase_order_message_container",
+		purchaseOrderView: "#purchase_order_view_message_container"
+	},
+	
+	Combos : {
+		purchaseOrders: "#id_purchase_order"
 	}
 }
 
@@ -32,6 +39,7 @@ PurchaseOrder.Functions = {
 	init: function() {
 		
 		var btn = PurchaseOrder.Selectors.Buttons;
+			cbo = PurchaseOrder.Selectors.Combos;
 								
 		/* Funcoes para a tab1: Novo Pedido de Compra */
 		
@@ -43,6 +51,32 @@ PurchaseOrder.Functions = {
 		$(btn.remove).click(PurchaseOrder.Functions.removeItemFromPurchaseOrder);
 		$(btn.reject).click(PurchaseOrder.Functions.rejectBookOrder);
 		$(btn.save).click(PurchaseOrder.Functions.savePurchaseOrder);
+		
+		/* Funcoes para a tab 2: Visualizar Pedido de Compra*/
+		PurchaseOrder.Functions.createPurchaseItemsViewTable();
+		
+		$(cbo.purchaseOrders).change(PurchaseOrder.Functions.showPurchaseOrder);
+		$(btn.conclude).click(function() {
+			
+			var $messageContainer = $(PurchaseOrder.Selectors.MessageContainers.purchaseOrderView),
+			    $grid = $(PurchaseOrder.Selectors.Tables.purchaseItemsView),
+			    purchaseOrderId = $(PurchaseOrder.Selectors.Combos.purchaseOrders).val();				
+		
+			$.ajax({
+				url: "/gerenciarlivraria/pedidodecompra/"+purchaseOrderId+"/finalizar",
+				dataType: "json",
+				success: function(response) {
+					Helpers.Functions.showSuccessMsg($messageContainer, response['success_message']);
+					$grid.jqGrid("clearGridData");	
+				},
+				error: function() {	
+					//var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+					//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+				}
+			});
+			
+		});
+		$(btn.exclude).click(function() { });
 	},
 
 //------------------------------------------------------------------------- createOrdersTable
@@ -128,7 +162,32 @@ PurchaseOrder.Functions = {
 		});	
 		
 	},
-	
+
+//--------------------------------------------------------------------- createPurchaseItemsViewTable
+	createPurchaseItemsViewTable: function() {
+			
+		var grid = $(PurchaseOrder.Selectors.Tables.purchaseItemsView),
+		    columnsTitles = ['Livro', 'Autor(es)', 'Autor(es) Espiritual(ais)','Editora', 
+		    			     'Quantidade'],
+			columnsSpecification = [
+		        {name:'bookName', index:'bookName', width:200},
+		        {name:'author', index:'author', width:155},
+		        {name:'spiritualAuthor', index:'spiritualAuthor', width:155},
+		        {name:'publisher', index:'publisher', width:155}, 
+		        {name:'quantity', index:'quantity', width:65}		
+			];
+		
+		grid.jqGrid({
+			datatype: 'local',
+			colNames: columnsTitles,
+		    colModel:columnsSpecification,
+		    height: 'auto',
+		    viewrecords: true,
+		    caption:'Itens do Pedido de Compra'
+		});	
+		
+	},
+		
 //-------------------------------------------------------------------------- addBookToPurchaseOrder
 	addBookToPurchaseOrder: function(event) {
 		
@@ -283,7 +342,7 @@ PurchaseOrder.Functions = {
 			Helpers.Functions.showWarningMsg($messageContainer, 
 											 "Não há itens no Pedido de Compras!");
 			
-		} else if (selectedIds.length == 0) {
+		} else if (selectedIds.length === 0) {
 			
 			Helpers.Functions.showWarningMsg($messageContainer, 
 											 "Selecione pelo menos um item do pedido para ser removido.");	
@@ -418,7 +477,56 @@ PurchaseOrder.Functions = {
 			
 		}
 		
-	},	
+	},
+	
+//------------------------------------------------------------------------------- showPurchaseOrder
+	
+	showPurchaseOrder: function() {
+		var data = {},
+			grid = $(PurchaseOrder.Selectors.Tables.purchaseItemsView);
+		
+		data['purchase_order'] = $(PurchaseOrder.Selectors.Combos.purchaseOrders).val();				
+	
+		$.ajax({
+			url: "/gerenciarlivraria/pedidodecompra/exibir",
+			dataType: "json",
+			data: data,
+			async: true,
+			success: function(response) {
+				
+				var $actions = $("#div_purchase_order_view_actions"),
+				    orders = [];
+				
+				if (response != null) {
+					$.each(response.items, function(i, item){
+		                var order = {
+		                	id: item.pk,
+		                	bookName: item.fields['name'],
+		                	author: item.fields['author'],
+		                	spiritualAuthor: item.fields['spiritual_author'],
+		                	publisher: item.fields['publisher'],
+		                	quantity: item.fields['quantity']
+		                }
+		                orders[i] = order;
+	                });
+	                
+	                if (response['read_only'] === false) {
+	                	$actions.show();
+	                } else {
+	                	$actions.hide();
+	                }	
+				} else {
+					$actions.hide();
+				}
+	
+				PurchaseOrder.Functions.listFn(orders, grid);						
+			},
+			error: function() {	
+				//var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+			}
+		});	
+	},
 			
 //------------------------------------------------------------------------- listFn	
 	listFn: function(data, grid)
