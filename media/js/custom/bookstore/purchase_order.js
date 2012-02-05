@@ -224,7 +224,7 @@ PurchaseOrder.Functions = {
 		if (bookOrderId == null) {
 			
 			Helpers.Functions.showWarningMsg($messageContainer, 
-											 "Selecione pelo menos uma encomenda para ser rejeitada.");
+											 "Selecione pelo menos uma encomenda para ser adicionada ao pedido.");
 			
 		} else {			
 	
