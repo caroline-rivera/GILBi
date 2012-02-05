@@ -39,7 +39,7 @@ def search_books(request):
         books = []
 
         if(book_name != ""):
-            all_books = BookstoreBook.objects.filter(name__contains = book_name)
+            all_books = BookstoreBook.objects.filter(name__icontains = book_name)
         else:
             all_books = BookstoreBook.objects.all()
         
