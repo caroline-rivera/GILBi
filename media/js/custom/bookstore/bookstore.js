@@ -297,7 +297,18 @@ Bookstore.Functions = {
 					
 		if (selRowNumber == null)
 		{
-			var msg = Helpers.Messages.Book.NO_SEL_ARROW;
+			var msg = "";
+			
+			if($tab.selector == "#tab2")
+			{
+				msg = Helpers.Messages.Book.NO_SEL_ARROW;
+			}
+			
+			if($tab.selector == "#tab3")
+			{
+				msg = Helpers.Messages.Order.NO_SEL_ARROW;
+			}
+
 			Helpers.Functions.showWarningMsg($messageContainer, msg);
 		}
 		else

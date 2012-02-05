@@ -23,6 +23,7 @@ Helpers.Messages = {
 	},
 	
 	Order: {
+		NO_SEL_ARROW: 'Nenhuma encomenda foi selecionada na tabela!',
 		ERROR_CANCELING_ORDER: 'Erro ao cancelar encomenda. Tente novamente.'
 	},
 	
