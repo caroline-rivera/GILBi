@@ -188,7 +188,9 @@ PurchaseOrder.Functions = {
 			
 		} else if ( Helpers.Functions.isValidQuantity(quantity) == false) {
 			
-			messages[messages.length] = "A quantidade é inválida. Preencha com um valor numérico.";
+			messages[messages.length] = "A quantidade é inválida. Preencha com um valor inteiro maior que 0.";
+		} else if (quantity == "0" || quantity == "00" || quantity == "000") {
+			messages[messages.length] = "A quantidade é inválida. Preencha com um valor inteiro maior que 0.";
 		}
 				
 		if (messages.length != 0) {
