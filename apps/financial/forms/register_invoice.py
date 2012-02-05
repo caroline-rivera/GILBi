@@ -46,6 +46,36 @@ class RegisterInvoiceForm(forms.Form):
         
         return self.cleaned_data['purchase_order']
 
+    def clean_number(self):
+                
+        if self.data['number'].strip() == "":
+            raise forms.ValidationError(ERROR_REQUIRED_INVOICE_NUMBER)
+        else:
+            try:
+                number = int(self.data['number'])
+                
+                if number < 0:
+                    raise forms.ValidationError(ERROR_INVALID_INVOICE_NUMBER)  
+            except ValueError:            
+                raise forms.ValidationError(ERROR_INVALID_INVOICE_NUMBER)            
+        
+        return self.cleaned_data['number']
+
+    def clean_series(self):
+        
+        if self.data['series'].strip() == "":
+            raise forms.ValidationError(ERROR_REQUIRED_INVOICE_SERIES)
+        else:
+            try:
+                number = int(self.data['series'])
+                
+                if number < 0:
+                    raise forms.ValidationError(ERROR_INVALID_INVOICE_SERIES)  
+            except ValueError:            
+                raise forms.ValidationError(ERROR_INVALID_INVOICE_SERIES)            
+        
+        return self.cleaned_data['series']
+        
     def clean_payment_date(self):       
            
         return self.cleaned_data['payment_date']

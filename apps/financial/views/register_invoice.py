@@ -46,6 +46,7 @@ def register(request):
             duplicates = separate_duplicate_fields(request.GET)
             validated_duplicates = validate_duplicates(duplicates)
 
+        
             if form.is_valid() and len(validated_duplicates['messages']) == 0:
                 checked_form = form.cleaned_data
                 purchase_order = checked_form['purchase_order']  
