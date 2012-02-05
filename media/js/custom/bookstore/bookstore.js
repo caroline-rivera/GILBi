@@ -74,7 +74,7 @@ Bookstore.Functions = {
 	{	
 		var table = Bookstore.Selectors.Tables,	
 			grid = $(table.favorites),
-			columnsTitles = ['Id', 'Nome','Autor(es)', 'Autor(es) Espiritual(ais)', 'Editora'],
+			columnsTitles = ['Id', 'Nome do Livro','Autor(es)', 'Autor(es) Espiritual(ais)', 'Editora'],
 			columnsSpecification = [
 			{name:'id', index:'id', hidden:true},
 	        {name:'name', index:'name', width:260},
@@ -103,7 +103,7 @@ Bookstore.Functions = {
 	{	
 		var table = Bookstore.Selectors.Tables,	
 			grid = $(table.orders),
-			columnsTitles = ['Id', 'Nome','Autor(es)', 'Autor(es) Espiritual(ais)', 
+			columnsTitles = ['Id', 'Nome do Livro','Autor(es)', 'Autor(es) Espiritual(ais)', 
 							 'Editora', 'Qtd na Livraria'],
 			columnsSpecification = [
 			{name:'id', index:'id', hidden:true},
@@ -134,8 +134,8 @@ Bookstore.Functions = {
 	{	
 		var table = Bookstore.Selectors.Tables,	
 			grid = $(table.userOrders),
-			columnsTitles = ['Id', 'Nome','Autor', 'Autor Espiritual', 
-							 'Data', 'Qtd', 'Situação'],
+			columnsTitles = ['Id', 'Nome do Livro','Autor(es)', 'Autor(es) Espiritual(ais)', 
+							 'Data da Encomenda', 'Qtd', 'Situação'],
 			columnsSpecification = [
 			{name:'id', index:'id', hidden:true},
 	        {name:'name', index:'name', width:220},
