@@ -353,7 +353,26 @@ Bookstore.Functions = {
 			dataType: "json",
 			data: data,
 			async: true,
-			success: function(response) {			
+			success: function(response) {	
+
+				if(response['validation_message'].length != 0)
+				{
+					Helpers.Functions.showValidationMsg($messageContainer, 
+													 response['validation_message']);
+				}
+					
+				if(response['error_message'] != "")
+				{
+					Helpers.Functions.showErrorMsg($messageContainer, 
+													 response['error_message']);
+				}	
+								
+				if(response['warning_message'] != "")
+				{
+					Helpers.Functions.showWarningMsg($messageContainer, 
+													 response['warning_message']);
+				}	
+				
 				if(response['success_message'] != "")
 				{
 					$("#quantity").val("");
@@ -361,12 +380,7 @@ Bookstore.Functions = {
 					Helpers.Functions.showSuccessMsg($messageContainer, 
 													response['success_message']);
 				}	
-				
-				if(response['warning_message'] != "")
-				{
-					Helpers.Functions.showWarningMsg($messageContainer, 
-													 response['warning_message']);
-				}			
+		
 			},
 			error: function() {	
 				var msg = Helpers.Messages.Book.ERROR_SAVING_BOOK;

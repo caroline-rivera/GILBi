@@ -96,7 +96,9 @@ def add_favorites(request):
             
         result = {}
         result['success_message'] = ""
-        result['warning_message'] = ""  
+        result['warning_message'] = ""
+        result['error_message'] = ""  
+        result['validation_message'] = []
                        
         if(total_favorites == 0):
             result['warning_message'] = ERROR_ADD_FAVORITE_BOOK
@@ -115,10 +117,12 @@ def order_books(request):
     result = {}
     result['success_message'] = ""
     result['error_message'] = ""
+    result['warning_message'] = ""
+    result['validation_message'] = []
             
     if request.method == 'GET' and 'book_ids' in request.GET and 'quantity' in request.GET:              
         if validate_quantity(request.GET['quantity']) == False:
-            result['error_message'] = ERROR_INVALID_QUANTITY
+            result['validation_message'].append(ERROR_INVALID_QUANTITY)
         else:
             book_id = int(request.GET['book_ids'])
             quantity = int(request.GET['quantity'])  
@@ -166,6 +170,8 @@ def cancel_orders(request):
     result = {}
     result['success_message'] = ""
     result['error_message'] = ""
+    result['warning_message'] = ""
+    result['validation_message'] = []
             
     if request.method == 'GET' and 'order_ids' in request.GET:              
         order_id = int(request.GET['order_ids'])
