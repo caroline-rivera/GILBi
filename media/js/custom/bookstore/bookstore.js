@@ -362,10 +362,10 @@ Bookstore.Functions = {
 													response['success_message']);
 				}	
 				
-				if(response['error_message'] != "")
+				if(response['warning_message'] != "")
 				{
-					Helpers.Functions.showErrorMsg($messageContainer, 
-													 response['error_message']);
+					Helpers.Functions.showWarningMsg($messageContainer, 
+													 response['warning_message']);
 				}			
 			},
 			error: function() {	

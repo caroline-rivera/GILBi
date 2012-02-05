@@ -96,10 +96,10 @@ def add_favorites(request):
             
         result = {}
         result['success_message'] = ""
-        result['error_message'] = ""  
+        result['warning_message'] = ""  
                        
         if(total_favorites == 0):
-            result['error_message'] = ERROR_ADD_FAVORITE_BOOK
+            result['warning_message'] = ERROR_ADD_FAVORITE_BOOK
         else:
             result['success_message'] = SUCCESS_ADD_FAVORITE_BOOK + str(total_favorites)
                     
