@@ -1,0 +1,50 @@
+{% extends "inside_base.html" %}
+
+{% block script %}
+
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/custom/user_profiles/favorite_books.js"></script>
+	
+	<script type="text/javascript">
+		$(function() {
+			$('#button_search').button(); 
+			$('#button_add').button(); 
+
+			FavoriteBooks.Functions.init();
+		}); 
+	</script>
+	
+{% endblock script %}
+
+{% block conteudo %}
+	<h2>Adicionar Livros aos Favoritos</h2>
+	
+	<table id="favorite_books">
+		<p>Preencha os campos para procurar por um livro:</p>
+		<tr>
+			<td>Nome:</td>
+			<td><input type="text" id="name" name="name" maxlength="20" size="40" /></td>
+		</tr>
+		<tr>
+			<td>Autor:</td>
+			<td><input type="text" id="author" name="author" maxlength="20" size="40" /></td>
+		</tr>
+		<tr>
+			<td>Editora:</td>
+			<td><input type="text" id="publisher" name="publisher" maxlength="20" size="40" /></td>
+		</tr>			
+	</table>
+
+	<div id="div_search" class="tab_search_button">			
+		<input id="button_search" type="submit" value="Procurar" />
+	</div>
+	
+	<div id="message_container" class="message_container"></div>
+	
+	<table id="table_favorites"></table>
+	<div id="bfavorites"></div>
+	
+	<div id="div_add" class="tab_save_button">	
+		<input id="button_add" type="submit" value="Adicionar aos Favoritos" />
+	</div>
+ 
+{% endblock conteudo %}

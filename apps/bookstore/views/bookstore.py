@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
+
 import json
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
@@ -70,45 +71,6 @@ def search_books(request):
     else:
         return HttpResponseRedirect('/livraria/') 
 
-def add_favorites(request):
-    if validate_session(request) == False:
-        return HttpResponseRedirect('/logout/')
-    
-    if request.method == 'GET' and 'book_ids' in request.GET:        
-        str_ids = request.GET['book_ids']          
-        str_array_ids = str_ids.split(',')
-        
-        user_id = request.session['user_id']        
-        user = User.objects.get(id=user_id)
-        
-        total_favorites = 0      
-                 
-        for id in str_array_ids:
-            book_id = int(id)
-
-            if Book.objects.filter(id=book_id).exists() == True:
-                book = Book.objects.get(id=book_id)
-                
-                favorites = user.favorite_books.all()
-                if book not in favorites:
-                    user.favorite_books.add(book)
-                    total_favorites += 1
-            
-        result = {}
-        result['success_message'] = ""
-        result['warning_message'] = ""
-        result['error_message'] = ""  
-        result['validation_message'] = []
-                       
-        if(total_favorites == 0):
-            result['warning_message'] = ERROR_ADD_FAVORITE_BOOK
-        else:
-            result['success_message'] = SUCCESS_ADD_FAVORITE_BOOK + str(total_favorites)
-                    
-        response = json.dumps(result)
-        return HttpResponse(response, mimetype="text/javascript")
-    else:
-        return HttpResponseRedirect('/livraria/') 
 
 def order_books(request):
     if validate_session(request) == False:
@@ -154,7 +116,7 @@ def list_orders(request):
             
         user = User.objects.get(id=user_id)  
         
-        orders = BookOrder.objects.filter(user=user)
+        orders = BookOrder.objects.filter(user=user).order_by('-order_date')
             
         user_orders = transform_to_grid_order_list(orders)    
 

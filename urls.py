@@ -30,14 +30,19 @@ urlpatterns = patterns('',
         'apps.user_profiles.views.register_new_user.disable_account'),
                        
     url(r'^perfil/$', 'apps.user_profiles.views.profile.index'),
-    url(r'^perfil/removerlivrofavorito/(?P<id>\d+)/$', 
-        'apps.user_profiles.views.profile.remove_favorite_book'), 
     url(r'^perfil/alterarstatus/$', 'apps.user_profiles.views.profile.change_status'),
     url(r'^perfil/editar/$', 'apps.user_profiles.views.profile.edit'),
     url(r'^perfil/conta/$', 'apps.user_profiles.views.edit_account.index'), 
     url(r'^perfil/conta/editar/$', 'apps.user_profiles.views.edit_account.edit'), 
     url(r'^perfil/conta/excluir/$', 'apps.user_profiles.views.edit_account.exclude'), 
-
+    
+    url(r'^perfil/livrosfavoritos/$', 'apps.user_profiles.views.favorite_books.index'),
+    url(r'^perfil/livrosfavoritos/adicionar/$', 
+        'apps.user_profiles.views.favorite_books.add_favorites'),
+    url(r'^perfil/livrosfavoritos/remover/(?P<id>\d+)/$', 
+        'apps.user_profiles.views.favorite_books.remove_favorite_book'), 
+                       
+                           
     url(r'^cadastrarfuncionario/$', 
         'apps.user_profiles.views.register_employee.index'),  
     url(r'^cadastrarfuncionario/pesquisar/$', 
@@ -78,7 +83,7 @@ urlpatterns = patterns('',
                                           
     url(r'^livraria/$', 'apps.bookstore.views.bookstore.index'),   
     url(r'^livraria/pesquisar/$', 'apps.bookstore.views.bookstore.search_books'),   
-    url(r'^livraria/adicionarfavoritos/$', 'apps.bookstore.views.bookstore.add_favorites'),
+#    url(r'^livraria/adicionarfavoritos/$', 'apps.bookstore.views.bookstore.add_favorites'),
     url(r'^livraria/encomendarlivros/$', 'apps.bookstore.views.bookstore.order_books'),  
     url(r'^livraria/encomendas/listar/$', 'apps.bookstore.views.bookstore.list_orders'),    
     url(r'^livraria/encomendas/cancelar/$', 'apps.bookstore.views.bookstore.cancel_orders'),  

@@ -5,16 +5,15 @@
 	
 	<script type="text/javascript">
 		$(function() {
-			$('#tabs').tabs(); // Criar as Tabs
-			$('#button_search_tab1').button(); // Botao Procurar da Tab1
-			$('#button_add_tab1').button(); // Botao Salvar da Tab1
-			$('#button_search_tab2').button(); // Botao Procurar da Tab2
-			$('#button_add_tab2').button(); // Botao Salvar da Tab2
-			$('#button_cancel_tab3').button(); // Botao Cancelar da Tab3
+			$('#tabs').tabs(); 
+			$('#button_search').button(); 
+			$('#button_add').button();
+			$('#button_cancel').button();
 
 			Bookstore.Functions.init();
 		}); 
 	</script>
+	
 {% endblock script %}
 
 {% block conteudo %}
@@ -22,64 +21,31 @@
 	
 	<div id="tabs">
 		<ul>
-			<li><a href="#tab1">Adicionar Livros aos Favoritos</a></li>
-			<li><a href="#tab2">Encomendar Livros</a></li>
-			<li><a href="#tab3">Minhas Encomendas</a></li>
+			<li><a href="#tab1">Encomendar Livros</a></li>
+			<li><a href="#tab2">Minhas Encomendas</a></li>
 		</ul>
 		
 		<!Primeira aba>
 		<div id="tab1">
-			<table id="favorite_books">
-				<p>Preencha os campos para procurar por um livro:</p>
-				<tr>
-					<td>Nome:</td>
-					<td><input type="text" id="name_tab1" name="name" maxlength="20" size="40" /></td>
-				</tr>
-				<tr>
-					<td>Autor:</td>
-					<td><input type="text" id="author_tab1" name="author" maxlength="20" size="40" /></td>
-				</tr>
-				<tr>
-					<td>Editora:</td>
-					<td><input type="text" id="publisher_tab1" name="publisher" maxlength="20" size="40" /></td>
-				</tr>			
-			</table>
-
-			<div id="div_search_tab1" class="tab_search_button">			
-				<input id="button_search_tab1" type="submit" value="Procurar" />
-			</div>
-			
-			<div class="message_container"></div>
-			
-			<table id="table_favorites"></table>
-			<div id="bfavorites"></div>
-			
-			<div id="div_add_tab1" class="tab_save_button">	
-				<input id="button_add_tab1" type="submit" value="Adicionar aos Favoritos" />
-			</div>
-    	</div>
-    	
-    	<! Segunda aba>
-		<div id="tab2">
 			<table id="order_books">
 				<p>Preencha os campos para procurar por um livro:</p>
 				
 				<tr>
 					<td>Nome:</td>
-					<td><input type="text" id="name_tab2" name="name" maxlength="20" size="40" /></td>
+					<td><input type="text" id="name" name="name" maxlength="20" size="40" /></td>
 				</tr>
 				<tr>
 					<td>Autor:</td>
-					<td><input type="text" id="author_tab2" name="author" maxlength="20" size="40" /></td>
+					<td><input type="text" id="author" name="author" maxlength="20" size="40" /></td>
 				</tr>
 				<tr>
 					<td>Editora:</td>
-					<td><input type="text" id="publisher_tab2" name="publisher" maxlength="20" size="40" /></td>
+					<td><input type="text" id="publisher" name="publisher" maxlength="20" size="40" /></td>
 				</tr>			
 			</table>
 
-			<div id="div_search_tab2" class="tab_search_button">			
-				<input id="button_search_tab2" type="submit" value="Procurar" />
+			<div id="div_search" class="tab_search_button">			
+				<input id="button_search" type="submit" value="Procurar" />
 			</div>
 						
 			<div class="message_container"></div>
@@ -89,13 +55,13 @@
 			<table id="table_orders"></table>
 			<div id="borders"></div>
 			
-			<div id="div_add_tab2" class="tab_save_button">	
-				<input id="button_add_tab2" type="submit" value="Encomendar Livro" />
+			<div id="div_add" class="tab_save_button">	
+				<input id="button_add" type="submit" value="Encomendar Livro" />
 			</div>
     	</div>
     	
-    	<! Terceira aba>
-		<div id="tab3">
+    	<! Segunda aba>
+		<div id="tab2">
 			
 			<div class="message_container"></div>  
 			
@@ -115,8 +81,8 @@
 			<p>Disponível: encomenda na Livraria disponível para compra</p>
 			<p>Vendida: encomenda já foi comprada pelo usuário</p>
 						
-			<div id="div_cancel_tab3" class="tab_save_button">	
-				<input id="button_cancel_tab3" type="submit" value="Cancelar Encomenda" />
+			<div id="div_cancel" class="tab_save_button">	
+				<input id="button_cancel" type="submit" value="Cancelar Encomenda" />
 			</div>
     	</div>    	
     			

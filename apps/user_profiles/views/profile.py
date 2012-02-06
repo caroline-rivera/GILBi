@@ -1,4 +1,6 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
+
+import json
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
@@ -9,6 +11,8 @@ from gilbi.apps.books.models import Book
 from gilbi.apps.user_profiles.forms import EditProfileForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_PROFILE
 from gilbi.mistrael.messages.error_messages import ERROR_MAX_LENGTH_STATUS
+from gilbi.mistrael.messages.success_messages import SUCCESS_ADD_FAVORITE_BOOK
+from gilbi.mistrael.messages.error_messages import ERROR_ADD_FAVORITE_BOOK
 
 def index(request):
     if validate_session(request) == False:
@@ -101,21 +105,4 @@ def change_status(request):
         else:
             user.set_profile_phrase(profile_phrase)
             user.save()
-    return HttpResponseRedirect('/perfil/')
-
-def remove_favorite_book(request, id):
-    if validate_session(request) == False:
-        return HttpResponseRedirect('/logout/')
-    
-    if request.method == 'GET': 
-
-        user_id = request.session['user_id']          
-        if User.objects.filter(id=user_id).exists() == True and Book.objects.filter(id=id).exists() == True:
-            user = User.objects.get(id=user_id)    
-            book = Book.objects.get(id=id)
-            user.favorite_books.remove(book)
-            
-            response = serializers.serialize("json",  {})     
-            return HttpResponse(response, mimetype="text/javascript")      
-      
     return HttpResponseRedirect('/perfil/')

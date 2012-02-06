@@ -50,7 +50,7 @@ Profile.Functions = {
 		var element = '#favorite_' + id;
 	    	
 		$.ajax({
-			url: "/perfil/removerlivrofavorito/" + id + "/",
+			url: "/perfil/livrosfavoritos/remover/" + id + "/",
 			dataType: "json",
 			data: data,
 			async: true,

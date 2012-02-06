@@ -91,5 +91,5 @@ def get_all_sales(shelf_sales, order_sales):
         
     for sale in order_sales:
         all_sales.append(sale)
-        
+    
     return all_sales
