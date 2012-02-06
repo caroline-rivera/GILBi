@@ -14,14 +14,24 @@ from gilbi.mistrael.messages.error_messages import ERROR_INVALID_INVOICE_NUMBER,
 class PurchaseOrderChoiceField(ModelChoiceField):
     
     def label_from_instance(self, purchase_order):
-        label = str(purchase_order.id) + ' - ' + \
-                datetime.strftime(purchase_order.date_of_order, "%d/%m/%Y") + \
-                ' - ' + str(purchase_order.distributor.name)
-        return label 
+        label = str(purchase_order.id) + ' - '        
         
+        if purchase_order.date_of_order is None:    
+            label += 'Em elaboração'
+        else:
+            if len(purchase_order.invoice.all()) == 0:
+                label += 'Finalizado'
+            else:
+                label += 'Disponível'
+                
+        label += ' - '
+        label += str(purchase_order.distributor.name)
+        
+        return label 
+            
 class RegisterInvoiceForm(forms.Form):
     purchase_order = PurchaseOrderChoiceField(queryset=PurchaseOrder.objects.order_by('date_of_order'),
-                                 empty_label = "Número - Data de Encomenda - Distribuidora")  
+                                 empty_label = "Número - Status - Distribuidora")  
     number = forms.IntegerField()
     series = forms.IntegerField()
     

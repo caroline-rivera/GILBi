@@ -6,10 +6,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'gilbi.views.home', name='home'),
-    # url(r'^gilbi/', include('gilbi.foo.urls')),
-
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
@@ -83,7 +79,6 @@ urlpatterns = patterns('',
                                           
     url(r'^livraria/$', 'apps.bookstore.views.bookstore.index'),   
     url(r'^livraria/pesquisar/$', 'apps.bookstore.views.bookstore.search_books'),   
-#    url(r'^livraria/adicionarfavoritos/$', 'apps.bookstore.views.bookstore.add_favorites'),
     url(r'^livraria/encomendarlivros/$', 'apps.bookstore.views.bookstore.order_books'),  
     url(r'^livraria/encomendas/listar/$', 'apps.bookstore.views.bookstore.list_orders'),    
     url(r'^livraria/encomendas/cancelar/$', 'apps.bookstore.views.bookstore.cancel_orders'),  

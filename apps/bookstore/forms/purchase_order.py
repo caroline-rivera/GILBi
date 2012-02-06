@@ -10,11 +10,14 @@ class PurchaseOrderChoiceField(ModelChoiceField):
     def label_from_instance(self, purchase_order):
         label = str(purchase_order.id) + ' - '
         
-        if purchase_order.date_of_order is not None:
-            label += datetime.strftime(purchase_order.date_of_order, "%d/%m/%Y")
-        else:
+        if purchase_order.date_of_order is None:    
             label += 'Em elaboração'
-            
+        else:
+            if len(purchase_order.invoice.all()) == 0:
+                label += 'Finalizado'
+            else:
+                label += 'Disponível'
+                
         label += ' - '
         label += str(purchase_order.distributor.name)
         
