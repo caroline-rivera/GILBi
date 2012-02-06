@@ -168,6 +168,7 @@ ERROR_REQUIRED_INVOICE_SERIES = "O campo Número de Série é obrigatório."
 ERROR_INVALID_INVOICE_NUMBER = "O Número da Nota Fiscal é inválido." 
 ERROR_INVALID_INVOICE_SERIES = "O Número de Série é inválido."
 ERROR_EXISTENT_INVOICE = "Já existe uma nota fiscal cadastrada para esse pedido de compra." 
+ERROR_INVALID_PURCHASE_ORDER_STATUS = "O pedido de compra não foi finalizado."
 
 # Cadastrar Livro da Livraria
 
