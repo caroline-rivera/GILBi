@@ -9,10 +9,13 @@ from gilbi.mistrael.helpers.session_helper import create_session
 from gilbi.mistrael.helpers.session_helper import destroy_session
 from gilbi.mistrael.helpers.session_helper import validate_session
 
-def login(request):      
+def login(request):
     c = {}
     c.update(csrf(request)) 
-       
+
+    if validate_session(request) == True:
+        return HttpResponseRedirect('/perfil/')
+           
     if request.method == 'POST': # Formulário enviado
         provided_login = request.POST['login'].strip().lower()   
         provided_password = request.POST['password']
