@@ -38,7 +38,10 @@ def recover(request):
                               context_instance=RequestContext(request))
     
 def change_password(request, id, code):
+
     result = ""
+    form = ChangePasswordForm()
+    
     
     if request.method == 'POST': # Formulário enviado     
         form = ChangePasswordForm(request.POST, request.FILES)
@@ -48,10 +51,13 @@ def change_password(request, id, code):
     
             user = User.objects.get(id=id)
             user.set_encrypted_password(checked_form['new_password'])
-            user.save()
+            user.save()    
             
-            result = SUCCESS_CHANGE_PASSWORD
-            
+            return render_to_response('user_profiles/login.html', 
+                                      {'registration_result': SUCCESS_CHANGE_PASSWORD}, 
+                                      context_instance=RequestContext(request)) 
+           
+                
     else: # Página acessada via link (método GET)
         user = None    
         if User.objects.filter(id=id).exists() == True:
@@ -63,11 +69,12 @@ def change_password(request, id, code):
             result = ERROR_INACTIVE_ACCOUNT
         elif code != encrypt_login_email(user.login, user.email):
             result = ERROR_INVALID_URL          
-        else:
-            pass
-        form = ChangePasswordForm()  
-            
-    return render_to_response('user_profiles/change_password.html', 
-                              {'form': form, 'result': result}, 
-                              context_instance=RequestContext(request))   
-            
+    
+    if result != "":        
+        return render_to_response('user_profiles/login.html', 
+                                  {'registration_result': result}, 
+                                  context_instance=RequestContext(request)) 
+    else:                
+        return render_to_response('user_profiles/change_password.html', 
+                                  {'form': form, 'result': result}, 
+                                  context_instance=RequestContext(request))             
