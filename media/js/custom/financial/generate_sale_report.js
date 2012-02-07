@@ -10,7 +10,11 @@ GenerateSaleReport.Selectors = {
 	
 	Tables: {
 		sales: '#table_sales_report'
-	}	
+	},	
+	
+	Divs: {
+		totalOfSales : '#total_of_sales'
+	}
 }
 
 //-------------------------------------------------------------------------------- FUNCTIONS
@@ -22,6 +26,8 @@ GenerateSaleReport.Functions = {
 	{
 		var btn = GenerateSaleReport.Selectors.Buttons;
 		
+		$(GenerateSaleReport.Selectors.Divs.totalOfSales).hide();
+	
 		$(btn.generate).click( GenerateSaleReport.Functions.getAllSales );	
 	},
 
@@ -78,6 +84,7 @@ GenerateSaleReport.Functions = {
 					if((response['validation_message']).length != 0)
 					{
 						grid.clearGridData();
+						$(GenerateSaleReport.Selectors.Divs.totalOfSales).hide();
 						Helpers.Functions.showValidationMsg($messageContainer, 
 															response['validation_message']);
 					}
@@ -85,7 +92,7 @@ GenerateSaleReport.Functions = {
 				else
 				{
 					var sales = [];
-					$.each(response, function(i, item){
+					$.each(response.sales, function(i, item){
 		                var sale = {
 		                	name: item.fields['name'],
 		                	author: item.fields['author'],
@@ -99,7 +106,9 @@ GenerateSaleReport.Functions = {
 	                });
 	                
 					GenerateSaleReport.Functions.createSalesTable();
-					Helpers.Functions.listFn(sales, grid);				
+					Helpers.Functions.listFn(sales, grid);	
+					$("#total_price").html("R$ "+ response['total_sales_price']);	
+					$(GenerateSaleReport.Selectors.Divs.totalOfSales).show();		
 				}						
 			},
 			error: function() {	
