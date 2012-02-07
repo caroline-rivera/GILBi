@@ -54,8 +54,8 @@ def register(request):
             if form.is_valid() and len(validated_duplicates['messages']) == 0:
                 checked_form = form.cleaned_data
                 purchase_order = checked_form['purchase_order']  
-                number = checked_form['number']  
-                series = checked_form['series']  
+                number = int(checked_form['number'])  
+                series = int(checked_form['series'])  
 
                 new_invoice = Invoice(number = number,
                                       series = series,

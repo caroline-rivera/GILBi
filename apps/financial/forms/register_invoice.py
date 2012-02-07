@@ -32,8 +32,8 @@ class PurchaseOrderChoiceField(ModelChoiceField):
 class RegisterInvoiceForm(forms.Form):
     purchase_order = PurchaseOrderChoiceField(queryset=PurchaseOrder.objects.order_by('date_of_order'),
                                  empty_label = "Número - Status - Distribuidora")  
-    number = forms.IntegerField()
-    series = forms.IntegerField()
+    number = forms.CharField(max_length=9)
+    series = forms.CharField(max_length=9)
     
     def __init__(self, *args, **kwargs):
         
