@@ -71,3 +71,4 @@ SUCCESS_REJECT_BOOK_ORDER = "A encomenda foi rejeitada com sucesso!"
 #Pedido de compra
 
 SUCCESS_NEW_PURCHASE_ORDER = "Novo Pedido de Compra cadastrado com sucesso! (CÓDIGO: "
+SUCCESS_ENDING_PURCHASE_ORDER = "Pedido finalizado com sucesso!" 

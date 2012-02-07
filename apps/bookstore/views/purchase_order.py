@@ -1,18 +1,18 @@
 # encoding: utf-8
 
 import json
-from datetime import date
 from decimal import Decimal
+from django.core import serializers
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+
 from gilbi.apps.bookstore.forms import NewPurchaseItemForm, NewPurchaseOrderForm, PurchaseOrderForm
 from gilbi.apps.bookstore.models import PurchaseOrder, PurchaseItem, Distributor, BookstoreBook, BookOrder
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
-from django.core import serializers
 from gilbi.apps.bookstore.grid_formats import PurchaseItemGridFormat
-from gilbi.mistrael.messages.success_messages import SUCCESS_NEW_PURCHASE_ORDER
+from gilbi.mistrael.messages.success_messages import SUCCESS_NEW_PURCHASE_ORDER,SUCCESS_ENDING_PURCHASE_ORDER
 
 def index(request):    
     if validate_session(request) == False:
@@ -126,7 +126,7 @@ def conclude(request, purchase_order_id):
     purchase_order.save()        
     
     result = {}
-    result['success_message'] = 'Pedido finalizado com sucesso!'
+    result['success_message'] = SUCCESS_ENDING_PURCHASE_ORDER
   
     response = json.dumps(result)
     return HttpResponse(response, mimetype="text/javascript")
