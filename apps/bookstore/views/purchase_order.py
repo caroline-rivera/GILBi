@@ -12,6 +12,7 @@ from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session
 from django.core import serializers
 from gilbi.apps.bookstore.grid_formats import PurchaseItemGridFormat
+from gilbi.mistrael.messages.success_messages import SUCCESS_NEW_PURCHASE_ORDER
 
 def index(request):    
     if validate_session(request) == False:
@@ -69,7 +70,7 @@ def save(request):
             purchase_order.itens.add(purchase_item)
     
         result = {}
-        result['success_message'] = 'Novo Pedido de Compra cadastrado com sucesso!'   
+        result['success_message'] = SUCCESS_NEW_PURCHASE_ORDER + str(purchase_order.id) + ")"   
       
         response = json.dumps(result)
         return HttpResponse(response, mimetype="text/javascript") 

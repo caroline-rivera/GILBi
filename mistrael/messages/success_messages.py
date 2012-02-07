@@ -67,3 +67,7 @@ SUCCESS_REGISTER_LIBRARY_BOOK = "O livro foi cadastrado com sucesso na bibliotec
 
 # Rejeitar Encomendas
 SUCCESS_REJECT_BOOK_ORDER = "A encomenda foi rejeitada com sucesso!"
+
+#Pedido de compra
+
+SUCCESS_NEW_PURCHASE_ORDER = "Novo Pedido de Compra cadastrado com sucesso! (CÓDIGO: "
