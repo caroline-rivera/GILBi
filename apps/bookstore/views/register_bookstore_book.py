@@ -10,7 +10,7 @@ from gilbi.apps.books.models import Book
 from gilbi.apps.bookstore.models import BookstoreBook
 from gilbi.apps.bookstore.forms import RegisterBookstoreBookForm
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_BOOKSTORE_BOOK
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_BOOKSTORE_BOOK
 from django.db import IntegrityError
@@ -23,7 +23,10 @@ def index(request):
     else:
         form_bookstore_book = RegisterBookstoreBookForm()
         return render_to_response('bookstore/register_bookstore_book.html', 
-                                  {'form_bookstore_book': form_bookstore_book},
+                                  {'form_bookstore_book': form_bookstore_book,
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request)
+                                   },
                                   context_instance=RequestContext(request)) 
         
        

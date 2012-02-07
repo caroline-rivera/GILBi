@@ -8,7 +8,7 @@ from gilbi.apps.financial.models import Payment
 from gilbi.apps.financial.models import Duplicate
 from gilbi.apps.financial.forms import RegisterPaymentForm
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_DUPLICATE
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_PAYMENT
 
@@ -20,7 +20,11 @@ def index(request):
     else:
         form_payment = RegisterPaymentForm()
         return render_to_response('financial/register_payment.html', 
-                                  {'form_payment': form_payment},
+                                  {
+                                   'form_payment': form_payment,
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request) 
+                                   },
                                   context_instance=RequestContext(request)) 
         
 def register(request):

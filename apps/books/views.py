@@ -8,7 +8,7 @@ from gilbi.apps.books.models import Author, Publisher, Book, BookAuthor
 from gilbi.apps.books.forms import RegisterAuthorForm, RegisterPublisherForm, RegisterBookForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_AUTHOR, SUCCESS_REGISTER_NEW_PUBLISHER, SUCCESS_REGISTER_NEW_BOOK
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_AUTHOR_NAME, ERROR_REQUIRED_PUBLISHER_NAME, ERROR_REQUIRED_BOOK_NAME
 
 
@@ -25,7 +25,9 @@ def index(request):
                                   {
                                    'form_book':form_book,
                                    'form_author': form_author,
-                                   'form_publisher':form_publisher
+                                   'form_publisher':form_publisher,
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request)
                                    }, 
                                   context_instance=RequestContext(request)) 
             

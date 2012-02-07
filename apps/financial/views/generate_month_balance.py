@@ -14,7 +14,7 @@ from gilbi.apps.financial.models import Duplicate
 from gilbi.apps.financial.forms import GenerateMonthBalanceForm
 from gilbi.apps.financial.forms.generate_month_balance import get_previous_month_year
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.mistrael.messages.error_messages import ERROR_MISSING_PREVIOUS_BALANCE
 
 
@@ -27,7 +27,11 @@ def index(request):
         form = GenerateMonthBalanceForm()
             
         return render_to_response('financial/generate_month_balance.html', 
-                                  {'form': form}, 
+                                  {
+                                   'form': form,
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request) 
+                                   },
                                   context_instance=RequestContext(request))
     
 def calculate(request):           

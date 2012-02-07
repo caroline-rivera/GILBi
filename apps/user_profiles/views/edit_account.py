@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 
-import os
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from gilbi.mistrael.helpers.session_helper import validate_session
+from gilbi.mistrael.helpers.session_helper import validate_session 
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.apps.user_profiles.models import User
 from gilbi.apps.user_profiles.forms import EditAccountForm
-from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_ACCOUNT, SUCCESS_EXCLUDE_ACCOUNT
+from gilbi.mistrael.messages.success_messages import SUCCESS_EDIT_ACCOUNT
 from gilbi.mistrael.messages.warning_messages import WARNING_EDIT_ACCOUNT
-from gilbi.mistrael.helpers.session_helper import destroy_session
+
 
 def index(request):
     if validate_session(request) == False:
@@ -18,8 +18,12 @@ def index(request):
     form = EditAccountForm()  
         
     return render_to_response('user_profiles/edit_account.html', 
-                              {'form': form}, 
-                              context_instance=RequestContext(request)) 
+                              {
+                               'form': form,
+                               'is_manager': validate_manager_session(request),
+                               'is_seller': validate_seller_session(request)
+                               }, 
+                               context_instance=RequestContext(request)) 
     
 def edit(request):
     if validate_session(request) == False:
@@ -52,8 +56,10 @@ def edit(request):
 
         return render_to_response('user_profiles/edit_account.html', 
                                   {'form': form,
-                                   'result': result}, 
-                                  context_instance=RequestContext(request))
+                                   'result': result, 
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request)}, 
+                                   context_instance=RequestContext(request))
             
     return HttpResponseRedirect('/perfil/') #se o método nao for POST        
 

@@ -1,11 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 import json
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.apps.user_profiles.models import User, Seller, Manager
 from gilbi.mistrael.messages.warning_messages import *
 from gilbi.mistrael.messages.success_messages import *
@@ -17,7 +17,8 @@ def index(request):
         return HttpResponseRedirect('/perfil/')      
                  
     return render_to_response('user_profiles/register_employee.html', 
-                              {}, 
+                              {'is_manager': validate_manager_session(request),
+                               'is_seller': validate_seller_session(request)},
                               context_instance=RequestContext(request))
     
 def search(request):

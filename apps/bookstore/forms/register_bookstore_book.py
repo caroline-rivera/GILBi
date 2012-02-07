@@ -15,6 +15,7 @@ from gilbi.mistrael.messages.error_messages import ERROR_INVALID_BOOKSTORE_BOOK_
 from gilbi.mistrael.messages.error_messages import ERROR_EXISTENT_BOOKSTORE_BOOK
 from gilbi.mistrael.messages.error_messages import ERROR_INVALID_BOOKSTOREBOOK_QUANTITIES
 
+  
 class BookChoiceField(ModelChoiceField):
     
     def label_from_instance(self, book):
@@ -91,8 +92,8 @@ class RegisterBookstoreBookForm(forms.Form):
             if str_price.find("R$ ") != -1:
                 str_price = str_price.replace("R$ ","")
             price = Decimal(str_price)
-            self.cleaned_data['price'] = str_price
+            self.cleaned_data['price'] = price
         except InvalidOperation:
             raise forms.ValidationError(ERROR_INVALID_PRICE)
         
-        return self.cleaned_data['price']   
+        return self.cleaned_data['price'] 

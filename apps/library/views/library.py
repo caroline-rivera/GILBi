@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from gilbi.mistrael.helpers.session_helper import validate_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.mistrael.messages.success_messages import SUCCESS_LIBRARY_REGISTER
 from gilbi.apps.user_profiles.models import User
 from gilbi.apps.library.models import Address, Phone, LibraryBook, Loan
@@ -65,7 +66,10 @@ def index(request):
     
     return render_to_response('library/library.html', 
                               {'form': form,
-                               'result': result}, 
+                               'result': result,
+                               'is_manager': validate_manager_session(request),
+                               'is_seller': validate_seller_session(request)
+                               }, 
                               context_instance=RequestContext(request))
  
 def search_books(request):

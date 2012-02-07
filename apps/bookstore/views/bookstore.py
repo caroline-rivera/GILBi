@@ -3,27 +3,27 @@
 import json
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import RequestContext, loader
-from django.core.context_processors import csrf
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 from gilbi.mistrael.messages.success_messages import *
 from gilbi.mistrael.messages.error_messages import *
 from gilbi.mistrael.helpers.session_helper import validate_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.apps.bookstore.models import BookOrder, BookstoreBook
-from gilbi.apps.books.models import Book
 from gilbi.apps.user_profiles.models import User
 from gilbi.apps.bookstore.grid_formats import BookGridFormat, OrderGridFormat
 from datetime import datetime
 
-def index(request):
-    c = {}
-    c.update(csrf(request))            
-    context = RequestContext(request, c)
-    
+def index(request):   
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/')
-    else:
-        template = loader.get_template('bookstore/bookstore.html')
-        return HttpResponse(template.render(context)) 
+    else:   
+        return render_to_response('bookstore/bookstore.html', 
+                                  {
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request)
+                                   }, 
+                                   context_instance=RequestContext(request))
     
 def search_books(request):
     if validate_session(request) == False:

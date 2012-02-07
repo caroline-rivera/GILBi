@@ -10,7 +10,7 @@ from gilbi.apps.financial.models import Duplicate, Invoice, Payment
 from gilbi.apps.bookstore.models import BookstoreBook
 from gilbi.apps.financial.forms import RegisterInvoiceForm
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_PURCHASE_ORDER
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_INVOICE
 
@@ -22,7 +22,11 @@ def index(request):
     else:
         form_invoice = RegisterInvoiceForm()
         return render_to_response('financial/register_invoice.html', 
-                                  {'form_invoice': form_invoice},
+                                  {
+                                   'form_invoice': form_invoice,
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request) 
+                                   },
                                   context_instance=RequestContext(request)) 
         
 def register(request):

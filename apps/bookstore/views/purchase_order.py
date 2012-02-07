@@ -10,7 +10,7 @@ from django.template import RequestContext
 from gilbi.apps.bookstore.forms import NewPurchaseItemForm, NewPurchaseOrderForm, PurchaseOrderForm
 from gilbi.apps.bookstore.models import PurchaseOrder, PurchaseItem, Distributor, BookstoreBook, BookOrder
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.apps.bookstore.grid_formats import PurchaseItemGridFormat
 from gilbi.mistrael.messages.success_messages import SUCCESS_NEW_PURCHASE_ORDER,SUCCESS_ENDING_PURCHASE_ORDER
 
@@ -27,7 +27,10 @@ def index(request):
         return render_to_response('bookstore/purchase_order.html', 
                                   {'form_purchase_item': form_purchase_item,
                                    'form_new_purchase_order': form_new_purchase_order,
-                                   'form_purchase_order': form_purchase_order},
+                                   'form_purchase_order': form_purchase_order,
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request)
+                                   },
                                   context_instance=RequestContext(request))
 
 def save(request):

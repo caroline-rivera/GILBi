@@ -10,7 +10,7 @@ from django.core.context_processors import csrf
 from gilbi.apps.library.models import Loan, Phone, LibraryBook
 from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.apps.library.grid_formats import ManagerLoanGridFormat, LibraryBookGridFormat
 from gilbi.apps.library.forms import RegisterLibraryBookForm, BorrowBookForm, ReceiveBookForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_BOOK_BORROWED, SUCCESS_BOOK_RENEWED
@@ -30,7 +30,10 @@ def index(request):
         return render_to_response('library/manage_library.html', 
                                   {'form_library_book': form_library_book,
                                    'form_borrow': form_borrow,
-                                   'form_receive': form_receive},
+                                   'form_receive': form_receive,
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request)
+                                   }, 
                                   context_instance=RequestContext(request)) 
 
 
@@ -227,7 +230,10 @@ def show_user_informations(request, id):
             address.zipcode
         
         return render_to_response('library/show_user_informations.html', 
-                                  {'information': information},
+                                  {'information': information,
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request)
+                                   }, 
                                   context_instance=RequestContext(request))   
         
 def transform_to_grid_loan_list(loans):

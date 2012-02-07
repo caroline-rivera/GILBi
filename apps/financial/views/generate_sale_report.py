@@ -11,7 +11,7 @@ from gilbi.apps.financial.grid_formats import ShelfSaleGridFormat, OrderSaleGrid
 from gilbi.apps.bookstore.models import ShelfSale
 from gilbi.apps.bookstore.models import OrderSale
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 
 def index(request):
     if validate_session(request) == False:
@@ -22,7 +22,11 @@ def index(request):
     form = GenerateSaleReportForm()
         
     return render_to_response('financial/generate_sale_report.html', 
-                              {'form': form}, 
+                              {
+                               'form': form,
+                               'is_manager': validate_manager_session(request),
+                               'is_seller': validate_seller_session(request) 
+                               }, 
                               context_instance=RequestContext(request))
     
 def list_sales(request):     

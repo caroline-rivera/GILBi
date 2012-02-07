@@ -90,13 +90,18 @@
 				<p><a href="/livraria/">Livraria</a></p>
 				<p><a href="/biblioteca/">Biblioteca</a></p>	
 				<p><a href="">Amigos</a></p><br/>
-
+				
+				{% if is_manager %}
 				<p><a href="/cadastrarfuncionario/">Cadastrar Funcionário</a></p>	
 				<p><a href="/acervo/">Acervo</a></p><br/>
 				
 				<p><a href="/gerenciarbiblioteca/">Gerenciar Biblioteca</a></p>
 				<p><a href="/gerenciarlivraria/">Gerenciar Livraria</a></p>
+				{% endif %}
+				
+				{% if is_seller %}
 				<p><a href="/vendas/">Vender Livros</a></p>		
+				{% endif %}
 
 			</div>	
 			

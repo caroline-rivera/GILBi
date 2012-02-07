@@ -1,10 +1,9 @@
 # encoding: utf-8
 
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import RequestContext, loader
-from django.core import serializers
 import json
-from django.core.context_processors import csrf
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template import RequestContext
+from django.core import serializers
 from django.shortcuts import render_to_response
 from gilbi.apps.books.models import Book
 from gilbi.apps.bookstore.models import BookOrder
@@ -13,25 +12,26 @@ from gilbi.apps.bookstore.models import Distributor
 from gilbi.apps.bookstore.forms import RegisterDistributorForm
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_DISTRIBUTOR, SUCCESS_REJECT_BOOK_ORDER
 from gilbi.mistrael.helpers.session_helper import validate_session
-from gilbi.mistrael.helpers.session_helper import validate_manager_session
+from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 
 def index(request):
-    c = {}
-    c.update(csrf(request))            
-    context = RequestContext(request, c)
-    
     if validate_session(request) == False:
         return HttpResponseRedirect('/logout/') 
     elif validate_manager_session(request) == False:
         return HttpResponseRedirect('/perfil/')
-    else:
-        template = loader.get_template('bookstore/manage_bookstore.html')
-        return HttpResponse(template.render(context))
+    else:   
+        return render_to_response('bookstore/manage_bookstore.html', 
+                                  {
+                                   'is_manager': validate_manager_session(request),
+                                   'is_seller': validate_seller_session(request)
+                                   }, 
+                                   context_instance=RequestContext(request))
+
     
 def get_book_json(request, book_id):
     book = Book.objects.get(id=book_id)
 
-    # TODO: Usar o serializers e acabar com essa nojeira
+    # TODO: Usar o serializers
     book_dictionary = {
         'id': book.id,
         'name': book.name,
@@ -67,7 +67,7 @@ def get_book_order_book_json(request, book_order_id):
         "publisher": str(book_order.book.publisher)
     }
     
-    # TODO: Usar o serializers e acabar com essa nojeira
+    # TODO: Usar o serializers
     book_dictionary = {
         'book': book,
         'quantity': book_order.quantity
@@ -114,5 +114,8 @@ def register_distributor(request):
         
     return render_to_response('bookstore/register_distributor.html', 
                               {'form': form,
-                               'registration_result': registration_result}, 
+                               'registration_result': registration_result,
+                               'is_manager': validate_manager_session(request),
+                               'is_seller': validate_seller_session(request)
+                               }, 
                               context_instance=RequestContext(request))
