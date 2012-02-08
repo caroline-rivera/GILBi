@@ -51,7 +51,6 @@ GenerateSaleReport.Functions = {
 			datatype: 'local',
 			colNames: columnsTitles,
 		    colModel:columnsSpecification,
-		    rowList:[10,20,30],
 		    height: 'auto',
 		    pager: '#bsales',
 		    sortname: 'date',

@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 import json
+from datetime import datetime
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
@@ -54,6 +55,9 @@ def list_sales(request):
                 order_sale_grid_format = get_order_sale_grid_format(order_sales)
                 
                 sales = get_all_sales(shelf_sale_grid_format, order_sale_grid_format)  
+                
+                # Ordenando a lista
+                sales.sort(key=lambda x: datetime.strptime(x.date, '%d/%m/%Y'))
                                 
                 total_sales_price = calculate_total_of_sales(shelf_sales, order_sales) 
 
