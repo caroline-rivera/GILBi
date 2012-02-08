@@ -440,6 +440,14 @@ PurchaseOrder.Functions = {
 				dataType: "json",
 				success: function(response) {
 					
+					//Atualiza combo distribuidora na aba Visualizar
+					var purchaseOrderId = response['purchase_order_id'],
+						$tab = $('#tab2'),
+						combo = $tab.find("#id_purchase_order"),
+						content = purchaseOrderId + " - Em elaboração - " + $("#id_distributor option:selected").text();
+							
+				    combo.append('<option value="'+purchaseOrderId+'">'+content+'</option>');
+					
 					// Limpa o pedido
 					$grid.jqGrid("clearGridData");
 					$grid.jqGrid("getGridParam", "userdata").purchaseItems = [];

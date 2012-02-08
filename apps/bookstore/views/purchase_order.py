@@ -74,6 +74,7 @@ def save(request):
     
         result = {}
         result['success_message'] = SUCCESS_NEW_PURCHASE_ORDER + str(purchase_order.id) + ")"   
+        result['purchase_order_id'] = str(purchase_order.id)
       
         response = json.dumps(result)
         return HttpResponse(response, mimetype="text/javascript") 
