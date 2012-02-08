@@ -514,7 +514,7 @@ PurchaseOrder.Functions = {
 				PurchaseOrder.Functions.listFn(orders, grid);						
 			},
 			error: function() {	
-				//var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
+				//var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
 				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});	
@@ -525,15 +525,35 @@ PurchaseOrder.Functions = {
 	concludePurchaseOrder: function() {
 			
 		PurchaseOrder.Functions._actOnPurchaseOrder("finalizar");
+
+		//Atualiza combo distribuidora na aba Visualizar
+		var $actions = $("#div_purchase_order_view_actions"),
+			$tab = $('#tab2'),
+			combo = $tab.find("#id_purchase_order"),
+			purchaseOrderId = $("#id_purchase_order option:selected").val(),
+			content = $("#id_purchase_order option:selected").text(),
+			newContent = "";
+
+		newContent = content.replace("Em elaboração", "Finalizado");
 		
+		$("#id_purchase_order option:selected").text(newContent);
+		$("#id_purchase_order option:selected").removeAttr("selected");
+		$actions.hide()
+				    		
 	},
 
 //---------------------------------------------------------------------------- excludePurchaseOrder
 	
 	excludePurchaseOrder: function() {
+		
+		var $actions = $("#div_purchase_order_view_actions");
 			
 		PurchaseOrder.Functions._actOnPurchaseOrder("excluir");
-		
+
+		//Atualiza combo distribuidora na aba Visualizar
+		$("#id_purchase_order option:selected").remove();		
+		$actions.hide()
+	    		
 	},
 
 //----------------------------------------------------------------------------- _actOnPurchaseOrder
@@ -552,8 +572,8 @@ PurchaseOrder.Functions = {
 				$grid.jqGrid("clearGridData");	
 			},
 			error: function() {	
-				//var msg = Helpers.Messages.All.ERROR_LOADING_TABLE;
-				//Helpers.Functions.showErrorMsg($messageContainer, msg);		
+				var msg = Helpers.Messages.All.ERROR_UNEXPECTED;
+				Helpers.Functions.showErrorMsg($messageContainer, msg);		
 			}
 		});
 		
