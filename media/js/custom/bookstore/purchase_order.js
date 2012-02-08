@@ -53,6 +53,11 @@ PurchaseOrder.Functions = {
 		$(btn.reject).click(PurchaseOrder.Functions.rejectBookOrder);
 		$(btn.save).click(PurchaseOrder.Functions.savePurchaseOrder);
 		
+		//Recarregar a tabela de pedidos de compra
+		$("a[href=#tab1]").click(function(){
+			PurchaseOrder.Functions.createOrdersTable();
+		});
+		
 		/* Funcoes para a tab 2: Visualizar Pedido de Compra*/
 		PurchaseOrder.Functions.createPurchaseItemsViewTable();
 		
