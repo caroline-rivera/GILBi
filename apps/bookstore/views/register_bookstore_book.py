@@ -6,14 +6,13 @@ from datetime import datetime
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
-from gilbi.apps.books.models import Book
 from gilbi.apps.bookstore.models import BookstoreBook
 from gilbi.apps.bookstore.forms import RegisterBookstoreBookForm
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_BOOKSTORE_BOOK
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_BOOKSTORE_BOOK
-from django.db import IntegrityError
+
 
 def index(request):    
     if validate_session(request) == False:

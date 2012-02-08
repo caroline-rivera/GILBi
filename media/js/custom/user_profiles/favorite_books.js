@@ -81,7 +81,7 @@ FavoriteBooks.Functions = {
 	
 		
 		$.ajax({
-			url: "/livraria/pesquisar/",
+			url: "/acervo/livros/pesquisar/",
 			dataType: "json",
 			data: data,
 			async: true,

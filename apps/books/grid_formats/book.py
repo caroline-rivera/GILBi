@@ -8,14 +8,13 @@ class BookGridFormat(models.Model):
     author = models.CharField()
     spiritual_author = models.CharField()
     publisher = models.CharField()
-    available_quantity = models.IntegerField()
+    
     def __init__(self, book):
         self.id = book.id
         self.name = book.name
         self.author = self.set_authors(book)
         self.spiritual_author = self.set_spiritual_authors(book)
         self.publisher = book.publisher.name
-        self.available_quantity = book.available_quantity
         
     def set_authors(self, book):
         authors = book.authors.all()

@@ -5,8 +5,7 @@ from django.core import serializers
 from datetime import date, timedelta
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.template import RequestContext, loader
-from django.core.context_processors import csrf
+from django.template import RequestContext
 from gilbi.apps.library.models import Loan, Phone, LibraryBook
 from gilbi.apps.user_profiles.models import User
 from gilbi.mistrael.helpers.session_helper import validate_session

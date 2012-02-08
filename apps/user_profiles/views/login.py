@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.context_processors import csrf

@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 import json
+from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -10,7 +11,7 @@ from gilbi.mistrael.messages.success_messages import SUCCESS_REGISTER_NEW_AUTHOR
 from gilbi.mistrael.helpers.session_helper import validate_session
 from gilbi.mistrael.helpers.session_helper import validate_manager_session, validate_seller_session
 from gilbi.mistrael.messages.error_messages import ERROR_REQUIRED_AUTHOR_NAME, ERROR_REQUIRED_PUBLISHER_NAME, ERROR_REQUIRED_BOOK_NAME
-
+from gilbi.apps.books.grid_formats import BookGridFormat
 
 def index(request):
     if validate_session(request) == False:
@@ -161,6 +162,62 @@ def register_book(request):
     else:
         return HttpResponseRedirect('/acervo/') 
     
+
+def search_books(request):
+
+    if validate_session(request) == False:
+        return HttpResponseRedirect('/logout/')
+    
+    if request.method == 'POST':
+        return HttpResponseRedirect('/perfil/') 
+    
+    elif 'name' in request.GET and 'author' in request.GET and 'publisher' in request.GET:
+        book_name = request.GET['name']
+        author_name = request.GET['author']  
+        publisher_name = request.GET['publisher']  
+        
+        books = []
+
+        if(book_name != ""):
+            all_books = Book.objects.filter(name__icontains = book_name)
+        else:
+            all_books = Book.objects.all()
+        
+        if(author_name != ""):
+            for book in all_books:
+                authors = book.authors.all()
+                for author in authors:
+                    if author.name.upper().find( author_name.upper()) != -1:
+                        books.append(book)
+
+        if(publisher_name != ""):
+            for book in all_books:
+                if book.publisher.name.upper().find( publisher_name.upper()) != -1:
+                    if not (book in books):
+                        books.append(book)     
+                       
+        if (book_name == "") and (author_name == "") and (publisher_name == ""):
+            books = Book.objects.all()  
+        elif (author_name == "") and (publisher_name == ""):
+            for book in all_books:
+                books.append(book)    
+          
+        grid_books = transform_to_grid_book_list(books)    
+ 
+        response = serializers.serialize("json",  grid_books)     
+        return HttpResponse(response, mimetype="text/javascript")
+    
+    else:
+        return HttpResponseRedirect('/perfil/')     
+
+
+def transform_to_grid_book_list(books):
+    grid_list = []
+    for book in books:
+        book_grid_format = BookGridFormat(book)   
+        grid_list.append(book_grid_format)
+    return grid_list
+
     
 #def register_author(request):
 #    if validate_session(request) == False:

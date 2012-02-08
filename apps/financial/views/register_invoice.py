@@ -6,7 +6,7 @@ from datetime import datetime
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
-from gilbi.apps.financial.models import Duplicate, Invoice, Payment
+from gilbi.apps.financial.models import Duplicate, Invoice
 from gilbi.apps.bookstore.models import BookstoreBook
 from gilbi.apps.financial.forms import RegisterInvoiceForm
 from gilbi.mistrael.helpers.session_helper import validate_session
