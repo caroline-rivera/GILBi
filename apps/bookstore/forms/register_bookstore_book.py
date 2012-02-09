@@ -38,8 +38,20 @@ class RegisterBookstoreBookForm(forms.Form):
         self.base_fields['available_quantity'].error_messages['required'] = ERROR_REQUIRED_BOOKSTORE_BOOK_AVAILABLE_QUANTITY         
                                 
         super(RegisterBookstoreBookForm, self).__init__(*args, **kwargs)
+        
+#        all_books = Book.objects.order_by('name')
+#        
+#        for book in all_books:
+#            if BookstoreBook.objects.filter(id=book.id).exists() == True:
+#                all_books.exclude(id=book.id)
 
-         
+#        activity_set = Book.objects.extra(
+#          tables=['bookstore_bookstorebook'],
+#          where=[
+#            "books_book.id=bookstore_bookstorebook.book_ptr_id"
+#            ])
+
+                 
     def clean_book(self):
         if self.data['book'] != "":
             book = self.cleaned_data['book']
